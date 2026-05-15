@@ -1,0 +1,15 @@
+{
+  "id": "UltraViolet",
+  "name": "UltraViolet",
+  "display_name": "UltraViolet",
+  "author": ["VioletShard"],
+  "description": "Mod with interesting ideas, and realizations of them! Fun unbalanced mod to play, also, made by 13 years old russian kid, enjoy playing mod! :)",
+  "prefix": "sj",
+  "prefixcomment":"ABOVE PREFIX IS ADDED TO E.G. LOCALIZATION!",
+  "main_file": "UltraViolet.lua",
+  "priority": 0,
+  "badge_colour": "5d19bd",
+  "badge_text_colour": "",
+  "version": "0.2.2",
+  "dependencies": ["Steamodded (>=1.0.0~BETA-0614a)"]
+}
