@@ -1,0 +1,14 @@
+{
+  "id": "UltraViolet",
+  "name": "UltraViolet",
+  "display_name": "UltraViolet",
+  "author": ["VioletShard"],
+  "description": "Poorly made unbalanced mod by russian teenager, hope you enjoy it!",
+  "prefix": "uv",
+  "main_file": "UltraViolet.lua",
+  "priority": 22,
+  "badge_colour": "5923d9",
+  "badge_text_colour": "",
+  "version": "2.2.2",
+  "dependencies": ["Steamodded (>=1.0.0~BETA-0614a)"]
+}
