@@ -1,5 +1,3 @@
---- GLOBALS
-
 G.C.SJ = {
     RED = HEX("FF0000"),
     BLACK = HEX("000000"),
@@ -8,9 +6,6 @@ G.C.SJ = {
     WHITE = HEX("FFFFFF"),
     TRANSPARENT = HEX("00000000"),
 }
-
--- Hooks
-
 local loc_colour_ref = loc_colour
 function loc_colour(_c, _default)
     if not G.ARGS.LOC_COLOURS then

@@ -79,6 +79,12 @@ SMODS.Atlas({
     py = 95
 })
 SMODS.Atlas({
+    key = "gamble_deck",
+    path = "gamble_deck.png",
+    px = 71,
+    py = 95
+})
+SMODS.Atlas({
     key = "diamond_pickaxe",
     path = "j_diamond_pickaxe.png",
     px = 71,
@@ -95,6 +101,36 @@ SMODS.Atlas({
     path = "j_math_draft.png",
     px = 71,
     py = 95
+})
+SMODS.Atlas({
+    key = "holographic_stickers",
+    path = "j_holographic_stickers.png",
+    px = 71,
+    py = 95
+})
+SMODS.Atlas({
+    key = "brick",
+    path = "j_brick.png",
+    px = 71,
+    py = 95
+})
+SMODS.Atlas({
+    key = "broken_brick",
+    path = "j_broken_brick.png",
+    px = 71,
+    py = 95
+})
+SMODS.Atlas({
+    key = "lucky_block",
+    path = "j_lucky_block.png",
+    px = 71,
+    py = 95
+})
+SMODS.Atlas({
+    key = "modicon",
+    path = "modicon.png",
+    px = 34,
+    py = 34
 })
 SMODS.Joker {
     key = 'valavo',
@@ -278,7 +314,7 @@ SMODS.Joker{
 }
 SMODS.Joker{
     key = 'pavel',
-    config = { extra = { odds = 3, neg_odds = 20 } },
+    config = { extra = { odds = 4, neg_odds = 32 } },
     pos = { x = 0, y = 0 },
     rarity = 3,
     cost = 8,
@@ -543,7 +579,7 @@ SMODS.Joker {
     loc_txt = {
         name = 'Smart Magnifying Glass',
         text = {
-                "Face cards and Aces",
+                "When Face cards and Aces scored",
                 "give chips equal to",
                 "their {C:attention}rank ID{}",
                 "{C:inactive}(J=11, Q=12 etc.){}"
@@ -720,8 +756,195 @@ SMODS.Joker {
         return card.ability.extra.money
     end
 }
-
-
-
-
-
+SMODS.Joker {
+    key = 'lucky_block',
+    loc_txt = {
+        name = 'Lucky Block',
+        text = {
+            "When {C:attention}sold{}, create a",
+            "{C:attention}random{} Joker",
+            "{C:inactive}(Excludes Legendaries & himself)"
+        }
+    },
+    rarity = 2,
+    cost = 6,
+    blueprint_compat = true,
+    atlas = "lucky_block",
+    unlocked = true,
+    discovered = true,
+    calculate = function(self, card, context)
+        if context.selling_self or (context.selling_card == card and not context.blueprint) then
+            
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    local new_card = create_card('Joker', G.jokers, nil, nil, nil, nil, nil, 'lucky')
+                    
+                    while new_card.config.center.key == 'j_lucky_block' or new_card.config.center.rarity == 4 do
+                        new_card = create_card('Joker', G.jokers, nil, nil, nil, nil, nil, 'lucky')
+                    end
+                    
+                    new_card:add_to_deck()
+                    G.jokers:emplace(new_card)
+                    new_card:start_materialize()
+                    play_sound('coin1', 1, 0.5) 
+                    attention_text({
+                        text = 'Lucky!',
+                        scale = 1, 
+                        hold = 0.8,
+                        major = G.jokers,
+                        backdrop_col = G.C.MONEY,
+                        align = 'tm',
+                        offset = {x = 0, y = -2}
+                    })
+                    return true
+                end
+            }))
+        end
+    end
+}
+SMODS.Joker {
+    key = 'broken_brick',
+    loc_txt = {
+         name = 'Broken Brick',
+          text = {
+             "{C:mult}+5{} mult" 
+            } 
+        },
+    config = { extra = 5 },
+    rarity = 1,
+    cost = 2,
+    blueprint_compat = true,
+    atlas = "broken_brick",
+    unlocked = true,
+    discovered = true,
+    calculate = function(self, card, context)
+        if context.joker_main then
+            return { mult = card.ability.extra }
+        end
+    end
+}
+SMODS.Joker {
+    key = 'brick',
+    loc_txt = {
+        name = 'Brick',
+        text = {
+            "{X:mult,C:white} X2 {} Mult",
+            "{C:green}#1# in #2#{} chance to be cracked",
+            "at end of round"
+        }
+    },
+    config = { extra = 2, chance = 4 },
+    rarity = 1, cost = 4,
+    blueprint_compat = true,
+    atlas = "brick",
+    unlocked = true,
+    discovered = true,
+    loc_vars = function(self, info_queue, card)
+        return { vars = { 
+            (G.GAME and G.GAME.probabilities.normal or 1), 
+            (card and card.ability and card.ability.chance or 4) 
+        } }
+    end,
+ calculate = function(self, card, context)
+    if context.joker_main then
+        return { x_mult = card.ability.extra }
+    end
+    if context.end_of_round and not (context.individual or context.repetition or context.blueprint) then
+        if pseudorandom('brick') < G.GAME.probabilities.normal / card.ability.chance then
+            return {
+                message = "Cracked!",
+                func = function()
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            play_sound('tarot1')
+                            card:start_dissolve()
+                            local new_card = create_card('Joker', G.jokers, nil, nil, nil, nil, 'j_sj_broken_brick')
+                            new_card:add_to_deck()
+                            G.jokers:emplace(new_card)
+                            return true
+                        end
+                    }))
+                end
+            }
+        else
+            return { message = "Safe!" }
+        end
+    end
+ end
+}
+SMODS.Joker {
+    key = 'holo_stickers',
+    loc_txt = {
+        name = 'Holographic Stickers',
+        text = {
+            "This Joker gives {X:mult,C:white} X0.5 {} Mult",
+            "for every Joker with {C:attention}Edition{}",
+            "what you own",
+            "{C:inactive}(Currently {X:mult,C:white} X#1# {}{C:inactive} Mult)"
+        }
+    },
+    config = { extra = 0.5 },
+    rarity = 3, cost = 8,
+    blueprint_compat = true,
+    atlas = "holographic_stickers",
+    unlocked = true,
+    discovered = true,
+    loc_vars = function(self, info_queue, card)
+        local count = 0
+        if G.jokers and G.jokers.cards then
+            for _, v in ipairs(G.jokers.cards) do
+                if v.edition then count = count + 1 end
+            end
+        end
+        return { vars = { 1 + (count * 0.5) } }
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main then
+            local count = 0
+            for _, v in ipairs(G.jokers.cards) do
+                if v.edition then count = count + 1 end
+            end
+            if count > 0 then
+                return { x_mult = 1 + (count * 0.5) }
+            end
+        end
+    end
+}
+SMODS.Back {
+    name = "Gamble Deck",
+    key = "gamble_deck",
+    config = { lucky_block = true, wheel = true },
+    loc_txt = {
+        name = "Gamble Deck",
+        text = {
+            "all cards in deck are {C:attention}lucky cards{}",
+            "Start with {C:attention}Lucky Block{}",
+            "and {C:tarot}The Wheel of Fortune{}",
+        }
+    },
+    pos = {x = 0, y = 0},
+    atlas = 'gamble_deck',
+    apply = function(self)
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                if G.playing_cards and G.P_CENTERS.m_lucky then
+                    for _, v in ipairs(G.playing_cards) do
+                        v:set_ability(G.P_CENTERS.m_lucky, nil, true)
+                    end
+                end
+                local lucky_block = create_card('Joker', G.jokers, nil, nil, nil, nil, 'j_sj_lucky_block', 'gamble')
+                if lucky_block then
+                    lucky_block:add_to_deck()
+                    G.jokers:emplace(lucky_block)
+                end
+                local wheel = create_card('Tarot', G.consumeables, nil, nil, nil, nil, 'c_wheel_of_fortune', 'gamble')
+                if wheel then
+                    wheel:add_to_deck()
+                    G.consumeables:emplace(wheel)
+                end
+                
+                return true
+            end
+        }))
+    end
+}
