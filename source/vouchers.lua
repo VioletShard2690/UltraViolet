@@ -1,6 +1,7 @@
 SMODS.Voucher {key = 'backstock',
     atlas = 'backstock',
-    pos = { x = 0, y = 0 },
+    unlocked = true,
+    discovered = true,
     cost = 10,
     config = { extra = 1 },
     loc_txt = {
@@ -22,9 +23,8 @@ SMODS.Voucher {key = 'backstock',
 }
 SMODS.Voucher {key = 'right_to_choose',
     atlas = 'right_to_choose',
-    pos = { x = 0, y = 0 },
     cost = 10,
-    requires = {'v_sj_backstock'}, 
+    requires = {'v_uv_backstock'}, 
     loc_txt = {
         name = 'Right to Choose',
         text = {
@@ -37,12 +37,89 @@ SMODS.Voucher {key = 'right_to_choose',
     redeem = function(self)
         G.GAME.modifiers.custom_bonus_choices = (G.GAME.modifiers.custom_bonus_choices or 0) + 1
     end
- }
- local old_open = Card.open
- function Card.open(self)
-    local result = old_open(self)
-    if self.ability.set == 'Booster' and G.GAME.modifiers.custom_bonus_choices then
-        G.GAME.pack_choices = G.GAME.pack_choices + G.GAME.modifiers.custom_bonus_choices
+}
+SMODS.Voucher {key = 'six_finger_discount',
+    loc_txt = {
+        name = 'Six Finger Discount',
+        text = {
+            "{C:enhanced}+1{} card selection limit"
+        }
+    },
+    config = { extra = 1 },
+    cost = 10,
+    unlocked = true,
+    discovered = true,
+    redeem = function(self, card)
+        SMODS.change_play_limit(card.ability.extra or self.config.extra)
+        SMODS.change_discard_limit(card.ability.extra or self.config.extra)
     end
-    return result
-end
+}
+SMODS.Voucher {key = 'extra_finger',
+    loc_txt = {
+        name = 'Extra Finger',
+        text = {
+            "{C:enhanced}+1{} card selection limit"
+        }
+    },
+    config = { extra = 1 },
+    cost = 10,
+    unlocked = true,
+    discovered = true,
+    requires = { 'v_uv_six_finger_discount' },
+    
+    redeem = function(self, card)
+        SMODS.change_play_limit(card.ability.extra or self.config.extra)
+        SMODS.change_discard_limit(card.ability.extra or self.config.extra)
+    end
+}
+SMODS.Voucher {key = 'coupon',
+    loc_txt = {
+        name = 'Coupon',
+        text = {
+            "{C:attention}Vouchers{} costs",
+            "{C:money}$#1#{} less"
+        }
+    },
+    config = { extra = 2 },
+    cost = 10,
+    unlocked = true,
+    discovered = true,
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card and card.ability and card.ability.extra or self.config.extra } }
+    end,
+    redeem = function(self, card)
+        G.GAME.coupon_active = true
+        G.GAME.coupon_discount_amount = card.ability.extra or self.config.extra
+        if G.shop_vouchers and G.shop_vouchers.cards then
+            for i = 1, #G.shop_vouchers.cards do
+                G.shop_vouchers.cards[i]:set_cost()
+            end
+        end
+    end
+}
+SMODS.Voucher {key = 'black_friday',
+    cost = 10,
+    unlocked = true,
+    discovered = true,
+    requires = { 'v_uv_coupon' },
+    loc_txt = {
+        name = 'Black Friday',
+        text = {
+            "{C:attention}Vouchers{} costs",
+            "{C:money}$2{} less"
+        }
+    },
+    config = { extra = 4 },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card and card.ability and card.ability.extra or self.config.extra } }
+    end,
+    redeem = function(self, card)
+        G.GAME.coupon_active = true
+        G.GAME.coupon_discount_amount = card.ability.extra or self.config.extra
+        if G.shop_vouchers and G.shop_vouchers.cards then
+            for i = 1, #G.shop_vouchers.cards do
+                G.shop_vouchers.cards[i]:set_cost()
+            end
+        end
+    end
+}

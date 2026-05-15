@@ -1,30 +1,10 @@
-SMODS.Atlas({key = "chaotic",
-    path = "c_chaotic.png",
-    px = 142,
-    py = 190
-})
-SMODS.Atlas({key = "broken_clock",
-    path = "j_broken_clock.png",
-    px = 142,
-    py = 190
-})
 SMODS.Atlas({key = "sample_test_joker",
     path = "j_sample_test_joker.png",
     px = 142,
     py = 190
 })
-SMODS.Atlas({key = "sad_piggybank",
-    path = "j_sad_piggybank.png",
-    px = 142,
-    py = 190
-})
 SMODS.Atlas({key = "pavel",
     path = "j_pavel.png",
-    px = 142,
-    py = 190
-})
-SMODS.Atlas({key = "torn_banknote",
-    path = "j_torn_banknote.png",
     px = 142,
     py = 190
 })
@@ -78,8 +58,8 @@ SMODS.Atlas({key = "math_draft",
     px = 142,
     py = 190
 })
-SMODS.Atlas({key = "holographic_stickers",
-    path = "j_holographic_stickers.png",
+SMODS.Atlas({key = "edition_joker",
+    path = "j_edition_joker.png",
     px = 142,
     py = 190
 })
@@ -212,4 +192,204 @@ SMODS.Atlas({key = "code_joker",
     path = "j_code_joker.png",
     px = 142,
     py = 190
+})
+SMODS.Atlas({key = "bloody_knife",
+    path = "j_bloody_knife.png",
+    px = 142,
+    py = 190
+})
+SMODS.Atlas({key = "shark",
+    path = "j_shark.png",
+    px = 142,
+    py = 190
+})
+SMODS.Atlas({key = "skeptic",
+    path = "bl_skeptic.png",
+    px = 64,
+    py = 64
+})
+SMODS.Atlas({key = "roulette",
+    path = "bl_roulette.png",
+    px = 64,
+    py = 64
+})
+SMODS.Atlas({key = "pass",
+    path = "bl_pass.png",
+    px = 64,
+    py = 64
+})
+SMODS.Atlas({key = "super_rare_pack",
+    path = "bs_super_rare_pack.png",
+    px = 71,
+    py = 116
+})
+SMODS.Atlas({key = "trademark",
+    path = "bl_trademark.png",
+    px = 64,
+    py = 64
+})
+SMODS.Atlas({key = "eraser",
+    path = "bl_eraser.png",
+    px = 64,
+    py = 64
+})
+SMODS.Atlas({key = "mask",
+    path = "bl_mask.png",
+    px = 64,
+    py = 64
+})
+SMODS.Atlas({key = "planetarium",
+    path = "bl_planetarium.png",
+    px = 64,
+    py = 64
+})
+SMODS.Atlas({key = "overkill",
+    path = "bl_overkill.png",
+    px = 64,
+    py = 64
+})
+SMODS.Atlas({key = "frame_perfect",
+    path = "j_frame_perfect.png",
+    px = 142,
+    py = 190
+})
+SMODS.Atlas({key = "bouncy_ball",
+    path = "j_bouncy_ball.png",
+    px = 142,
+    py = 190
+})
+SMODS.Atlas({key = "tooth",
+    path = "j_tooth.png",
+    px = 142,
+    py = 190
+})
+SMODS.Atlas({key = "book",
+    path = "j_book.png",
+    px = 142,
+    py = 190
+})
+SMODS.Atlas({key = "accumulation",
+    path = "j_accumulation.png",
+    px = 142,
+    py = 190
+})
+SMODS.Atlas({key = "banana_farm",
+    path = "j_banana_farm.png",
+    px = 142,
+    py = 190
+})
+SMODS.Atlas({key = "dr_balatro",
+    path = "j_dr_balatro.png",
+    px = 142,
+    py = 190
+})
+SMODS.Atlas({key = "4clover",
+    path = "j_4clover.png",
+    px = 142,
+    py = 190
+})
+SMODS.Atlas({key = "friday13",
+    path = "j_friday13.png",
+    px = 142,
+    py = 190
+})
+SMODS.Atlas({key = "pqbd",
+    path = "j_pqbd.png",
+    px = 142,
+    py = 190
+})
+SMODS.Atlas({key = "bear_skeleton",
+    path = "j_bear_skeleton.png",
+    px = 142,
+    py = 190
+})
+SMODS.Atlas({key = "cursed_calculator",
+    path = "j_cursed_calculator.png",
+    px = 142,
+    py = 190
+})
+SMODS.Atlas({key = "golden_bullet",
+    path = "j_golden_bullet.png",
+    px = 142,
+    py = 190
+})
+SMODS.Atlas({key = "face_james",
+    path = "j_face_james.png",
+    px = 90,
+    py = 120
+})
+SMODS.Atlas({key = "factorial_joker",
+    path = "j_fact_joker.png",
+    px = 142,
+    py = 190
+})
+SMODS.Atlas({key = "discord",
+    path = "j_discord.png",
+    px = 142,
+    py = 142
+})
+SMODS.Atlas({key = "spotify",
+    path = "j_spotify.png",
+    px = 142,
+    py = 142
+})
+SMODS.Atlas({key = "roblox",
+    path = "j_roblox.png",
+    px = 142,
+    py = 142
+})
+SMODS.Atlas({key = "ai_joker",
+    path = "j_ai_joker.png",
+    px = 142,
+    py = 190
+})
+SMODS.Atlas({key = "max",
+    path = "j_max.png",
+    px = 142,
+    py = 142
+})
+SMODS.Atlas({key = "joker_blind",
+    path = "j_joker_blind.png",
+    px = 64,
+    py = 64
+})
+SMODS.Atlas({key = "golden_cookie",
+    path = "j_golden_cookie.png",
+    px = 142,
+    py = 190
+})
+SMODS.Atlas({key = "telescope",
+    path = "j_telescope.png",
+    px = 142,
+    py = 190
+})
+SMODS.Atlas({key = "infinite_staircase",
+    path = "j_infinite_staircase.png",
+    px = 142,
+    py = 190
+})
+SMODS.Atlas({key = "gangle_mask",
+    path = "j_gangle_mask.png",
+    px = 142,
+    py = 190
+})
+SMODS.Atlas({key = "scissors",
+    path = "j_scissors.png",
+    px = 142,
+    py = 190
+})
+SMODS.Atlas({key = "trash_can",
+    path = "j_trash_can.png",
+    px = 142,
+    py = 190
+})
+SMODS.Atlas({key = "lcdirects0.5",
+    path = "j_lcdirects0.5.png",
+    px = 142,
+    py = 190
+})
+SMODS.Atlas({key = "bigger",
+    path = "bl_bigger.png",
+    px = 64,
+    py = 64
 })

@@ -4,37 +4,164 @@ local joker_src = NFS.getDirectoryItems(SMODS.current_mod.path .. "source")
 for _, file in ipairs(joker_src) do
     assert(SMODS.load_file("source/" .. file))()
 end
-
-assert(SMODS.load_file("globals.lua"))()
- SMODS.Rarity({
-    key = 'super_rare',
-    loc_txt = { name = 'Super Rare' },
-    badge_colour = HEX('700bb0'),
-    default_weight = 0.02,
- })
- local joker_src = NFS.getDirectoryItems(SMODS.current_mod.path .. "source")
- for _, file in ipairs(joker_src) do
-    if file:match("%.lua$") then
-        assert(SMODS.load_file("source/" .. file))()
+SMODS.Rarity({key = 'super_rare',
+  loc_txt = { name = 'Super Rare' },
+  badge_colour = HEX('700bb0'),
+  default_weight = 0.02,
+})
+G.localization.misc.dictionary.k_uv_super_rare_pack = "Super Rare Pack"
+local ease_hands_ref = ease_hands
+function ease_hands(mod)
+    ease_hands_ref(mod)
+    if G.GAME.current_round.hands_left < 0.001 then 
+        G.GAME.current_round.hands_left = 0
     end
- end
- local old_poll_rarity = poll_rarity
- function poll_rarity(_type, _key)
-    if _type == 'Joker' and pseudorandom('sj_sr') > 0.98 then
-        return 'sj_super_rare'
-    end
-    return old_poll_rarity(_type, _key)
 end
-local function load_source(file_name)
-    local status, err = pcall(SMODS.load_file, file_name)
-    if not status then
-        sendDebugMessage("Ошибка в файле " .. file_name .. ": " .. tostring(err))
+local update_hands_ref = Game.update
+function Game.update(self, dt)
+    update_hands_ref(self, dt)
+    if G.GAME and G.GAME.current_round and G.GAME.current_round.hands_left then
     end
- end
- load_source("source/blinds.lua")
- load_source("source/atlases.lua")
- load_source("globals.lua")
- load_source("source/tarot.lua")
- load_source("source/jokers.lua")
- load_source("source/vouchers.lua")
-load_source("source/decks.lua")
+end
+local ease_discards_ref = ease_discards
+function ease_discards(mod)
+    ease_discards_ref(mod)
+    if G.GAME.current_round.discards_left < 0.001 then 
+        G.GAME.current_round.discards_left = 0
+    end
+end
+local update_discards_ref = Game.update
+function Game.update(self, dt)
+    update_discards_ref(self, dt)
+    if G.GAME and G.GAME.current_round and G.GAME.current_round.discards_left then
+    end
+end
+local orig_set_cost = Card.set_cost
+function Card.set_cost(self)
+    orig_set_cost(self)
+    if self.ability and self.ability.set == 'Voucher' and G.GAME.coupon_active then
+        self.cost = math.max(1, self.cost - (G.GAME.coupon_discount_amount or 2))
+    end
+end
+local orig_reroll_boss = G.FUNCS.reroll_boss
+G.FUNCS.reroll_boss = function(e)
+    orig_reroll_boss(e)
+    if G.jokers and G.jokers.cards then
+        for i = 1, #G.jokers.cards do
+            G.jokers.cards[i]:calculate_joker({reroll_boss = true})
+        end
+    end
+end
+local reroll_shop_ref = G.FUNCS.reroll_shop
+G.FUNCS.reroll_shop = function(e)
+    reroll_shop_ref(e)
+    if G.GAME.uv_mail_order then
+        if G.shop_vouchers and G.shop_vouchers.cards[1] then
+            G.shop_vouchers.cards[1]:remove()
+            local card = create_card('Voucher', G.shop_vouchers, nil, nil, nil, nil, nil, 'v_shop')
+            card:add_to_deck()
+            G.shop_vouchers:emplace(card)
+            card:set_cost()
+        end
+    end
+end
+local setup_shop_ref = G.FUNCS.setup_shop
+G.FUNCS.setup_shop = function(e)
+    setup_shop_ref(e)
+    if G.GAME.uv_bureaucrat_restock then
+        if G.shop_vouchers and #G.shop_vouchers.cards < 1 then
+            G.GAME.current_round.voucher = get_next_voucher_key()
+            local card = create_card('Voucher', G.shop_vouchers, nil, nil, nil, nil, G.GAME.current_round.voucher, 'v_shop')
+            card:add_to_deck()
+            card:set_cost()
+            card.area = G.shop_vouchers
+            G.shop_vouchers:emplace(card)
+        end
+        G.GAME.uv_bureaucrat_restock = false
+    end
+end
+local old_card_update = Card.update
+function Card.update(self, dt)
+    old_card_update(self, dt)
+    if self.config and self.config.center and 
+       (self.config.center.key == 'v_mail_order' or self.config.center.key == 'v_mail_order') and 
+       self.area == G.vouchers then
+        if G.STATE == G.STATES.SHOP and not self.buy_menu then
+            if self.set_buttons then
+                self:set_buttons({
+                    buttons = {'buy_voucher'}, 
+                    hide_desc = false, 
+                    view_deck = false
+                })
+                self.buy_menu = true 
+            end
+        end
+    end
+end
+local function has_exchange_joker()
+    if G.jokers and G.jokers.cards then
+        for _, j in ipairs(G.jokers.cards) do
+            if j.config.center.key == 'j_uv_exchange' and not j.debuff then
+                return true
+            end
+        end
+    end
+    return false
+end
+local old_calculate_joker = Card.calculate_joker
+function Card.calculate_joker(self, context)
+    local ret = old_calculate_joker(self, context)
+    if ret and has_exchange_joker() then
+        if ret.mult_mod and not ret.Xmult_mod and ret.mult_mod > 0 then
+            ret.chip_mod = (ret.chip_mod or 0) + ret.mult_mod
+            if ret.message then ret.message = ret.mult_mod .. ' Chips' end
+            ret.colour = G.C.CHIPS
+            ret.mult_mod = 0
+        end
+    end
+    return ret
+end
+local old_reset_blinds = reset_blinds
+function reset_blinds()
+    old_reset_blinds()
+    if G.GAME and G.GAME.selected_back and G.GAME.selected_back.effect.config.tyrant_mode then
+        G.GAME.round_resets.blind_choices.Small = get_new_boss()
+        local new_big = get_new_boss()
+        while new_big == G.GAME.round_resets.blind_choices.Small do
+            new_big = get_new_boss()
+        end
+        G.GAME.round_resets.blind_choices.Big = new_big
+        if G.FUNCS and G.FUNCS.set_blind_select and G.STATE == G.STATES.BLIND_SELECT then 
+            G.FUNCS.set_blind_select()
+        end
+    end
+end
+if not Card.open_ref_right_to_choose then
+    Card.open_ref_right_to_choose = Card.open
+    function Card.open(self)
+        local result = Card.open_ref_right_to_choose(self)
+        if self.ability.set == 'Booster' and G.GAME.modifiers.custom_bonus_choices then
+            G.GAME.pack_choices = G.GAME.pack_choices + G.GAME.modifiers.custom_bonus_choices
+        end
+        return result
+    end
+end
+local old_reroll_boss = G.FUNCS.reroll_boss
+G.FUNCS.reroll_boss = function(e)
+    if G.jokers and #SMODS.find_card('j_uv_noname') > 0 then
+        G.GAME.round_resets.blind_choices.Boss = 'bl_uv_void'
+        if G.GAME.blind_select then 
+            G.GAME.blind_select:juice_up() 
+        end
+        return 
+    end
+    old_reroll_boss(e)
+end
+local set_blind_ref = Blind.set_blind
+function Blind.set_blind(self, blind, anim, silent)
+    set_blind_ref(self, blind, anim, silent)
+    if G.GAME.modifiers.uv_plasma_reduction then
+        self.chips = math.floor(self.chips * G.GAME.modifiers.uv_plasma_reduction)
+        self.chip_text = number_format(self.chips)
+    end
+end
