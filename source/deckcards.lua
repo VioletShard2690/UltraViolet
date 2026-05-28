@@ -66,7 +66,9 @@ SMODS.Consumable {key = 'blue_deck_card',
     set = 'DeckCard',
     loc_txt = {
         name = 'Blue Deck',
-        text = { "{C:blue}+1{} hand", "every round" }
+        text = { "{C:blue}+1{} hand",
+                 "every round"
+        }
     },
     cost = 4,
     unlocked = true,
@@ -152,7 +154,7 @@ SMODS.Consumable {key = 'black_deck_card',
 SMODS.Consumable {key = 'prologue_deck_card',
     set = 'DeckCard',
     loc_txt = {
-        name = 'Prologue',
+        name = 'Prologue Deck',
         text = { 
             "{C:attention}-1{} Ante" 
         }
@@ -187,6 +189,7 @@ SMODS.Consumable {key = 'gray_deck_card',
     cost = 4,
     unlocked = true,
     discovered = true,
+    atlas = 'gray_deck',
     in_pool = function(self)
         return true
     end,
@@ -328,6 +331,7 @@ SMODS.Consumable {key = 'russian_deck_card',
     cost = 4,
     unlocked = true,
     discovered = true,
+    atlas = '36_cards',
     in_pool = function(self)
         return true
     end,
@@ -375,6 +379,7 @@ SMODS.Consumable {key = 'gamble_deck_card',
     cost = 4,
     unlocked = true,
     discovered = true,
+    atlas = 'gamble_deck',
     in_pool = function(self)
         return true
     end,
@@ -413,6 +418,7 @@ SMODS.Consumable {key = 'orange_deck_card',
     cost = 4,
     unlocked = true,
     discovered = true,
+    atlas = 'orange_deck',
     in_pool = function(self)
         return true
     end,
@@ -453,11 +459,9 @@ SMODS.Consumable {key = 'checkered_deck_card',
             delay = 0.4,
             func = function()
                 for i = 1, #G.playing_cards do
-                    -- Если карта Трефы -> делаем Пикой
                     if G.playing_cards[i].base.suit == 'Clubs' then
                         G.playing_cards[i]:change_suit('Spades')
                         G.playing_cards[i]:juice_up()
-                    -- Если карта Бубны -> делаем Червой
                     elseif G.playing_cards[i].base.suit == 'Diamonds' then
                         G.playing_cards[i]:change_suit('Hearts')
                         G.playing_cards[i]:juice_up()
@@ -544,7 +548,7 @@ SMODS.Consumable {key = 'magic_deck_card',
     loc_txt = {
         name = 'Magic Deck',
         text = { 
-            "Creates the {C:attention}Crystal Ball{} voucher,",
+            "{C:attention}+1{} consumable slot",
             "creates {C:attention}2 The Fool's{}"
         }
     },
@@ -561,8 +565,10 @@ SMODS.Consumable {key = 'magic_deck_card',
         G.E_MANAGER:add_event(Event({
             trigger = 'after',
             func = function()
-                local voucher = create_card('Voucher', G.consumeables, nil, nil, nil, nil, 'v_crystal_ball', 'magic_v')
-                voucher:apply_to_run()
+                G.GAME.modifiers.consumable_slots = (G.GAME.modifiers.consumable_slots or 2) + 1
+                if G.consumeables then 
+                    G.consumeables.config.card_limit = G.GAME.modifiers.consumable_slots 
+                end
                 for i = 1, 2 do
                     local fool = create_card('Tarot', G.consumeables, nil, nil, nil, nil, 'c_fool', 'magic_f')
                     fool:add_to_deck()
@@ -636,6 +642,98 @@ SMODS.Consumable {key = 'plasma_deck_card',
                     G.GAME.blind.chips = math.floor(G.GAME.blind.chips * 0.5)
                     G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
                 end
+                return true
+            end
+        }))
+    end
+}
+SMODS.Consumable {key = 'purple_deck_card',
+    set = 'DeckCard',
+    loc_txt = {
+        name = 'Purple Deck',
+        text = { 
+            "{C:enhanced}+1{} card selection limit",
+            "every round"
+        }
+    },
+    cost = 4,
+    unlocked = true,
+    discovered = true,
+    atlas = 'purple_deck',
+    in_pool = function(self)
+        return true
+    end,
+    can_use = function(self, card)
+        return true
+    end,
+    use = function(self, card, area, copier)
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            func = function()
+                SMODS.change_play_limit(1)
+                SMODS.change_discard_limit(1)
+                return true
+            end
+        }))
+    end
+}
+SMODS.Consumable {key = 'light_blue_deck_card',
+    set = 'DeckCard',
+    loc_txt = {
+        name = 'Light Blue Deck',
+        text = { 
+            "{C:attention}+1{} consumable slot",
+            "every round"
+        }
+    },
+    cost = 4,
+    unlocked = true,
+    discovered = true,
+    atlas = 'light_blue_deck',
+    in_pool = function(self)
+        return true
+    end,
+    can_use = function(self, card)
+        return true
+    end,
+    use = function(self, card, area, copier)
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            func = function()
+                G.GAME.modifiers.consumable_slots = (G.GAME.modifiers.consumable_slots or 2) + 1
+                if G.consumeables then 
+                    G.consumeables.config.card_limit = G.GAME.modifiers.consumable_slots 
+                end
+                return true
+            end
+        }))
+    end
+}
+SMODS.Consumable {key = 'rainbow_deck_card',
+    set = 'DeckCard',
+    loc_txt = {
+        name = 'Rainbow Deck',
+        text = { 
+            "{C:attention}+1{} joker slot",
+            "every round"
+        }
+    },
+    cost = 4,
+    unlocked = true,
+    discovered = true,
+    atlas = 'rainbow_deck',
+    in_pool = function(self)
+        return true
+    end,
+    can_use = function(self, card)
+        return true
+    end,
+    use = function(self, card, area, copier)
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            func = function()
+                G.GAME.modifiers.joker_slots = (G.GAME.modifiers.joker_slots or 5) + 1
+                G.jokers.config.card_limit = G.jokers.config.card_limit + 1
                 return true
             end
         }))

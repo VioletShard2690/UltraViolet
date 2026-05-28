@@ -84,16 +84,13 @@ SMODS.Back {key = 'gray_deck',
     loc_txt = {
         name = 'Gray Deck',
         text = {
-            "{C:attention}+#1#{} consumable slot",
-            "{C:red}-#2#{} discard",
+            "{C:attention}+1{} consumable slot",
+            "{C:red}-1{} discard",
             "every round"
         }
     },
-    -- atlas = 'gray_deck',
+    atlas = 'gray_deck',
     config = { extra_c = 1, minus_d = 1 },
-    loc_vars = function(self, info_queue, card)
-        return { vars = { self.config.extra_c, self.config.minus_d } }
-    end,
     apply = function(self)
         G.GAME.starting_params.discards = G.GAME.starting_params.discards - self.config.minus_d
         G.GAME.round_resets.discards = G.GAME.round_resets.discards - self.config.minus_d
@@ -147,9 +144,11 @@ SMODS.Back {key = 'orange_deck',
     loc_txt = {
         name = 'Orange Deck',
         text = {
-            "{C:attention}+1{} hand size"
+            "{C:attention}+1{} hand size",
+            "every round"
         }
     },
+    atlas = 'orange_deck',
     apply = function(self)
         G.E_MANAGER:add_event(Event({
             func = function()
@@ -168,6 +167,7 @@ SMODS.Back {key = 'joker_deck',
             "{C:red}-1{} Joker slot"
         }
     },
+    atlas = 'joker_deck',
     apply = function(self)
         G.E_MANAGER:add_event(Event({
             func = function()
@@ -183,28 +183,6 @@ SMODS.Back {key = 'joker_deck',
                 update = true
             }
         end
-    end
-}
-SMODS.Back {key = 'fortune_deck',
-    loc_txt = {
-        name = "Fortune Deck",
-        text = {
-            "Start with {C:attention}2{} random",
-            "{C:attention}Vouchers{}"
-        }
-    },
-    apply = function(self)
-        G.E_MANAGER:add_event(Event({
-            func = function()
-                for i = 1, 2 do
-                    local voucher_key = get_next_voucher_key()
-                    G.GAME.used_vouchers[voucher_key] = true
-                    local dummy_voucher = Card(0, 0, G.CARD_W, G.CARD_H, G.P_CARDS.empty, G.P_CENTERS[voucher_key])
-                    dummy_voucher:apply_to_run()
-                end
-                return true
-            end
-        }))
     end
 }
 SMODS.Back {key = 'royal_deck',
@@ -223,6 +201,191 @@ SMODS.Back {key = 'royal_deck',
                         local suit_prefix = string.sub(v.base.suit, 1, 1)
                         v:set_base(G.P_CARDS[suit_prefix..'_K'])
                     end
+                end
+                return true
+            end
+        }))
+    end
+}
+SMODS.Back {key = 'deck_deck',
+    config = {deck_cards_start = 2},
+    loc_txt = {
+        name = "Deck Deck",
+        text = {
+            "Start run with",
+            "{C:attention}2{} random {C:green}Deck Cards{}"
+        }
+    },
+    unlocked = true,
+    discovered = true,
+    apply = function(self)
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                local valid_pool = {}
+                for k, v in pairs(G.P_CENTERS) do
+                    if v.set == 'DeckCard' then
+                        table.insert(valid_pool, k)
+                    end
+                end
+                for i = 1, self.config.deck_cards_start do
+                    local chosen_key = nil
+                    if #valid_pool > 0 then
+                        chosen_key = pseudorandom_element(valid_pool, pseudoseed('uv_card_deck'))
+                    else
+                        local backup_pool = {}
+                        for k, v in pairs(G.P_CENTERS) do
+                            if v.set == 'Tarot' then
+                                table.insert(backup_pool, k)
+                            end
+                        end
+                        chosen_key = pseudorandom_element(backup_pool, pseudoseed('uv_card_deck_backup'))
+                    end
+                    local card = create_card('DeckCard', G.consumeables, nil, nil, nil, nil, chosen_key, nil)
+                    card:add_to_deck()
+                    G.consumeables:emplace(card)
+                end
+                return true
+            end
+        }))
+    end
+}
+SMODS.Back {key = 'purple_deck',
+    loc_txt = {
+        name = 'Purple Deck',
+        text = {
+            "{C:enhanced}+1{} card selection limit",
+            "every round"
+        }
+    },
+    atlas = 'purple_deck',
+    apply = function(self)
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                SMODS.change_play_limit(1)
+                SMODS.change_discard_limit(1)
+                return true
+            end
+        }))
+    end
+}
+SMODS.Back {key = 'light_blue_deck',
+    loc_txt = {
+        name = 'Light Blue Deck',
+        text = {
+            "{C:attention}+1{} consumable slot",
+            "every round"
+        }
+    },
+    atlas = 'light_blue_deck',
+    apply = function(self)
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.GAME.modifiers.consumable_slots = (G.GAME.modifiers.consumable_slots or 2) + 1
+                if G.consumeables then 
+                    G.consumeables.config.card_limit = G.GAME.modifiers.consumable_slots 
+                end
+                return true
+            end
+        }))
+    end
+}
+SMODS.Back {key = 'rainbow_deck',
+    loc_txt = {
+        name = 'Rainbow Deck',
+        text = {
+            "{C:attention}+1{} joker slot",
+            "every round"
+        }
+    },
+    atlas = 'rainbow_deck',
+    apply = function(self)
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.jokers.config.card_limit = G.jokers.config.card_limit + 1
+                return true
+            end
+        }))
+    end
+}
+SMODS.Back {key = 'sandbox_deck',
+    loc_txt = {
+        name = "Sandbox Deck",
+        text = {
+            "Start run with",
+            "{C:green}Perkeo{} and",
+            "{C:spectral}POINTER://{}",
+            "{C:dark_edition}Cryptid cross-mod deck{}"
+        }
+    },
+    unlocked = true,
+    discovered = true,
+    apply = function(self)
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                local perkeo = create_card('Joker', G.jokers, nil, nil, nil, nil, 'j_perkeo', 'sandbox')
+                perkeo:add_to_deck()
+                G.jokers:emplace(perkeo)
+                perkeo:start_materialize()
+                if SMODS.Mods["Cryptid"] then
+                    local pointer = create_card('Spectral', G.consumeables, nil, nil, nil, nil, 'c_cry_pointer', 'sandbox')
+                    if pointer then
+                        pointer:add_to_deck()
+                        G.consumeables:emplace(pointer)
+                        pointer:start_materialize()
+                    end
+                end
+                return true
+            end
+        }))
+    end
+}
+SMODS.Back{key = 'chimps_deck',
+    loc_txt = {
+        name = "CHIMPS Deck",
+        text = {
+            "no {C:attention}Consumable{} slots",
+            "{C:blue}1{} Hand per round",
+            "no {C:attention}Interest",
+            "Money set to {C:red}-$10{}",
+            "Plus {C:attention}2{} antes to win",
+            "Start with {C:red}-1{} hand size"
+        }
+    },
+    unlocked = true,
+    discovered = true,
+    apply = function(self)
+        G.E_MANAGER:add_event(Event({
+            func = function()
+            G.GAME.modifiers.consumable_slots = (G.GAME.modifiers.consumable_slots or 2) - 2
+                if G.consumeables then 
+                    G.consumeables.config.card_limit = G.GAME.modifiers.consumable_slots 
+                end
+            G.GAME.round_resets.hands = 1
+            G.GAME.modifiers.no_interest = true
+            G.GAME.win_ante = 10
+            G.GAME.modifiers.cry_price_mod = (G.GAME.modifiers.cry_price_mod or 1) * 2
+            G.GAME.dollars = -10
+            G.hand:change_size(-1)
+            return true
+        end}))
+    end
+}
+SMODS.Back{key = '7lb2vpk_deck',
+    loc_txt = {
+        name = "7LB2WVPK Deck",
+        text = {
+            "Every card in your deck",
+            "is the exact same card"
+        }
+    },
+    unlocked = true,
+    discovered = true,
+    apply = function(self)
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                local random_card_key = pseudorandom_element(G.P_CARDS, pseudoseed('broken_seed'))
+                for k, v in pairs(G.playing_cards) do
+                    v:set_base(random_card_key)
                 end
                 return true
             end

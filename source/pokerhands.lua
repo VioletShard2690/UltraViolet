@@ -62,7 +62,10 @@ SMODS.PokerHand {key = 'flush_two',
                         'be played with 3 other unscored cards'
     }
     },
-    chips = 40, mult = 4, l_chips = 15, l_mult = 2,
+    chips = 40,
+    mult = 4,
+    l_chips = 15,
+    l_mult = 2,
     visible = false,
     example = { { 'S_A', true }, { 'S_A', true }, { 'D_3', false }, { 'S_4', false }, { 'C_7', false } },
     evaluate = function(parts, hand)
@@ -81,7 +84,10 @@ SMODS.PokerHand {key = 'flush_three',
                         'be played with 2 other unscored cards'
     }
     },
-    chips = 80, mult = 8, l_chips = 25, l_mult = 3,
+    chips = 80,
+    mult = 8,
+    l_chips = 25,
+    l_mult = 3,
     visible = false,
     example = { { 'H_K', true }, { 'H_K', true }, { 'H_K', true }, { 'S_4', false }, { 'C_7', false } },
     evaluate = function(parts, hand)
@@ -102,9 +108,16 @@ SMODS.PokerHand {key = 'flush_four',
                         'be played with 1 other unscored card'
     }
     },
-    chips = 120, mult = 12, l_chips = 40, l_mult = 4,
+    chips = 120,
+    mult = 12,
+    l_chips = 40,
+    l_mult = 4,
     visible = false,
-    example = { { 'S_A', true }, { 'S_A', true }, { 'S_A', true }, { 'S_A', true }, { 'D_3', false } },
+    example = { { 'S_A', true },
+    { 'S_A', true },
+    { 'S_A', true },
+    { 'S_A', true },
+    { 'D_3', false } },
     evaluate = function(parts, hand)
         if #parts._4 > 0 then
             for _, four in ipairs(parts._4) do
@@ -120,11 +133,16 @@ SMODS.PokerHand {key = 'flush_four',
 }
 SMODS.PokerHand {key = 'wild_forest',
     loc_txt = { name = 'Wild Forest', description = { "5 cards with wild card enhancement" } },
-    chips = 100, mult = 10, l_chips = 30, l_mult = 3,
+    chips = 100,
+    mult = 10,
+    l_chips = 30,
+    l_mult = 3,
     visible = false, priority = 10,
     example = {
-        { 'S_2', true, enhancement = "m_wild" }, { 'D_T', true, enhancement = "m_wild" },
-        { 'H_J', true, enhancement = "m_wild" }, { 'C_5', true, enhancement = "m_wild" },
+        { 'S_2', true, enhancement = "m_wild" },
+        { 'D_T', true, enhancement = "m_wild" },
+        { 'H_J', true, enhancement = "m_wild" },
+        { 'C_5', true, enhancement = "m_wild" },
         { 'S_A', true, enhancement = "m_wild" },
     },
     evaluate = function(parts, hand)
@@ -139,10 +157,17 @@ SMODS.PokerHand {key = 'wild_forest',
 }
 SMODS.PokerHand {key = 'flush_two_pair',
     loc_txt = { name = 'Flush Two Pair', description = { "Two Pairs where all", "cards share the same suit" } },
-    chips = 60, mult = 6, l_chips = 20, l_mult = 2,
+    chips = 60,
+    mult = 6,
+    l_chips = 20,
+    l_mult = 2,
     visible = false, priority = 8,
     example = {
-        { 'S_3', true }, { 'S_3', true }, { 'S_5', true }, { 'S_5', true }, { 'D_7', false }
+        { 'S_3', true },
+        { 'S_3', true },
+        { 'S_5', true },
+        { 'S_5', true },
+        { 'D_7', false }
     },
     evaluate = function(parts, hand)
         if parts._2 and #parts._2 >= 2 then

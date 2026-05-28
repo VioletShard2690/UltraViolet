@@ -220,8 +220,8 @@ SMODS.Atlas({key = "pass",
 })
 SMODS.Atlas({key = "super_rare_pack",
     path = "bs_super_rare_pack.png",
-    px = 71,
-    py = 116
+    px = 142,
+    py = 232
 })
 SMODS.Atlas({key = "trademark",
     path = "bl_trademark.png",
@@ -392,4 +392,84 @@ SMODS.Atlas({key = "bigger",
     path = "bl_bigger.png",
     px = 64,
     py = 64
+})
+SMODS.Atlas({key = "vhs_player",
+    path = "j_vhs_player.png",
+    px = 142,
+    py = 190
+})
+SMODS.Atlas({key = "snail",
+    path = "j_snail.png",
+    px = 142,
+    py = 190
+})
+SMODS.Atlas({key = "plunger",
+    path = "j_plunger.png",
+    px = 142,
+    py = 190
+})
+SMODS.Atlas({key = "gray_deck",
+    path = "gray_deck.png",
+    px = 142,
+    py = 190
+})
+SMODS.Atlas({key = "orange_deck",
+    path = "orange_deck.png",
+    px = 142,
+    py = 190
+})
+SMODS.Atlas({key = "scales",
+    path = "j_scales.png",
+    px = 142,
+    py = 190
+})
+SMODS.Atlas({key = "watermelon_paradox",
+    path = "j_watermelon_paradox.png",
+    px = 142,
+    py = 190
+})
+SMODS.Atlas({key = "hedge",
+    path = "j_hedge.png",
+    px = 142,
+    py = 190
+})
+SMODS.Atlas({key = "math_chaos",
+    path = "j_math_chaos.png",
+    px = 142,
+    py = 190
+})
+SMODS.Atlas({key = "bag_of_chips",
+    path = "j_bag_of_chips.png",
+    px = 142,
+    py = 190
+})
+SMODS.Atlas({key = "great_equalizer",
+    path = "j_great_equalizer.png",
+    px = 142,
+    py = 190
+})
+SMODS.Atlas({key = "puzzle",
+    path = "j_puzzle.png",
+    px = 142,
+    py = 190
+})
+SMODS.Atlas({key = "purple_deck",
+    path = "purple_deck.png",
+    px = 142,
+    py = 190
+})
+SMODS.Atlas({key = "light_blue_deck",
+    path = "light_blue_deck.png",
+    px = 142,
+    py = 190
+})
+SMODS.Atlas({key = "rainbow_deck",
+    path = "rainbow_deck.png",
+    px = 142,
+    py = 190
+})
+SMODS.Atlas({key = "joker_deck",
+    path = "joker_deck.png",
+    px = 142,
+    py = 190
 })
