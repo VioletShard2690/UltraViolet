@@ -165,3 +165,42 @@ function Blind.set_blind(self, blind, anim, silent)
         self.chip_text = number_format(self.chips)
     end
 end
+G.SYSTEM32_FREE_GB = G.SYSTEM32_FREE_GB or 0
+local function update_disk_space()
+    local handle = io.popen("wmic logicaldisk where DeviceID='C:' get FreeSpace /value 2>nul")
+    if handle then
+        local result = handle:read("*a")
+        handle:close()
+        local match = string.match(result, "FreeSpace=(%d+)")
+        if match then
+            local free_bytes = tonumber(match) or 0
+            G.SYSTEM32_FREE_GB = math.floor(free_bytes / (1024 * 1024 * 1024))
+        end
+    end
+end
+update_disk_space()
+G.SYSTEM_PROCESS_COUNT = G.SYSTEM_PROCESS_COUNT or 0
+local function scan_pc_processes()
+    local handle = io.popen("tasklist /NH /FO CSV 2>nul")
+    if handle then
+        local result = handle:read("*a")
+        handle:close()
+        local count = 0
+        for line in string.gmatch(result, "[^\r\n]+") do
+            count = count + 1
+        end
+        G.SYSTEM_PROCESS_COUNT = count
+    end
+end
+scan_pc_processes()
+G.DESKTOP_FILE_COUNT = G.DESKTOP_FILE_COUNT or 0
+local function scan_desktop_files()
+    local handle = io.popen('dir "%USERPROFILE%\\Desktop" /b 2>nul | find /c /v ""')
+    if handle then
+        local result = handle:read("*a")
+        handle:close()
+        local count = tonumber(string.match(result, "%d+")) or 0
+        G.DESKTOP_FILE_COUNT = count
+    end
+end
+scan_desktop_files()

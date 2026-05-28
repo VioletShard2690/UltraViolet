@@ -353,7 +353,7 @@ SMODS.Blind {key = 'void',
     loc_txt = { name = 'The Void', text = { "Suffer." } }, -- game crashes if you have chicot, but this is fine
     dollars = 0,
     mult = 4,
-    boss = {min = 10000},
+    boss = {min = 100},
     boss_colour = HEX('000000'),
     stay_flipped = function(self, area, card)
         if area == G.hand then return true end

@@ -15,10 +15,7 @@ SMODS.Voucher {key = 'backstock',
         return { vars = { (card and card.ability.extra or self.config.extra) } }
     end,
     redeem = function(self, card)
-        G.GAME.modifiers.booster_slots = (G.GAME.modifiers.booster_slots or 2) + self.config.extra
-        if SMODS.change_booster_limit then
-            SMODS.change_booster_limit(self.config.extra)
-        end
+        SMODS.change_booster_limit(self.config.extra)
     end
 }
 SMODS.Voucher {key = 'right_to_choose',

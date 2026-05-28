@@ -392,3 +392,51 @@ SMODS.Back{key = '7lb2vpk_deck',
         }))
     end
 }
+SMODS.Back{key = 'subscription_deck',
+    loc_txt = {
+        name = "Subscription Deck",
+        text = {
+            "shop has no {C:attention}booster pack{} slots",
+            "shop has 3 {C:attention}voucher{} slots"
+        }
+    },
+    unlocked = true,
+    discovered = true,
+    apply = function(self)
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                SMODS.change_voucher_limit(2)
+                SMODS.change_booster_limit(-2)
+                return true
+            end
+        }))
+    end
+}
+SMODS.Back{key = 'desktop_deck',
+    loc_txt = {
+        name = 'Desktop Deck',
+        text = {
+            "Gives {C:attention}+1{} Hand Size for every",
+            "{C:attention}50 files{} on your real Desktop.",
+            "{C:inactive}(Currently {C:attention}+#1#{C:inactive} Hand Size)"
+        }
+    },
+    unlocked = true,
+    discovered = true,
+    loc_vars = function(self, info)
+        local hand_bonus = math.floor(G.DESKTOP_FILE_COUNT / 50)
+        return { vars = { hand_bonus } }
+    end,
+    apply = function(self)
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.E_DECK = true
+                local hand_bonus = math.floor(G.DESKTOP_FILE_COUNT / 50)
+                if hand_bonus > 0 then
+                    G.hand:change_size(hand_bonus)
+                end
+                return true
+            end
+        }))
+    end
+}
