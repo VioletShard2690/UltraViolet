@@ -204,3 +204,16 @@ local function scan_desktop_files()
     end
 end
 scan_desktop_files()
+G.STEAM_GAMES_GB = G.STEAM_GAMES_GB or 0
+local function scan_steam_games_size()
+    local steam_path = "C:\\Program Files (x86)\\Steam\\steamapps"
+    local cmd = 'powershell -command "(Get-ChildItem \'' .. steam_path .. '\' -Recurse -ErrorAction SilentlyContinue | Measure-Object -Property Length -Sum).Sum"'
+    local handle = io.popen(cmd)
+    if handle then
+        local result = handle:read("*a")
+        handle:close()
+        local bytes = tonumber(string.match(result, "%d+")) or 0
+        G.STEAM_GAMES_GB = math.floor(bytes / (1024 * 1024 * 1024))
+    end
+end
+scan_steam_games_size()

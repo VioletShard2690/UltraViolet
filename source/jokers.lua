@@ -34,7 +34,7 @@ SMODS.Joker{key = "sample_test_joker",
     calculate = function(self, card, context)
         if context.joker_main then
             return {
-                message = 'X' .. card.ability.x_mult .. ' Mult',
+                message = 'x' .. card.ability.x_mult .. ' Mult',
                 Xmult_mod = card.ability.x_mult
             }
         end
@@ -603,7 +603,7 @@ SMODS.Joker {key = 'joker_lua',
     "calculate = function(self, card, context)",
         "if context.joker_main then",
             "return {",
-                "message = 'X' .. card.ability.extra,",
+                "message = 'x' .. card.ability.extra,",
                 "Xmult_mod = card.ability.extra",
             "}",
         "end",
@@ -621,7 +621,7 @@ SMODS.Joker {key = 'joker_lua',
     calculate = function(self, card, context)
         if context.joker_main then
             return {
-                message = 'X' .. card.ability.extra,
+                message = 'x' .. card.ability.extra,
                 Xmult_mod = card.ability.extra
             }
         end
@@ -648,7 +648,7 @@ SMODS.Joker{key = "russian_alphabet",
     calculate = function(self, card, context)
         if context.joker_main then
             return {
-                message = 'X' .. card.ability.x_mult,
+                message = 'x' .. card.ability.x_mult,
                 Xmult_mod = card.ability.x_mult
             }
         end
@@ -721,7 +721,7 @@ SMODS.Joker {key = 'doomsday',
     calculate = function(self, card, context)
         if context.joker_main then
             return {
-                message = 'X' .. card.ability.extra.x_mult,
+                message = 'x' .. card.ability.extra.x_mult,
                 Xmult_mod = card.ability.extra.x_mult
             }
         end
@@ -798,7 +798,7 @@ SMODS.Joker {key = 'cube_joker',
     calculate = function(self, card, context)
         if context.joker_main and #context.full_hand == 3 then
             return {
-                message = 'X' .. card.ability.extra.x_mult,
+                message = 'x' .. card.ability.extra.x_mult,
                 Xmult_mod = card.ability.extra.x_mult
             }
         end
@@ -930,7 +930,7 @@ SMODS.Joker {key = 'binary_code',
             if rank_count == 2 and suit_count == 2 then
                 return {
                     Xmult_mod = card.ability.extra,
-                    message = 'X' .. card.ability.extra .. 'mult'
+                    message = 'x' .. card.ability.extra .. 'mult'
                 }
             end
         end
@@ -1113,7 +1113,7 @@ SMODS.Joker {key = 'void_contract',
     calculate = function(self, card, context)
     if context.joker_main then
         return {
-            message = 'X' .. card.ability.extra.x_mult,
+            message = 'x' .. card.ability.extra.x_mult,
             Xmult_mod = card.ability.extra.x_mult
         }
     end
@@ -1201,7 +1201,7 @@ SMODS.Joker {key = 'schrodinger_cat',
                 }
             else
                 return {
-                    message = 'X' .. card.ability.extra.Xmult,
+                    message = 'x' .. card.ability.extra.Xmult,
                     Xmult_mod = card.ability.extra.Xmult,
                     colour = G.C.MULT
                 }
@@ -1253,7 +1253,7 @@ SMODS.Joker{key = "small_joker",
     display_size = { w = 10000000, h = 10000000 },
 }
 SMODS.Joker{key = "code_joker", -- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    config = { mult = 402.9 },
+    config = { extra = { gain = 0.1, mult = 4791 } },
     rarity = 3,
     cost = 8,
     blueprint_compat = true,
@@ -1264,18 +1264,20 @@ SMODS.Joker{key = "code_joker", -- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         loc_txt = {
                 name = "Code joker",
                 text = { 
-                    "gives {C:mult}+0.1{} for every line of code in {C:blue}jokers.lua{}",
-                    "{C:inactive}(currently{} {C:mult}+#1#{}{C:inactive} mult){}"
+                    "gives {C:mult}+#1#{} for every line of code in {C:blue}jokers.lua{}",
+                    "{C:inactive}(currently{} {C:mult}+#2#{}{C:inactive} mult){}"
                 }
             },
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.mult } }
+        local final_mult = card.ability.extra.mult * card.ability.extra.gain
+        return { vars = { card.ability.extra.gain, final_mult } }
     end,
     calculate = function(self, card, context)
         if context.joker_main then
+            local final_mult = card.ability.extra.mult * card.ability.extra.gain
             return {
-                message = '+' .. card.ability.mult .. ' Mult',
-                mult_mod = card.ability.mult
+                message = '+' .. final_mult .. ' Mult',
+                mult_mod = final_mult
             }
         end
     end
@@ -1304,7 +1306,7 @@ SMODS.Joker {key = 'bloody_knife',
             G.GAME.blind.chips = new_chips
             G.GAME.blind.chip_text = number_format(new_chips)
             return {
-                message = "-10%!",
+                message = "-" .. card.ability.extra.reduction * 100 .. "%",
                 colour = G.C.RED,
                 card = card
             }
@@ -2021,7 +2023,7 @@ SMODS.Joker {key = 'factorial_joker',
             
             if fact_value > 1 then
                 return {
-                    message = 'X' .. n .. '!',
+                    message = 'x' .. n .. '!',
                     Xmult_mod = fact_value,
                     colour = G.C.GREEN
                 }
@@ -2109,27 +2111,28 @@ SMODS.Joker {key = 'exponential_power',
     loc_txt = {
         name = 'Exponential Power',
         text = {
-            "{X:purple,C:white}^2{} mult",
+            "{X:purple,C:white}^#1#{} mult",
         }
     },
-    config = { extra = {} },
+    config = { extra = { e_mult = 2 } },
     rarity = 'uv_super_rare',
     cost = 10,
     unlocked = true,
     discovered = true, 
     blueprint_compat = true,
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.e_mult } }
+    end,
     calculate = function(self, card, context)
         if context.joker_main then
-            if mult and (type(mult) == 'table' or mult > 1) then
-                local one = to_big(1)
-                if mult > one then
-                    return {
-                        message = '^2',
-                        Xmult_mod = mult, 
-                        colour = G.C.MULT
-                    }
-                end
-            end
+            local current_mult = mult
+            local target_mult = current_mult:pow(card.ability.extra.e_mult)
+            local x_mult_to_return = target_mult / current_mult
+            return {
+                message = '^' .. card.ability.extra.e_mult .. ' Mult',
+                Xmult_mod = x_mult_to_return,
+                colour = G.C.MULT
+            }
         end
     end
 }
@@ -2191,7 +2194,7 @@ SMODS.Joker {key = 'pear',
             local current_mult_val = card.ability.extra.current_x
             local chip_mod = (hand_chips * current_mult_val) - hand_chips
             return {
-                message = 'X' .. current_mult_val .. ' Chips',
+                message = 'x' .. current_mult_val .. ' Chips',
                 chip_mod = chip_mod,
                 colour = G.C.CHIPS
             }
@@ -2514,7 +2517,7 @@ SMODS.Joker {key = 'gangle_mask',
     calculate = function(self, card, context)
         if context.joker_main then
             return {
-                message = 'X' .. card.ability.extra.x_mult .. ' Mult',
+                message = 'x' .. card.ability.extra.x_mult .. ' Mult',
                 Xmult_mod = card.ability.extra.x_mult
             }
         end
@@ -2981,7 +2984,7 @@ SMODS.Joker {key = 'vhs_player',
     calculate = function(self, card, context)
         if context.joker_main and card.ability.extra > 1 then
             return {
-                message = 'X' .. card.ability.extra,
+                message = 'x' .. card.ability.extra,
                 chip_mod = hand_chips * (card.ability.extra - 1),
                 colour = G.C.CHIPS
             }
@@ -3281,7 +3284,7 @@ SMODS.Joker {key = 'messenger_max',
     calculate = function(self, card, context)
         if context.joker_main then
             return {
-                message = 'X' .. card.ability.x_mult,
+                message = 'x' .. card.ability.x_mult,
                 Xmult_mod = card.ability.x_mult
             }
         end
@@ -3398,7 +3401,7 @@ SMODS.Joker {key = 'x',
                 final_x_mult = card.ability.extra.base + (card_count * card.ability.extra.x_mult_per_card)
             end
             return {
-                message = 'X' .. final_x_mult .. ' Mult',
+                message = 'x' .. final_x_mult .. ' Mult',
                 Xmult_mod = final_x_mult
             }
         end
@@ -3535,9 +3538,10 @@ SMODS.Joker {key = 'watermelon_paradox',
         name = 'Watermelon Paradox',
         text = {
             "Gives {C:blue}+#1#{} Chips and {C:mult}+#2#{} Mult",
-            "At end of round, permanently",
-            "dries this Joker by {C:attention}1%{}",
-            "{C:inactive}(Current water: {C:blue}#3#% {C:inactive})"
+            "At end of round, dries {C:blue}chips{}",
+            "of this Joker by {C:attention}1%{}",
+            "while {C:mult}mult{} remains the same",
+            "{C:inactive}(Currently {C:blue}#3#%{C:inactive} chips){}"
         }
     },
     config = { dry_mass_val = 10, water_percent = 99, drier_done = false },
@@ -3748,7 +3752,7 @@ SMODS.Joker {key = 'muscle_memory',
         end
         if context.joker_main and card.ability.extra > 1 then
             return {
-                message = 'X' .. card.ability.extra,
+                message = 'x' .. card.ability.extra,
                 Xmult_mod = card.ability.extra
             }
         end
@@ -3814,9 +3818,7 @@ SMODS.Joker {key = 'turtle',
     blueprint_compat = false,
     eternal_compat = true,
     perishable_compat = false,
-    yes_pool = false, 
-    shop_pool = false,
-    shop_rate = 0.0,
+    hidden = true,
     update = function(self, card)
         if G.SETTINGS and not card.debuff then
             if G.SETTINGS.GAMESPEED ~= 0.5 then
@@ -4028,7 +4030,7 @@ SMODS.Joker {key = 'scales',
     calculate = function(self, card, context)
         if context.joker_main then
             return {
-                message = 'X' .. card.ability.extra.current_x_mult,
+                message = 'x' .. card.ability.extra.current_x_mult,
                 Xmult_mod = card.ability.extra.current_x_mult
             }
         end
@@ -4245,7 +4247,7 @@ SMODS.Joker {key = 'horseman',
             end
             if current_xmult > 1 then
                 return {
-                    message = 'X' .. current_xmult .. ' Mult',
+                    message = 'x' .. current_xmult .. ' Mult',
                     Xmult_mod = current_xmult
                 }
             end
@@ -4388,7 +4390,7 @@ SMODS.Joker {key = 'digital_green',
     loc_txt = {
         name = "Digital Green",
         text = {
-            "Played cards with {C:green}Green Seals{}",
+            "Scored cards with {C:green}Green Seals{}",
             "create a random {C:dark_edition}Negative{} {C:green}Code Card{}",
             "{C:dark_edition}Cryptid cross-mod joker{}"
         }
@@ -4425,45 +4427,6 @@ SMODS.Joker {key = 'digital_green',
                         card = card
                     }
                 end
-            end
-        end
-    end
-}
-SMODS.Joker{key = 'retrigger_test',
-    loc_txt = {
-        name = 'Retrigger test jkr',
-        text = {
-            "Does retrigger_test.",
-            "#1#"
-        }
-    },
-    rarity = 1,
-    cost = 4,
-    unlocked = true,
-    discovered = true,
-    config = { extra = { retriggers = 2 } },
-    blueprint_compat = true,
-    loc_vars = function(self, info_queue, center)
-        return { vars = { center.ability.extra.retriggers } }
-    end,
-    calculate = function(self, card, context)
-        if context.retrigger_joker_check and not context.retrigger_joker and context.other_card ~= self then
-            local my_pos = nil
-            for i = 1, #G.jokers.cards do
-                if G.jokers.cards[i] == card then
-                    other_joker = G.jokers.cards[i + 1]
-                    break
-                end
-            end
-            if other_joker and other_joker ~= card then
-                return {
-                    message = "Again!",
-                    repetitions = card.ability.extra.retriggers,
-                    card = card,
-                    colour = G.C.ATTENTION
-                }
-            else
-                return nil, true
             end
         end
     end
@@ -4532,7 +4495,7 @@ SMODS.Joker{key = 'sus',
     calculate = function(self, card, context)
         if context.joker_main then
             return {
-                message = 'X' .. card.ability.x_mult .. ' Mult',
+                message = 'x' .. card.ability.x_mult .. ' Mult',
                 Xmult_mod = card.ability.x_mult
             }
         end
@@ -4643,6 +4606,251 @@ SMODS.Joker{key = 'task_manager',
                     colour = G.C.MULT
                 }
             end
+        end
+    end
+}
+SMODS.Joker{key = 'hyper_volume',
+    config = { extra = 2 },
+    loc_txt = {
+        name = 'Hyper-Volume',
+        text = {
+            "Gives {C:chips}+#1#{} Chips for every {C:attention}Gigabyte{}",
+            "of games installed in your Steam library {C:inactive}(Drive C:)",
+            "{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips)"
+        }
+    },
+    rarity = 1,
+    cost = 4,
+    unlocked = true,
+    discovered = true,
+    blueprint_compat = true,
+    loc_vars = function(self, info, card)
+        local current_chips = G.STEAM_GAMES_GB * card.ability.extra
+        return { vars = { card.ability.extra, current_chips } }
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main then
+            local current_chips = G.STEAM_GAMES_GB * card.ability.extra
+            if current_chips > 0 then
+                return {
+                    message = '+' .. current_chips .. ' Chips',
+                    chip_mod = current_chips,
+                    colour = G.C.CHIPS
+                }
+            end
+        end
+    end
+}
+SMODS.Joker {key = 'domino',
+    loc_txt = {
+        name = 'Domino',
+        text = {
+            "Card gives {X:mult,C:white}X#1#{} Mult if",
+            "scored card is the exact same {C:attention}rank{}",
+            "and {C:attention}suit{} as the previously scored card"
+        }
+    },
+    config = { extra = { x_mult = 2 } },
+    rarity = 2,
+    cost = 6,
+    unlocked = true,
+    discovered = true,
+    blueprint_compat = true,
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.x_mult } }
+    end,
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play then
+            local scoring_hand = context.scoring_hand
+            if scoring_hand and #scoring_hand > 1 then
+                for i = 1, #scoring_hand do
+                    if scoring_hand[i] == context.other_card then
+                        if i > 1 then
+                            local prev_card = scoring_hand[i - 1]
+                            if prev_card.base.suit == context.other_card.base.suit and prev_card.base.value == context.other_card.base.value then
+                                return {
+                                    message = message,
+                                    x_mult = card.ability.extra.x_mult,
+                                    card = card
+                                }
+                            end
+                        end
+                        break
+                    end
+                end
+            end
+        end
+    end
+}
+SMODS.Joker {key = 'shredder',
+    loc_txt = {
+        name = 'Shredder',
+        text = {
+            "Destroys all scored cards",
+            "Gains {X:mult,C:white}xMult{} equal to",
+            "the ID of each destroyed card",
+            "{C:attention}enhaced{} card gives {C:attention}#2#x{} much",
+            "{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)"
+        }
+    },
+    config = { extra = { x_mult = 1, enhaced_mult = 2 } },
+    rarity = 3,
+    cost = 8,
+    unlocked = true,
+    discovered = true,
+    blueprint_compat = true,
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.x_mult, card.ability.extra.enhaced_mult } }
+    end,
+    calculate = function(self, card, context)
+        if context.destroying_card and not context.blueprint then
+            if context.scoring_hand then
+                for i = 1, #context.scoring_hand do
+                    if context.scoring_hand[i] == context.destroying_card then
+                        local card_id = context.destroying_card.base.id or 0
+                        if context.destroying_card.config.center.set == 'Enhanced' then
+                            card_id = card_id * card.ability.extra.enhaced_mult
+                        end
+                        card.ability.extra.x_mult = card.ability.extra.x_mult + card_id
+                        return true
+                    end
+                end
+            end
+        end
+        if context.joker_main and card.ability.extra.x_mult > 1 then
+            return {
+                message = 'X' .. card.ability.extra.x_mult .. ' Mult',
+                Xmult_mod = card.ability.extra.x_mult
+            }
+        end
+    end
+}
+SMODS.Joker {key = 'quantum_immortality',
+    loc_txt = {
+        name = 'Quantum Immortality',
+        text = {
+            "Gives {X:purple,C:white}^Ante{} Mult",
+            "on the {C:attention}last hand{} of round"
+        }
+    },
+    config = { extra = {} },
+    rarity = 'uv_super_rare',
+    cost = 10,
+    unlocked = true,
+    discovered = true,
+    blueprint_compat = true,
+    calculate = function(self, card, context)
+        if context.joker_main and G.GAME.current_round.hands_left == 0 then
+            local current_mult = mult
+            local ante_power = G.GAME.round_resets.ante or 1
+            local target_mult = current_mult:pow(ante_power)
+            local x_mult_to_return = target_mult / current_mult
+            return {
+                message = '^' .. ante_power .. ' Mult',
+                Xmult_mod = x_mult_to_return
+            }
+        end
+    end
+}
+SMODS.Joker {key = 'absolute_zero',
+    rarity = 'uv_super_rare',
+    cost = 10,
+    unlocked = true,
+    discovered = true,
+    blueprint_compat = false,
+    loc_txt = {
+        name = 'Absolute Zero',
+        text = {
+            "set {C:attention}blind requirement{} to {C:attention}0{} chips",
+        }
+    },
+    config = {},
+    calculate = function(self, card, context)
+        if context.setting_blind and not card.getting_sliced then
+            G.GAME.blind.chips = 0
+            G.GAME.blind.chip_text = number_format(new_chips)
+            return {
+                message = "-100% blind requirement",
+                colour = G.C.ATTENTION,
+                card = card
+            }
+        end
+    end
+}
+SMODS.Joker {key = 'bitwise_shift',
+    loc_txt = {
+        name = 'Bitwise Shift',
+        text = {
+            "shifts total {C:chips}Chips{} left by current",
+            "{C:attention}Poker Hand Level",
+            "{C:inactive}(Multiplies Chips by 2^Poker Hand Level){}"
+        }
+    },
+    config = { extra = {} },
+    rarity = 'uv_super_rare',
+    cost = 10,
+    unlocked = true,
+    discovered = true,
+    blueprint_compat = true,
+    loc_vars = function(self, info_queue, card)
+        return { vars = {} }
+    end,
+    calculate = function(self, card, context)
+        if context.final_scoring_step then
+            local hand_type = context.scoring_hand_name or G.GAME.last_hand_played
+            if hand_type and G.GAME.hands[hand_type] then
+                local hand_level = G.GAME.hands[hand_type].level or 1
+                local current_chips = hand_chips
+                local multiplier = to_big(2):pow(hand_level)
+                local target_chips = current_chips * multiplier
+                local chip_diff = target_chips - current_chips
+                return {
+                    message = '<< ' .. hand_level .. ' Chips',
+                    chip_mod = chip_diff
+                }
+            end
+        end
+    end
+}
+SMODS.Joker {key = 'bmm',
+    loc_txt = {
+        name = 'Balatro Mod Manager',
+        text = {
+            "Gives {X:mult,C:white}xMult{} equal to the",
+            "number of installed mods",
+            "{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)"
+        }
+    },
+    config = { extra = {} },
+    rarity = 2,
+    cost = 6,
+    unlocked = true,
+    discovered = true,
+    blueprint_compat = true,
+    atlas = 'bmm',
+    loc_vars = function(self, info_queue, card)
+        local mod_count = 0
+        if SMODS and SMODS.Mods then
+            for _ in pairs(SMODS.Mods) do
+                mod_count = mod_count + 1
+            end
+        end
+        if mod_count == 0 then mod_count = 1 end
+        return { vars = { mod_count - 1 } }
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main then
+            local mod_count = 0
+            if SMODS and SMODS.Mods then
+                for _ in pairs(SMODS.Mods) do
+                    mod_count = mod_count + 1
+                end
+            end
+            if mod_count <= 1 then mod_count = 1 end
+            return {
+                message = 'X' .. mod_count - 1 .. ' Mult',
+                Xmult_mod = mod_count - 1
+            }
         end
     end
 }

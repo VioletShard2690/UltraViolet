@@ -55,28 +55,6 @@ SMODS.PokerHand {key = 'two_sets',
         end
     end
 }
-SMODS.PokerHand {key = 'flush_two',
-    loc_txt = {
-        name = 'Flush Two',
-        description = { '2 cards with the same rank and suit. They may',
-                        'be played with 3 other unscored cards'
-    }
-    },
-    chips = 40,
-    mult = 4,
-    l_chips = 15,
-    l_mult = 2,
-    visible = false,
-    example = { { 'S_A', true }, { 'S_A', true }, { 'D_3', false }, { 'S_4', false }, { 'C_7', false } },
-    evaluate = function(parts, hand)
-        if #parts._2 > 0 then
-            for _, pair in ipairs(parts._2) do
-                local suit = pair[1].base.suit
-                if pair[2].base.suit == suit then return { pair } end
-            end
-        end
-    end
-}
 SMODS.PokerHand {key = 'flush_three',
     loc_txt = {
         name = 'Flush Three',

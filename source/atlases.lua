@@ -473,3 +473,8 @@ SMODS.Atlas({key = "joker_deck",
     px = 142,
     py = 190
 })
+SMODS.Atlas({key = "bmm",
+    path = "j_bmm.png",
+    px = 142,
+    py = 190
+})
