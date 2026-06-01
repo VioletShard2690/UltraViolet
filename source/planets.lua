@@ -83,49 +83,6 @@ SMODS.Consumable{key = "planet_two_sets",
         return true
     end,
 }
-SMODS.Consumable {key = "planet_flush_three",
-    set = "Planet",
-    object_type = "Consumable",
-    loc_txt = {
-        name = "Flush Three",
-        text = {
-            "({V:1}lvl.#1#{}) Level up",
-            "{C:attention}Flush Three{}",
-            "{C:mult}+#2#{} Mult and",
-            "{C:chips}+#3#{} Chips"
-        },
-    },
-    loc_vars = function(self, info_queue, card)
-        if G.GAME and G.GAME.hands and G.GAME.hands["uv_flush_three"] then
-            local hand = G.GAME.hands["uv_flush_three"]
-            return {
-                vars = {
-                    hand.level,
-                    hand.l_mult,
-                    hand.l_chips,
-                    colours = {
-                        (
-                            to_big(G.GAME.hands["uv_flush_three"].level) == to_big(1) and G.C.UI.TEXT_DARK
-                            or G.C.HAND_LEVELS[to_number(math.min(7, G.GAME.hands["uv_flush_three"].level))]
-                        ),
-                    },
-                },
-            }
-        else
-            return { vars = { 1, 3, 25 } }
-        end
-    end,
-    unlocked = true,
-    discovered = true,
-    hidden = true,
-    cost = 3,
-    use = function(self, card, area, copier)
-        SMODS.smart_level_up_hand(card, "uv_flush_three")
-    end,
-    can_use = function(self, card)
-        return true
-    end,
-}
 SMODS.Consumable {key = "planet_flush_four",
     set = "Planet",
     object_type = "Consumable",
@@ -336,6 +293,49 @@ SMODS.Consumable {key = "planet_art_gallery",
     cost = 3,
     use = function(self, card, area, copier)
         SMODS.smart_level_up_hand(card, "uv_art_gallery")
+    end,
+    can_use = function(self, card)
+        return true
+    end,
+}
+SMODS.Consumable {key = "planet_flush_1234",
+    set = "Planet",
+    object_type = "Consumable",
+    loc_txt = {
+        name = "Flush 1234",
+        text = {
+            "({V:1}lvl.#1#{}) Level up",
+            "{C:attention}Flush 1234{}",
+            "{C:mult}+#2#{} Mult and",
+            "{C:chips}+#3#{} Chips"
+        },
+    },
+    loc_vars = function(self, info_queue, card)
+        if G.GAME and G.GAME.hands and G.GAME.hands["uv_flush_1234"] then
+            local hand = G.GAME.hands["uv_flush_1234"]
+            return {
+                vars = {
+                    hand.level,
+                    hand.l_mult,
+                    hand.l_chips,
+                    colours = {
+                        (
+                            to_big(G.GAME.hands["uv_flush_1234"].level) == to_big(1) and G.C.UI.TEXT_DARK
+                            or G.C.HAND_LEVELS[to_number(math.min(7, G.GAME.hands["uv_flush_1234"].level))]
+                        ),
+                    },
+                },
+            }
+        else
+            return { vars = { 1, 4, 40 } }
+        end
+    end,
+    unlocked = true,
+    discovered = true,
+    hidden = true,
+    cost = 3,
+    use = function(self, card, area, copier)
+        SMODS.smart_level_up_hand(card, "uv_flush_1234")
     end,
     can_use = function(self, card)
         return true

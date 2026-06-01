@@ -407,7 +407,7 @@ SMODS.Joker {key = 'broken_brick',
     loc_txt = {
          name = 'Broken Brick',
           text = {
-             "{C:mult}+5{} mult" 
+             "{C:mult}+#1#{} mult" 
             } 
         },
     config = { extra = 5 },
@@ -417,6 +417,10 @@ SMODS.Joker {key = 'broken_brick',
     atlas = "broken_brick",
     unlocked = true,
     discovered = true,
+    hidden = true,
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra } }
+    end,
     calculate = function(self, card, context)
         if context.joker_main then
             return { mult = card.ability.extra }
@@ -427,7 +431,7 @@ SMODS.Joker {key = 'brick',
     loc_txt = {
         name = 'Brick',
         text = {
-            "{X:mult,C:white} X2 {} Mult",
+            "{X:mult,C:white}X#3#{} Mult",
             "{C:green}#1# in #2#{} chance to be cracked",
             "at end of round"
         }
@@ -440,8 +444,7 @@ SMODS.Joker {key = 'brick',
     discovered = true,
     loc_vars = function(self, info_queue, card)
         return { vars = { 
-            (G.GAME and G.GAME.probabilities.normal or 1), 
-            (card and card.ability and card.ability.chance or 4) 
+            G.GAME.probabilities.normal, card.ability.chance, card.ability.extra
         } }
     end,
  calculate = function(self, card, context)
@@ -627,33 +630,6 @@ SMODS.Joker {key = 'joker_lua',
         end
     end
 }
-SMODS.Joker{key = "russian_alphabet",
-    config = { x_mult = 33 }, 
-    rarity = "uv_super_rare",
-    cost = 12,
-    blueprint_compat = true,
-    eternal_compat = true,
-    unlocked = true,
-    discovered = true,
-    atlas = 'russian_alphabet',
-        loc_txt = {
-                name = "Russian Alphabet",
-                text = { 
-                    "{X:mult,C:white}33{} letters"
-                }
-            },
-    loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.x_mult } }
-    end,
-    calculate = function(self, card, context)
-        if context.joker_main then
-            return {
-                message = 'x' .. card.ability.x_mult,
-                Xmult_mod = card.ability.x_mult
-            }
-        end
-    end
-}
 SMODS.Joker {key = 'lucky_block',
     loc_txt = {
         name = 'Lucky Block',
@@ -816,7 +792,7 @@ SMODS.Joker {key = 'exponential_growth',
     }
  },
     rarity = "uv_super_rare",
-    cost = 12,
+    cost = 15,
     atlas = 'exponential_growth',
     unlocked = true,
     discovered = true,
@@ -1253,7 +1229,7 @@ SMODS.Joker{key = "small_joker",
     display_size = { w = 10000000, h = 10000000 },
 }
 SMODS.Joker{key = "code_joker", -- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    config = { extra = { gain = 0.1, mult = 4791 } },
+    config = { extra = { gain = 0.1, mult = 4830 } },
     rarity = 3,
     cost = 8,
     blueprint_compat = true,
@@ -1868,7 +1844,7 @@ SMODS.Joker {key = 'math_chaos',
         }
     },
     rarity = 'uv_super_rare',
-    cost = 10,
+    cost = 15,
     blueprint_compat = true,
     unlocked = true,
     discovered = true,
@@ -2116,7 +2092,7 @@ SMODS.Joker {key = 'exponential_power',
     },
     config = { extra = { e_mult = 2 } },
     rarity = 'uv_super_rare',
-    cost = 10,
+    cost = 15,
     unlocked = true,
     discovered = true, 
     blueprint_compat = true,
@@ -4098,7 +4074,7 @@ SMODS.Joker {key = 'alchemist',
 } 
 SMODS.Joker {key = 'milky_way',
     rarity = 'uv_super_rare',
-    cost = 10,
+    cost = 15,
     unlocked = true,
     discovered = true,
     blueprint_compat = true,
@@ -4481,7 +4457,7 @@ SMODS.Joker{key = 'sus',
         text = {
             "Gives {X:mult,C:white}x#1#{} Mult.",
             "At the end of round, {C:green}#2# in #3#{} chance",
-            "to open a special link"
+            "to rickroll you"
         }
     },
     rarity = 2,
@@ -4735,7 +4711,7 @@ SMODS.Joker {key = 'quantum_immortality',
     },
     config = { extra = {} },
     rarity = 'uv_super_rare',
-    cost = 10,
+    cost = 15,
     unlocked = true,
     discovered = true,
     blueprint_compat = true,
@@ -4754,7 +4730,7 @@ SMODS.Joker {key = 'quantum_immortality',
 }
 SMODS.Joker {key = 'absolute_zero',
     rarity = 'uv_super_rare',
-    cost = 10,
+    cost = 15,
     unlocked = true,
     discovered = true,
     blueprint_compat = false,
@@ -4772,7 +4748,7 @@ SMODS.Joker {key = 'absolute_zero',
             return {
                 message = "-100% blind requirement",
                 colour = G.C.ATTENTION,
-                card = card
+                card = card,
             }
         end
     end
@@ -4781,14 +4757,12 @@ SMODS.Joker {key = 'bitwise_shift',
     loc_txt = {
         name = 'Bitwise Shift',
         text = {
-            "shifts total {C:chips}Chips{} left by current",
-            "{C:attention}Poker Hand Level",
-            "{C:inactive}(Multiplies Chips by 2^Poker Hand Level){}"
+            "Gives {X:green,C:white}<<Poker Hand Level{} Chips"
         }
     },
     config = { extra = {} },
     rarity = 'uv_super_rare',
-    cost = 10,
+    cost = 15,
     unlocked = true,
     discovered = true,
     blueprint_compat = true,

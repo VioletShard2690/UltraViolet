@@ -55,30 +55,6 @@ SMODS.PokerHand {key = 'two_sets',
         end
     end
 }
-SMODS.PokerHand {key = 'flush_three',
-    loc_txt = {
-        name = 'Flush Three',
-        description = { '3 cards with the same rank and suit. They may',
-                        'be played with 2 other unscored cards'
-    }
-    },
-    chips = 80,
-    mult = 8,
-    l_chips = 25,
-    l_mult = 3,
-    visible = false,
-    example = { { 'H_K', true }, { 'H_K', true }, { 'H_K', true }, { 'S_4', false }, { 'C_7', false } },
-    evaluate = function(parts, hand)
-        if #parts._3 > 0 then
-            for _, three in ipairs(parts._3) do
-                local suit = three[1].base.suit
-                if three[2].base.suit == suit and three[3].base.suit == suit then 
-                    return { three } 
-                end
-            end
-        end
-    end
-}
 SMODS.PokerHand {key = 'flush_four',
     loc_txt = {
         name = 'Flush Four',
@@ -97,6 +73,7 @@ SMODS.PokerHand {key = 'flush_four',
     { 'S_A', true },
     { 'D_3', false } },
     evaluate = function(parts, hand)
+        if not next(SMODS.find_card('j_four_fingers')) then return end
         if #parts._4 > 0 then
             for _, four in ipairs(parts._4) do
                 local suit = four[1].base.suit
@@ -148,6 +125,7 @@ SMODS.PokerHand {key = 'flush_two_pair',
         { 'D_7', false }
     },
     evaluate = function(parts, hand)
+        if not next(SMODS.find_card('j_four_fingers')) then return end
         if parts._2 and #parts._2 >= 2 then
             local scoring_cards = {}
             for i = 1, 2 do
@@ -236,5 +214,56 @@ SMODS.PokerHand {key = 'art_gallery',
             end
         end
         return {hand}
+    end
+}
+SMODS.PokerHand {key = 'flush_1234',
+    loc_txt = {
+        name = 'Flush 1234',
+        description = {
+            'One 2 and three 4 sharing the same suit'
+        }
+    },
+    visible = false,
+    chips = 200,
+    mult = 15,
+    l_chips = 40,
+    l_mult = 4,
+    example = {
+        { 'S_2',    true },
+        { 'S_4',    true },
+        { 'S_4',    true },
+        { 'S_4',    true },
+    },
+    unlocked = true,
+    discovered = true,
+    evaluate = function(parts, hand)
+        if not next(SMODS.find_card('j_four_fingers')) then return end
+        local twos = {}
+        local fours = {}
+        for i = 1, #hand do
+            if hand[i]:get_id() == 2 then 
+                table.insert(twos, hand[i])
+            elseif hand[i]:get_id() == 4 then 
+                table.insert(fours, hand[i])
+            end
+        end
+        if #twos == 1 and #fours == 3 and #hand == 4 then
+            local target_suit = twos[1].base.suit
+            local is_flush = true
+            for _, card in ipairs(fours) do
+                if card.base.suit ~= target_suit then
+                    is_flush = false
+                    break
+                end
+            end
+            if is_flush then
+                local scoring_cards = {}
+                table.insert(scoring_cards, twos[1])
+                for _, c in ipairs(fours) do 
+                    table.insert(scoring_cards, c) 
+                end
+                return { scoring_cards }
+            end
+        end
     end
 }

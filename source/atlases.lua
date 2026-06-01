@@ -103,11 +103,6 @@ SMODS.Atlas({key = "right_to_choose",
     px = 142,
     py = 190
 })
-SMODS.Atlas({key = "russian_alphabet",
-    path = "j_russian_alphabet.png",
-    px = 142,
-    py = 190
-})
 SMODS.Atlas({key = "doomsday",
     path = "j_doomsday.png",
     px = 142,

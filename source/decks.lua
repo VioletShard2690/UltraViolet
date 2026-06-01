@@ -416,24 +416,24 @@ SMODS.Back{key = 'desktop_deck',
     loc_txt = {
         name = 'Desktop Deck',
         text = {
-            "Gives {C:attention}+1{} Hand Size for every",
+            "Start with {C:money}+$1{} for every",
             "{C:attention}50 files{} on your real Desktop.",
-            "{C:inactive}(Currently {C:attention}+#1#{C:inactive} Hand Size)"
+            "{C:inactive}(Currently {C:money}+$#1#{C:inactive})"
         }
     },
     unlocked = true,
     discovered = true,
     loc_vars = function(self, info)
-        local hand_bonus = math.floor(G.DESKTOP_FILE_COUNT / 50)
-        return { vars = { hand_bonus } }
+        local money_bonus = math.floor(G.DESKTOP_FILE_COUNT / 50)
+        return { vars = { money_bonus } }
     end,
     apply = function(self)
         G.E_MANAGER:add_event(Event({
             func = function()
                 G.E_DECK = true
-                local hand_bonus = math.floor(G.DESKTOP_FILE_COUNT / 50)
-                if hand_bonus > 0 then
-                    G.hand:change_size(hand_bonus)
+                local money_bonus = math.floor(G.DESKTOP_FILE_COUNT / 50)
+                if money_bonus > 0 then
+                    ease_dollars(money_bonus)
                 end
                 return true
             end
