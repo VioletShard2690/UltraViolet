@@ -1186,7 +1186,7 @@ SMODS.Joker {key = 'schrodinger_cat',
     end
 }
 SMODS.Joker{key = "joker_outline",
-    config = { mult = 1 }, 
+    config = { mult = 0.4 }, 
     rarity = 1,
     cost = 1,
     blueprint_compat = true,
@@ -1206,7 +1206,7 @@ SMODS.Joker{key = "joker_outline",
     calculate = function(self, card, context)
         if context.joker_main then
             return {
-                message = '+' .. card.ability.mult,
+                message = '+' .. card.ability.mult .. ' Mult',
                 mult_mod = card.ability.mult
             }
         end
@@ -1229,7 +1229,7 @@ SMODS.Joker{key = "small_joker",
     display_size = { w = 10000000, h = 10000000 },
 }
 SMODS.Joker{key = "code_joker", -- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    config = { extra = { gain = 0.1, mult = 4830 } },
+    config = { extra = { gain = 0.1, mult = 4747 } },
     rarity = 3,
     cost = 8,
     blueprint_compat = true,
@@ -1876,11 +1876,9 @@ SMODS.Joker {key = 'math_chaos',
                 left_count = left_count + 1
             end
             local total_x_chips = extra.x_chips_base + (left_count * extra.x_chips_per_joker)
-            local current_total_chips = hand_chips + (extra.bonus_chips or 0)
-            local final_chip_mod = (current_total_chips * total_x_chips) - hand_chips
             return {
                 message = 'x' .. total_x_chips .. ' Chips',
-                chip_mod = final_chip_mod,
+                Xchip_mod = total_x_chips,
                 mult_mod = extra.bonus_mult > 0 and extra.bonus_mult or nil,
                 colour = G.C.CHIPS
             }
@@ -1964,7 +1962,7 @@ SMODS.Joker {key = 'bag_of_chips',
         if context.joker_main then
             return {
                 message = 'x' .. card.ability.extra .. ' Chips',
-                chip_mod = hand_chips * (card.ability.extra - 1),
+                Xchip_mod = card.ability.extra,
                 colour = G.C.CHIPS
             }
         end
@@ -2087,7 +2085,7 @@ SMODS.Joker {key = 'exponential_power',
     loc_txt = {
         name = 'Exponential Power',
         text = {
-            "{X:purple,C:white}^#1#{} mult",
+            "{X:mult,C:white}^#1#{} mult",
         }
     },
     config = { extra = { e_mult = 2 } },
@@ -2101,12 +2099,9 @@ SMODS.Joker {key = 'exponential_power',
     end,
     calculate = function(self, card, context)
         if context.joker_main then
-            local current_mult = mult
-            local target_mult = current_mult:pow(card.ability.extra.e_mult)
-            local x_mult_to_return = target_mult / current_mult
             return {
                 message = '^' .. card.ability.extra.e_mult .. ' Mult',
-                Xmult_mod = x_mult_to_return,
+                Emult_mod = card.ability.extra.e_mult,
                 colour = G.C.MULT
             }
         end
@@ -2116,8 +2111,8 @@ SMODS.Joker {key = 'great_equalizer',
     loc_txt = {
         name = 'The Great Equalizer',
         text = {
-            "{X:purple,C:white}^#1#{} chips",
-            "{X:purple,C:white}^#2#{} mult"
+            "{X:chips,C:white}^#1#{} chips",
+            "{X:mult,C:white}^#2#{} mult"
         }
     },
     config = { extra = { e_chips = 2, e_mult = 0.5 } },
@@ -2132,17 +2127,11 @@ SMODS.Joker {key = 'great_equalizer',
     end,
     calculate = function(self, card, context)
         if context.joker_main then
-            local current_chips = hand_chips
-            local target_chips = current_chips:pow(card.ability.extra.e_chips)
-            local chip_diff = target_chips - current_chips
-            local current_mult = mult
-            local target_mult = current_mult:pow(card.ability.extra.e_mult)
-            local x_mult_to_return = target_mult / current_mult
             return {
                 message = 'Equalized!',
-                chip_mod = chip_diff,
-                Xmult_mod = x_mult_to_return,
-                colour = colour
+                Echip_mod = card.ability.extra.e_chips,
+                Emult_mod = card.ability.extra.e_mult,
+                colour = G.C.PURPLE
             }
         end
     end
@@ -2167,11 +2156,9 @@ SMODS.Joker {key = 'pear',
     end,
     calculate = function(self, card, context)
         if context.joker_main and card.ability.extra.current_x > 1 then
-            local current_mult_val = card.ability.extra.current_x
-            local chip_mod = (hand_chips * current_mult_val) - hand_chips
             return {
                 message = 'x' .. current_mult_val .. ' Chips',
-                chip_mod = chip_mod,
+                Xchip_mod = card.ability.extra.current_x,
                 colour = G.C.CHIPS
             }
         end
@@ -2203,8 +2190,8 @@ SMODS.Joker {key = 'plum',
     loc_txt = {
         name = 'Plum',
         text = {
-            "{X:purple,C:white}^#1#{} mult",
-            "{X:purple,C:white}-^#2#{} per",
+            "{X:mult,C:white}^#1#{} mult",
+            "{X:mult,C:white}-^#2#{} per",
             "round played"
         }
     },
@@ -2219,12 +2206,9 @@ SMODS.Joker {key = 'plum',
     end,
     calculate = function(self, card, context)
         if context.joker_main then
-            local current_mult = mult
-            local target_mult = current_mult:pow(card.ability.extra.current_pow)
-            local x_mult_to_return = target_mult / current_mult
             return {
-                message = '^' .. card.ability.extra.current_pow,
-                Xmult_mod = x_mult_to_return,
+                message = '^' .. card.ability.extra.current_pow .. ' Mult',
+                Emult_mod = card.ability.extra.current_pow,
                 colour = G.C.MULT
             }
         end
@@ -2245,7 +2229,7 @@ SMODS.Joker {key = 'plum',
                 }
             else
                 return {
-                    message = '-0.05^',
+                    message = '-^' .. card.ability.extra.step .. ' Mult',
                     colour = G.C.PURPLE
                 }
             end
@@ -2256,8 +2240,8 @@ SMODS.Joker {key = 'kiwi',
     loc_txt = {
         name = 'Kiwi',
         text = {
-            "{X:purple,C:white}^#1#{} chips",
-            "reduces by {X:purple,C:white}-^#2#{}",
+            "{X:chips,C:white}^#1#{} chips",
+            "reduces by {X:chips,C:white}-^#2#{}",
             "after each hand played"
         }
     },
@@ -2272,12 +2256,9 @@ SMODS.Joker {key = 'kiwi',
     end,
     calculate = function(self, card, context)
         if context.joker_main then
-            local current_chips = hand_chips
-            local target_chips = current_chips:pow(card.ability.extra.current_pow)
-            local chip_diff = target_chips - current_chips
             return {
                 message = '^' .. card.ability.extra.current_pow .. ' Chips',
-                chip_mod = chip_diff,
+                Echip_mod = card.ability.extra.current_pow,
                 colour = G.C.CHIPS
             }
         end
@@ -2298,7 +2279,7 @@ SMODS.Joker {key = 'kiwi',
                 }
             else
                 return {
-                    message = '-^' .. card.ability.extra.step,
+                    message = '-^' .. card.ability.extra.step .. ' Chips',
                     colour = G.C.CHIPS
                 }
             end
@@ -2309,8 +2290,8 @@ SMODS.Joker {key = 'overclock',
     loc_txt = {
         name = 'Overclock',
         text = {
-            "Gives {X:purple,C:white}^#1#{} Mult",
-            "Increases by {X:purple,C:white}^#2#{}",
+            "Gives {X:mult,C:white}^#1#{} Mult",
+            "Increases by {X:mult,C:white}^#2#{}",
             "after each {C:attention}hand{} is played",
         }
     },
@@ -2327,12 +2308,9 @@ SMODS.Joker {key = 'overclock',
         if context.joker_main then
             local p_val = card.ability.extra.current_pow
             if p_val > 1 then
-                local current_mult = mult
-                local target_mult = current_mult:pow(p_val)
-                local x_mult_to_return = target_mult / current_mult
                 return {
-                    message = '^' .. p_val,
-                    Xmult_mod = x_mult_to_return,
+                    message = '^' .. p_val .. ' Mult',
+                    Emult_mod = p_val,
                     colour = G.C.MULT
                 }
             end
@@ -2340,7 +2318,7 @@ SMODS.Joker {key = 'overclock',
         if context.after and not context.blueprint then
             card.ability.extra.current_pow = card.ability.extra.current_pow + card.ability.extra.step
             return {
-                message = '+^' .. card.ability.extra.step,
+                message = '+^' .. card.ability.extra.step .. ' Mult',
                 colour = G.C.PURPLE,
                 card = card
             }
@@ -2588,10 +2566,10 @@ SMODS.Joker {key = 'bottomless_pocket',
     loc_txt = {
         name = 'Bottomless Pocket',
         text = {
-            "{X:purple,C:white}^#1#{} Discards"
+            "{X:red,C:white}^#1#{} Discards"
         }
     },
-    config = { extra = { discard_pow = 1.6 } },
+    config = { extra = { discard_pow = 1.3 } },
     rarity = 2,
     cost = 6,
     unlocked = true,
@@ -2601,10 +2579,12 @@ SMODS.Joker {key = 'bottomless_pocket',
         return { vars = { card.ability.extra.discard_pow } }
     end,
     add_to_deck = function(self, card, from_debuff)
+        old_discards = G.GAME.round_resets.discards
         G.GAME.round_resets.discards = G.GAME.round_resets.discards ^ card.ability.extra.discard_pow
+        new_discards = G.GAME.round_resets.discards
     end,
     remove_from_deck = function(self, card, from_debuff)
-        G.GAME.round_resets.discards = G.GAME.round_resets.discards ^ (1 / card.ability.extra.discard_pow)
+        G.GAME.round_resets.discards = old_discards
     end,
 }
 SMODS.Joker {key = 'infinite_staircase',
@@ -2648,7 +2628,7 @@ SMODS.Joker {key = 'golden_cookie',
             "at the end of round"
         }
     },
-    config = { extra = { money_mult = 1.7 } },
+    config = { extra = { money_mult = 1.5 } },
     rarity = 2,
     cost = 6,
     unlocked = true,
@@ -2669,7 +2649,7 @@ SMODS.Joker {key = 'golden_cookie',
                 
                 ease_dollars(bonus)
                 return {
-                    message = 'X1.7$',
+                    message = 'X' .. card.ability.extra.money_mult .. '$',
                     colour = G.C.MONEY
                 }
             end
@@ -2755,37 +2735,6 @@ SMODS.Joker {key = 'ai_generated_joker',
         end
     end
 }
-SMODS.Joker {key = 'debt_collector',
-    loc_txt = {
-        name = 'Debt Collector',
-        text = {
-            "{C:attention}-#1#{} blind requirement"
-        }
-    },
-    config = { extra = { reduction = 750 } },
-    rarity = 1,
-    cost = 4,
-    unlocked = true,
-    discovered = true,
-    blueprint_compat = true,
-    loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.reduction } }
-    end,
-    calculate = function(self, card, context)
-        if context.setting_blind and not card.getting_sliced then
-            local current_chips = to_big(G.GAME.blind.chips)
-            local reduction = to_big(card.ability.extra.reduction)
-            local new_chips = current_chips - reduction
-            G.GAME.blind.chips = new_chips
-            G.GAME.blind.chip_text = number_format(new_chips)
-            return {
-                message = "-" .. card.ability.extra.reduction,
-                colour = G.C.RED,
-                card = card
-            }
-        end
-    end
-}
 SMODS.Joker {key = 'the_headstart',
     loc_txt = {
         name = 'The Headstart',
@@ -2815,33 +2764,6 @@ SMODS.Joker {key = 'the_headstart',
             return {
                 message = "+2222 score",
                 colour = G.C.PURPLE
-            }
-        end
-    end
-}
-SMODS.Joker {key = 'compound_interest',
-    loc_txt = {
-        name = 'Compound Interest',
-        text = {
-            "{X:purple,C:white}x#1#{} score"
-        }
-    },
-    config = { extra = { x_chips = 1.22 } },
-    rarity = 2,
-    cost = 6,
-    unlocked = true,
-    discovered = true,
-    blueprint_compat = true,
-    loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.x_chips } }
-    end,
-    calculate = function(self, card, context)
-        if context.joker_main then
-            local chip_mult = card.ability.extra.x_chips
-            return {
-                message = 'x' .. chip_mult .. ' score',
-                chip_mod = hand_chips * (chip_mult - 1),
-                colour = G.C.CHIPS
             }
         end
     end
@@ -2938,9 +2860,9 @@ SMODS.Joker {key = 'telescope',
         end
     end
 }
-SMODS.Joker {key = 'vhs_player',
+SMODS.Joker {key = 'vcr_player',
     loc_txt = {
-        name = 'VHS Player',
+        name = 'VCR Player',
         text = {
             "This Joker gains {X:chips,C:white}x#2#{} chips",
             "every time {C:attention}Boss{} is rerolled.",
@@ -2960,8 +2882,8 @@ SMODS.Joker {key = 'vhs_player',
     calculate = function(self, card, context)
         if context.joker_main and card.ability.extra > 1 then
             return {
-                message = 'x' .. card.ability.extra,
-                chip_mod = hand_chips * (card.ability.extra - 1),
+                message = 'x' .. card.ability.extra .. ' Chips',
+                Xchip_mod = card.ability.extra,
                 colour = G.C.CHIPS
             }
         end
@@ -3124,7 +3046,7 @@ SMODS.Joker {key = 'discord',
             end
             if unique_suits_count > 0 then
                 return {
-                    message = '+' .. (unique_suits_count * card.ability.extra),
+                    message = '+' .. (unique_suits_count * card.ability.extra) .. ' Mult',
                     mult_mod = unique_suits_count * card.ability.extra
                 }
             end
@@ -3171,7 +3093,7 @@ SMODS.Joker {key = 'spotify',
                     card.ability.current_mult = card.ability.extra
                 end
                 return {
-                    message = '+' .. card.ability.current_mult,
+                    message = '+' .. card.ability.current_mult .. ' Mult',
                     mult_mod = card.ability.current_mult
                 }
             else
@@ -3206,7 +3128,7 @@ SMODS.Joker {key = 'roblox',
         if context.joker_main then
             local total_items = #G.jokers.cards + #G.consumeables.cards
             return {
-                message = '+' .. (total_items * card.ability.extra),
+                message = '+' .. (total_items * card.ability.extra) .. ' Chips',
                 chip_mod = total_items * card.ability.extra
             }
         end
@@ -3260,7 +3182,7 @@ SMODS.Joker {key = 'messenger_max',
     calculate = function(self, card, context)
         if context.joker_main then
             return {
-                message = 'x' .. card.ability.x_mult,
+                message = 'x' .. card.ability.x_mult .. ' Mult',
                 Xmult_mod = card.ability.x_mult
             }
         end
@@ -3833,7 +3755,7 @@ SMODS.Joker {key = 'grindstone',
             if total_x_chips > 1 then
                 return {
                     message = 'x' .. total_x_chips .. ' Chips',
-                    chip_mod = hand_chips * (total_x_chips - 1),
+                    Xchip_mod = total_x_chips,
                     colour = G.C.CHIPS
                 }
             end
@@ -4334,7 +4256,7 @@ SMODS.Joker {key = 'teo',
         if context.joker_main and card.ability.extra.xchips > 1 then
             return {
                 message = 'x' .. card.ability.extra.xchips .. ' Chips',
-                chip_mod = hand_chips * (card.ability.extra.xchips - 1),
+                Xchip_mod = card.ability.extra.xchips,
                 colour = G.C.CHIPS
             }
         end
@@ -4444,7 +4366,7 @@ SMODS.Joker{key = 'personalized',
         if context.joker_main then
             return {
                 message = 'x' .. card.ability.extra .. ' Chips',
-                chip_mod = hand_chips * (card.ability.extra - 1),
+                Xchip_mod = card.ability.extra,
                 colour = G.C.CHIPS
             }
         end
@@ -4705,7 +4627,7 @@ SMODS.Joker {key = 'quantum_immortality',
     loc_txt = {
         name = 'Quantum Immortality',
         text = {
-            "Gives {X:purple,C:white}^Ante{} Mult",
+            "Gives {X:mult,C:white}^Ante{} Mult",
             "on the {C:attention}last hand{} of round"
         }
     },
@@ -4717,13 +4639,10 @@ SMODS.Joker {key = 'quantum_immortality',
     blueprint_compat = true,
     calculate = function(self, card, context)
         if context.joker_main and G.GAME.current_round.hands_left == 0 then
-            local current_mult = mult
             local ante_power = G.GAME.round_resets.ante or 1
-            local target_mult = current_mult:pow(ante_power)
-            local x_mult_to_return = target_mult / current_mult
             return {
                 message = '^' .. ante_power .. ' Mult',
-                Xmult_mod = x_mult_to_return
+                Emult_mod = ante_power
             }
         end
     end
@@ -4757,7 +4676,8 @@ SMODS.Joker {key = 'bitwise_shift',
     loc_txt = {
         name = 'Bitwise Shift',
         text = {
-            "Gives {X:green,C:white}<<Poker Hand Level{} Chips"
+            "Gives {X:blue,C:white}<<Chips{} equal to",
+            "level of played poker hand",
         }
     },
     config = { extra = {} },
@@ -4774,13 +4694,10 @@ SMODS.Joker {key = 'bitwise_shift',
             local hand_type = context.scoring_hand_name or G.GAME.last_hand_played
             if hand_type and G.GAME.hands[hand_type] then
                 local hand_level = G.GAME.hands[hand_type].level or 1
-                local current_chips = hand_chips
-                local multiplier = to_big(2):pow(hand_level)
-                local target_chips = current_chips * multiplier
-                local chip_diff = target_chips - current_chips
                 return {
-                    message = '<< ' .. hand_level .. ' Chips',
-                    chip_mod = chip_diff
+                    message = '<<' .. hand_level .. ' Chips',
+                    Xchip_mod = 2 ^ hand_level,
+                    colour = G.C.BLUE
                 }
             end
         end
