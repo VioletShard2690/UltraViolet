@@ -1778,12 +1778,9 @@ SMODS.Joker {key = 'bear_skeleton',
     end,
     calculate = function(self, card, context)
         if context.joker_main then
-            local exponent = (G.GAME.current_round.hands_played or 0) + 1
-            local final_x_mult = math.pow(card.ability.extra.base, exponent)
-
             return {
-                message = message,
-                x_mult = final_x_mult,
+                message = 'x' .. card.ability.extra.base ^ ((G.GAME.current_round.hands_played or 0) + 1) .. ' Mult',
+                Xmult_mod = card.ability.extra.base ^ ((G.GAME.current_round.hands_played or 0) + 1),
                 colour = G.C.MULT
             }
         end
