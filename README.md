@@ -20,7 +20,7 @@ bmm is also give bonus based on how much mods you have, but i dont very sure abo
 # what this mod adds?
 currently it adds:
 
-126 Jokers
+123 Jokers, 6 of them with new rarity - Super rare
 
 18 Decks
 
@@ -28,7 +28,7 @@ currently it adds:
 
 8 pokerhands/planets
 
-23 Deck cards (new consumable)
+22 Deck cards (new consumable)
 
 5 boosterpacks
 
