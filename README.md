@@ -22,7 +22,7 @@ currently it adds:
 
 123 Jokers, 6 of them with new rarity - Super rare
 
-18 Decks
+19 Decks
 
 6 Vouchers
 

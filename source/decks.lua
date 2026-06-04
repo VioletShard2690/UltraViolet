@@ -280,10 +280,7 @@ SMODS.Back {key = 'light_blue_deck',
     apply = function(self)
         G.E_MANAGER:add_event(Event({
             func = function()
-                G.GAME.modifiers.consumable_slots = (G.GAME.modifiers.consumable_slots or 2) + 1
-                if G.consumeables then 
-                    G.consumeables.config.card_limit = G.GAME.modifiers.consumable_slots 
-                end
+                G.consumeables.config.card_limit = G.consumeables.config.card_limit + 1
                 return true
             end
         }))
@@ -293,18 +290,88 @@ SMODS.Back {key = 'rainbow_deck',
     loc_txt = {
         name = 'Rainbow Deck',
         text = {
+            "{C:red}+1{} discard",
+            "{C:blue}+1{} hand",
+            "{C:attention}+1{} ante",
+            "{C:attention}+1{} consumeable slot",
             "{C:attention}+1{} joker slot",
-            "every round"
+            "{C:attention}+1{} round",
+            "{C:attention}+1{} card slot in the shop",
+            "{C:money}+$1{}",
+            "{C:attention}+1{} voucher slot",
+            "{C:attention}+1{} booster slot",
+            "{C:blue}+1{} card play limit",
+            "{C:red}+1{} card discard limit",
+            "{C:attention}+1{} hand size",
+            "{C:attention}+1{} ante to win",
+            "{C:money}+$1{} per hand",
+            "{C:money}+$1{} per discard",
+            "{C:money}+$1{} of interest",
+            "{C:mult}+1{} mult",
+            "{C:blue}+1{} chip",
+            "{C:green}+1{} probability",
+            "{C:money}+$1{} reroll cost",
+            "{C:attention}+1{} retrigger for each card",
+            "{C:attention}+1{} cost of items in shop",
+            "{C:attention}+1{} boss blind in ante",
+            "{C:attention}+1{} level to all hands"
         }
     },
     atlas = 'rainbow_deck',
     apply = function(self)
         G.E_MANAGER:add_event(Event({
             func = function()
+                ease_discard(1)
+                ease_hands_played(1)
+                ease_ante(1)
+                G.consumeables.config.card_limit = G.consumeables.config.card_limit + 1
                 G.jokers.config.card_limit = G.jokers.config.card_limit + 1
+                ease_round(1)
+                change_shop_size(1)
+                ease_dollars(1)
+                SMODS.change_voucher_limit(1)
+                SMODS.change_booster_limit(1)
+                SMODS.change_play_limit(1)
+                SMODS.change_discard_limit(1)
+                G.hand:change_size(1)
+                G.GAME.win_ante = 9
+                G.GAME.modifiers.money_per_hand = 2
+                G.GAME.modifiers.money_per_discard = 1
+                G.GAME.interest_amount = G.GAME.interest_amount + 1
+                G.GAME.probabilities.normal = G.GAME.probabilities.normal + 1
+                G.GAME.round_resets.reroll_cost = G.GAME.round_resets.reroll_cost + 1
+                G.GAME.inflation = 1
+                G.GAME.round_resets.blind_choices.Big = get_new_boss()
+                if G.FUNCS and G.FUNCS.set_blind_select and G.STATE == G.STATES.BLIND_SELECT then 
+                    G.FUNCS.set_blind_select()
+                end
+                for k, v in pairs(G.GAME.hands) do
+                    level_up_hand(nil, k, true, 1)
+                end
                 return true
             end
         }))
+    end,
+    calculate = function(self, card, context)
+        if context.main_scoring then
+            return {
+                mult = 1,
+                chips = 1,
+                update = true
+            }
+        end
+        if context.repetition and context.cardarea == G.play then
+            if context.scoring_hand then
+                for i = 1, #context.scoring_hand do
+                    return {
+                        message = 'Again!',
+                        repetitions = 1,
+                        card = card,
+                        update = true
+                    }
+                end
+            end
+        end
     end
 }
 SMODS.Back {key = 'sandbox_deck',
@@ -356,15 +423,12 @@ SMODS.Back{key = 'chimps_deck',
     apply = function(self)
         G.E_MANAGER:add_event(Event({
             func = function()
-            G.GAME.modifiers.consumable_slots = (G.GAME.modifiers.consumable_slots or 2) - 2
-                if G.consumeables then 
-                    G.consumeables.config.card_limit = G.GAME.modifiers.consumable_slots 
-                end
-            G.GAME.round_resets.hands = 1
+            G.consumeables.config.card_limit = G.consumeables.config.card_limit - 2
+            ease_hands_played(-3)
             G.GAME.modifiers.no_interest = true
             G.GAME.win_ante = 10
             G.GAME.modifiers.cry_price_mod = (G.GAME.modifiers.cry_price_mod or 1) * 2
-            G.GAME.dollars = -10
+            ease_dollars(-14)
             G.hand:change_size(-1)
             return true
         end}))
@@ -435,6 +499,34 @@ SMODS.Back{key = 'desktop_deck',
                 if money_bonus > 0 then
                     ease_dollars(money_bonus)
                 end
+                return true
+            end
+        }))
+    end
+}
+SMODS.Back{key = 'supermarket_deck',
+    loc_txt = {
+        name = "Supermarket Deck",
+        text = {
+            "blind gives no money from {C:blue}hands{}",
+            "and {C:attention}interest",
+            "{C:attention}+2 voucher{} slots",
+            "{C:attention}+1 booster{} slot",
+            "{C:attention}+3 card{} slots in the shop",
+            "rerolls cost {C:red}$3{} less"
+        }
+    },
+    unlocked = true,
+    discovered = true,
+    apply = function(self)
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                SMODS.change_voucher_limit(2)
+                SMODS.change_booster_limit(1)
+                G.GAME.modifiers.no_interest = true
+                G.GAME.modifiers.money_per_hand = 0
+                change_shop_size(3)
+                G.GAME.round_resets.reroll_cost = G.GAME.round_resets.reroll_cost - 3
                 return true
             end
         }))

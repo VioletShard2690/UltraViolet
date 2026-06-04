@@ -1197,7 +1197,7 @@ SMODS.Joker{key = "joker_outline",
         loc_txt = {
                 name = "Joker outline",
                 text = { 
-                    "{C:mult} +1{} mult"
+                    "{C:mult}+#1#{} mult"
                 }
             },
     loc_vars = function(self, info_queue, card)
@@ -2578,7 +2578,6 @@ SMODS.Joker {key = 'bottomless_pocket',
     add_to_deck = function(self, card, from_debuff)
         old_discards = G.GAME.round_resets.discards
         G.GAME.round_resets.discards = G.GAME.round_resets.discards ^ card.ability.extra.discard_pow
-        new_discards = G.GAME.round_resets.discards
     end,
     remove_from_deck = function(self, card, from_debuff)
         G.GAME.round_resets.discards = old_discards

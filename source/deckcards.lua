@@ -11,7 +11,7 @@ SMODS.ConsumableType {key = 'DeckCard',
 SMODS.Consumable {key = 'red_deck_card',
     set = 'DeckCard',
     loc_txt = {
-        name = 'Red Deck',
+        name = 'Red Deck Card',
         text = { "{C:red}+1{} discard",
                  "every round"
     }
@@ -41,7 +41,7 @@ SMODS.Consumable {key = 'red_deck_card',
 SMODS.Consumable {key = 'yellow_deck_card',
     set = 'DeckCard',
     loc_txt = {
-        name = 'Yellow Deck',
+        name = 'Yellow Deck Card',
         text = { "Gives {C:money}$10{}" }
     },
     cost = 4,
@@ -65,7 +65,7 @@ SMODS.Consumable {key = 'yellow_deck_card',
 SMODS.Consumable {key = 'blue_deck_card',
     set = 'DeckCard',
     loc_txt = {
-        name = 'Blue Deck',
+        name = 'Blue Deck Card',
         text = { "{C:blue}+1{} hand",
                  "every round"
         }
@@ -93,7 +93,7 @@ SMODS.Consumable {key = 'blue_deck_card',
 SMODS.Consumable {key = 'green_deck_card',
     set = 'DeckCard',
     loc_txt = {
-        name = 'Green Deck',
+        name = 'Green Deck Card',
         text = { "{C:money}$2{} per remaining {C:blue}Hand{}",
                  "{C:money}$1{} per remaining {C:red}Discard{}",
                  "and {C:money}$0{} from {C:attention}interest{}",
@@ -121,7 +121,7 @@ SMODS.Consumable {key = 'green_deck_card',
 SMODS.Consumable {key = 'black_deck_card',
     set = 'DeckCard',
     loc_txt = {
-        name = 'Black Deck',
+        name = 'Black Deck Card',
         text = { 
             "{C:attention}+1{} Joker slot", 
             "{C:blue}-1{} hand every round" 
@@ -154,7 +154,7 @@ SMODS.Consumable {key = 'black_deck_card',
 SMODS.Consumable {key = 'prologue_deck_card',
     set = 'DeckCard',
     loc_txt = {
-        name = 'Prologue Deck',
+        name = 'Prologue Deck Card',
         text = { 
             "{C:attention}-1{} Ante" 
         }
@@ -180,7 +180,7 @@ SMODS.Consumable {key = 'prologue_deck_card',
 SMODS.Consumable {key = 'gray_deck_card',
     set = 'DeckCard',
     loc_txt = {
-        name = 'Gray Deck',
+        name = 'Gray Deck Card',
         text = { 
             "{C:attention}+1{} consumable slot", 
             "{C:red}-1{} discard every round" 
@@ -216,7 +216,7 @@ SMODS.Consumable {key = 'gray_deck_card',
 SMODS.Consumable {key = 'anaglyph_deck_card',
     set = 'DeckCard',
     loc_txt = {
-        name = 'Anaglyph Deck',
+        name = 'Anaglyph Deck Card',
         text = { 
             "Gives {C:attention}8 Double Tags{}"
         }
@@ -247,7 +247,7 @@ SMODS.Consumable {key = 'anaglyph_deck_card',
 SMODS.Consumable {key = 'painted_deck_card',
     set = 'DeckCard',
     loc_txt = {
-        name = 'Painted Deck',
+        name = 'Painted Deck Card',
         text = { 
             "{C:attention}+2{} hand size",
             "{C:red}-1{} Joker slot"
@@ -276,7 +276,7 @@ SMODS.Consumable {key = 'painted_deck_card',
 SMODS.Consumable {key = 'abandoned_deck_card',
     set = 'DeckCard',
     loc_txt = {
-        name = 'Abandoned Deck',
+        name = 'Abandoned Deck Card',
         text = { 
             "{C:attention}destroys{} all",
             "{C:attention}Face{} cards in your deck"
@@ -322,7 +322,7 @@ SMODS.Consumable {key = 'abandoned_deck_card',
 SMODS.Consumable {key = 'russian_deck_card',
     set = 'DeckCard',
     loc_txt = {
-        name = 'Russian Deck',
+        name = 'Russian Deck Card',
         text = { 
             "{C:attention}destroys{} all",
             "{C:attention}2, 3, 4,{} and {C:attention}5{} in your deck"
@@ -370,7 +370,7 @@ SMODS.Consumable {key = 'russian_deck_card',
 SMODS.Consumable {key = 'gamble_deck_card',
     set = 'DeckCard',
     loc_txt = {
-        name = 'Gamble Deck',
+        name = 'Gamble Deck Card',
         text = { 
             "create {C:attention}Lucky Block{}",
             "and {C:tarot}The Wheel of Fortune{}",
@@ -410,7 +410,7 @@ SMODS.Consumable {key = 'gamble_deck_card',
 SMODS.Consumable {key = 'orange_deck_card',
     set = 'DeckCard',
     loc_txt = {
-        name = 'Orange Deck',
+        name = 'Orange Deck Card',
         text = { 
             "{C:attention}+1{} hand size"
         }
@@ -438,7 +438,7 @@ SMODS.Consumable {key = 'orange_deck_card',
 SMODS.Consumable {key = 'checkered_deck_card',
     set = 'DeckCard',
     loc_txt = {
-        name = 'Checkered Deck',
+        name = 'Checkered Deck Card',
         text = { 
             "Converts all {C:clubs}Clubs{} to {C:spades}Spades{},",
             "and all {C:diamonds}Diamonds{} to {C:hearts}Hearts{}"
@@ -476,7 +476,7 @@ SMODS.Consumable {key = 'checkered_deck_card',
 SMODS.Consumable {key = 'erratic_deck_card',
     set = 'DeckCard',
     loc_txt = {
-        name = 'Erratic Deck',
+        name = 'Erratic Deck Card',
         text = { 
             "Randomizes the {C:attention}rank{} and",
             "{C:attention}suit{} of every card in your deck"
@@ -513,7 +513,7 @@ SMODS.Consumable {key = 'erratic_deck_card',
 SMODS.Consumable {key = 'ghost_deck_card',
     set = 'DeckCard',
     loc_txt = {
-        name = 'Ghost Deck',
+        name = 'Ghost Deck Card',
         text = { 
             "creates a {C:spectral}Hex{} and",
             "a random {C:spectral}Spectral{} card"
@@ -546,7 +546,7 @@ SMODS.Consumable {key = 'ghost_deck_card',
 SMODS.Consumable {key = 'magic_deck_card',
     set = 'DeckCard',
     loc_txt = {
-        name = 'Magic Deck',
+        name = 'Magic Deck Card',
         text = { 
             "{C:attention}+1{} consumable slot",
             "creates {C:attention}2 The Fool's{}"
@@ -582,7 +582,7 @@ SMODS.Consumable {key = 'magic_deck_card',
 SMODS.Consumable {key = 'nebula_deck_card',
     set = 'DeckCard',
     loc_txt = {
-        name = 'Nebula Deck',
+        name = 'Nebula Deck Card',
         text = { 
             "Creates {C:attention}every{} Planet card",
             "including {C:spectral}Black Hole{}"
@@ -619,7 +619,7 @@ SMODS.Consumable {key = 'nebula_deck_card',
 SMODS.Consumable {key = 'plasma_deck_card',
     set = 'DeckCard',
     loc_txt = {
-        name = 'Plasma Deck',
+        name = 'Plasma Deck Card',
         text = { 
             "{C:attention}x0.5{} blind requirement"
         }
@@ -650,7 +650,7 @@ SMODS.Consumable {key = 'plasma_deck_card',
 SMODS.Consumable {key = 'purple_deck_card',
     set = 'DeckCard',
     loc_txt = {
-        name = 'Purple Deck',
+        name = 'Purple Deck Card',
         text = { 
             "{C:enhanced}+1{} card selection limit",
             "every round"
@@ -680,7 +680,7 @@ SMODS.Consumable {key = 'purple_deck_card',
 SMODS.Consumable {key = 'light_blue_deck_card',
     set = 'DeckCard',
     loc_txt = {
-        name = 'Light Blue Deck',
+        name = 'Light Blue Deck Card',
         text = { 
             "{C:attention}+1{} consumable slot",
             "every round"
@@ -712,7 +712,7 @@ SMODS.Consumable {key = 'light_blue_deck_card',
 SMODS.Consumable {key = 'rainbow_deck_card',
     set = 'DeckCard',
     loc_txt = {
-        name = 'Rainbow Deck',
+        name = 'Rainbow Deck Card',
         text = { 
             "{C:attention}+1{} joker slot",
             "every round"

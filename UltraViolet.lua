@@ -7,7 +7,7 @@ end
 SMODS.Rarity({key = 'super_rare',
   loc_txt = { name = 'Super Rare' },
   badge_colour = HEX('700bb0'),
-  default_weight = 0,
+  weight = 0,
 })
 G.localization.misc.dictionary.k_uv_super_rare_pack = "Super Rare Pack"
 G.localization.misc.dictionary.k_uv_deck_pack = "Deck Pack"
