@@ -356,9 +356,11 @@ SMODS.Blind {key = 'void',
     boss = {min = 100},
     boss_colour = HEX('000000'),
     stay_flipped = function(self, area, card)
+        if next(SMODS.find_card('j_uv_DR34MC0R3')) then return end
         if area == G.hand then return true end
     end,
     set_blind = function(self)
+        if next(SMODS.find_card('j_uv_DR34MC0R3')) then return end
         for _, v in ipairs(G.hand.cards) do v:flip() end
         if G.jokers then
             for _, j in ipairs(G.jokers.cards) do j:set_debuff(true) end
@@ -371,10 +373,16 @@ SMODS.Blind {key = 'void',
     disable = function(self)
         if self.hands_sub then ease_hands_played(self.hands_sub) end
         if self.discards_sub then ease_discard(self.discards_sub) end
-        G.GAME.blind.disabled = false 
-        return false
+        if next(SMODS.find_card('j_uv_DR34MC0R3')) then
+            G.GAME.blind.disabled = true
+            return true
+        else 
+            G.GAME.blind.disabled = false 
+            return false
+        end
     end,
     calculate = function(self, card, context)
+        if next(SMODS.find_card('j_uv_DR34MC0R3')) then return end
         if G.jokers and G.jokers.cards then
             for i = 1, #G.jokers.cards do
                 if not G.jokers.cards[i].debuff then G.jokers.cards[i]:set_debuff(true) end

@@ -791,7 +791,7 @@ SMODS.Joker {key = 'exponential_growth',
         "{C:inactive}(effect doesn't apply to this Joker){}"
     }
  },
-    rarity = "uv_super_rare",
+    rarity = 'uv_super_rare',
     cost = 15,
     atlas = 'exponential_growth',
     unlocked = true,
@@ -1229,7 +1229,7 @@ SMODS.Joker{key = "small_joker",
     display_size = { w = 10000000, h = 10000000 },
 }
 SMODS.Joker{key = "code_joker", -- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    config = { extra = { gain = 0.1, mult = 4747 } },
+    config = { extra = { gain = 0.1, mult = 4900 } },
     rarity = 3,
     cost = 8,
     blueprint_compat = true,
@@ -1526,10 +1526,10 @@ SMODS.Joker {key = '4_leaf_clover',
         text = {
             "All {C:attention}listed{} {C:green,E:1,S:1.1}probabilities{}",
             "are {C:dark_edition}guaranteed{}",
-            "{C:inactive}(ex:{} {C:green,E:1,S:1.1}1 in 3{} {C:inactive}->{} {C:green,E:1,S:1.1}1000 in 3{}{C:inactive}){}"
+            "{C:inactive}(ex:{} {C:green,E:1,S:1.1}1 in 3{} {C:inactive}->{} {C:green,E:1,S:1.1}1.000e9 in 3{}{C:inactive}){}"
         }
     },
-    config = { extra = 999 },
+    config = {},
     rarity = 3,
     cost = 8,
     unlocked = true,
@@ -1537,10 +1537,10 @@ SMODS.Joker {key = '4_leaf_clover',
     blueprint_compat = false,
     atlas = '4clover',
     add_to_deck = function(self, card, from_debuff)
-        G.GAME.probabilities.normal = G.GAME.probabilities.normal + card.ability.extra
+        G.GAME.probabilities.normal = G.GAME.probabilities.normal + (1e9)
     end,
     remove_from_deck = function(self, card, from_debuff)
-        G.GAME.probabilities.normal = G.GAME.probabilities.normal - card.ability.extra
+        G.GAME.probabilities.normal = G.GAME.probabilities.normal - (1e9)
     end
 }
 SMODS.Joker {key = 'friday_13th',
@@ -4738,6 +4738,163 @@ SMODS.Joker {key = 'bmm',
                 message = 'X' .. mod_count - 1 .. ' Mult',
                 Xmult_mod = mod_count - 1
             }
+        end
+    end
+}
+SMODS.Joker {key = 'all_9s',
+    loc_txt = {
+        name = 'Oops! All 9s',
+        text = {
+            "square all {C:attention}listed{}",
+            "{C:green,E:1,S:1.1}probabilities{}",
+            "{C:inactive}(ex:{} {C:green,E:1,S:1.1}4 in 10{} {C:inactive}->{} {C:green,E:1,S:1.1}16 in 10{}{C:inactive}){}"
+        }
+    },
+    config = {},
+    rarity = 2,
+    cost = 6,
+    unlocked = true,
+    discovered = true,
+    blueprint_compat = false,
+    atlas = 'all_9s',
+    add_to_deck = function(self, card, from_debuff)
+        G.GAME.probabilities.normal = G.GAME.probabilities.normal ^ 2
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        G.GAME.probabilities.normal = G.GAME.probabilities.normal ^ 0.5
+    end
+}
+SMODS.Joker {key = 'D6',
+    loc_txt = {
+        name = 'Regular D6',
+        text = {
+            "{C:green}#1# in #2#{} chance to",
+            "Double all {C:attention}listed{}",
+            "{C:green,E:1,S:1.1}probabilities{}",
+            "when sold",
+            "{C:inactive}(ex:{} {C:green,E:1,S:1.1}1 in 3{} {C:inactive}->{} {C:green,E:1,S:1.1}2 in 3{}{C:inactive}){}"
+        }
+    },
+    config = { odds = 6 },
+    rarity = 1,
+    cost = 4,
+    unlocked = true,
+    discovered = true,
+    blueprint_compat = false,
+    atlas = 'D6',
+    loc_vars = function(self, info_queue, card)
+        return { vars = { (G.GAME.probabilities.normal or 1), card.ability.odds } }
+    end,
+    calculate = function(self, card, context)
+        if context.selling_self then
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    if pseudorandom('D6_roll') < G.GAME.probabilities.normal / card.ability.odds then
+                            play_sound('tarot2')
+                            G.GAME.probabilities.normal = G.GAME.probabilities.normal * 2
+                            return true
+                    else
+                        play_sound('tarot1')
+                        return true
+                    end
+                    return true
+                end
+            }))
+        end
+    end
+}
+SMODS.Joker{key = "DR34MC0R3",
+    config = { extra = { exp1 = 1.35, faceX = 24, aceX = 96, oddMN = 1.2, exp2 = 1.4  } }, 
+    rarity = 4,
+    cost = 20,
+    unlocked = true,
+    discovered = true,
+        loc_txt = {
+                name = "DR34MC0R3",
+                text = { 
+                    "Scored even cards gives {X:chips,C:white}<<Chips{} equal to their rank",
+                    "Every card in hand gives {X:mult,C:white}^#1#{} Mult",
+                    "Scored face cards gives {X:chips,C:white}x#2#{} Chips",
+                    "Scored aces gives {X:mult,C:white}x#3#{} Mult",
+                    "Scored odd cards gives {X:money,C:white}x$#4#{}",
+                    "Each joker gives {X:chips,C:white}^#5#{} Chips",
+                    "Disables {C:attention}The Void{}"
+                }
+            },
+    atlas = 'DR34MC0R3',
+    soul_pos = {x=0,y=1},
+    loc_vars = function(self, info_queue, card)
+        return { vars = {
+                    card.ability.extra.exp1, card.ability.extra.faceX,
+                    card.ability.extra.aceX, card.ability.extra.oddMN, card.ability.extra.exp2
+                        } }
+    end,
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play then
+            if context.other_card:get_id() <= 10 and context.other_card:get_id() >= 0 and context.other_card:get_id()%2 == 0 then
+                return {
+                    message = '<<' .. context.other_card:get_id() .. ' Chips',
+                    Xchip_mod = 2 ^ context.other_card:get_id(),
+                    card = context.other_card,
+                    colour = G.C.BLUE
+                }
+            elseif context.other_card:get_id() <= 13 and context.other_card:get_id() >= 11 then
+                return {
+                    message = 'x' .. card.ability.extra.faceX .. ' Chips',
+                    Xchip_mod = card.ability.extra.faceX,
+                    card = context.other_card,
+                    colour = G.C.BLUE
+                }
+            elseif context.other_card:get_id() == 14 then
+                return {
+                    Xmult = card.ability.extra.aceX,
+                    card = context.other_card
+                }
+            elseif ((context.other_card:get_id() <= 10 and context.other_card:get_id() >= 0 and context.other_card:get_id()%2 == 1) or (context.other_card:get_id() == 14)) then
+                local current_dollars = to_big(G.GAME.dollars)
+                local odd_money = ease_dollars(current_dollars * (card.ability.extra.oddMN - 1))
+                    return {
+                        message = 'x$' .. card.ability.extra.oddMN,
+                        dollars = odd_money,
+                        card = context.other_card,
+                        colour = G.C.MONEY
+                    }
+            end
+        end
+        if context.individual and context.cardarea == G.hand then
+            if context.other_card.debuff then
+                            return {
+                                message = 'Debuffed',
+                                colour = G.C.RED,
+                                card = context.other_card,
+                            }
+            else
+                if context.end_of_round then
+                    return false
+                else
+                    return {
+                        message = '^' .. card.ability.extra.exp1 .. ' Mult',
+                        Emult_mod = card.ability.extra.exp1,
+                        card = context.other_card,
+                        colour = G.C.RED
+                            }
+                end
+            end
+        end
+        if context.other_joker then
+            if self ~= context.other_joker then
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        context.other_joker:juice_up(0.5, 0.5)
+                        return true
+                    end
+                })) 
+                return {
+                    message = '^' .. card.ability.extra.exp2,
+                    Echip_mod = card.ability.extra.exp2,
+                    colour = G.C.BLUE
+                }
+            end
         end
     end
 }

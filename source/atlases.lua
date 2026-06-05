@@ -473,3 +473,18 @@ SMODS.Atlas({key = "bmm",
     px = 142,
     py = 190
 })
+SMODS.Atlas({key = "all_9s",
+    path = "j_all_9s.png",
+    px = 142,
+    py = 190
+})
+SMODS.Atlas({key = "D6",
+    path = "j_D6.png",
+    px = 142,
+    py = 190
+})
+SMODS.Atlas({key = "DR34MC0R3",
+    path = "j_DR34MC0R3.png",
+    px = 142,
+    py = 190
+})

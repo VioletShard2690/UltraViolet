@@ -20,7 +20,7 @@ bmm is also give bonus based on how much mods you have, but i dont very sure abo
 # what this mod adds?
 currently it adds:
 
-123 Jokers, 6 of them with new rarity - Super rare
+126 Jokers, 7 of them with new rarity - Super rare, and 1 legendary joker
 
 19 Decks
 

@@ -230,7 +230,7 @@ SMODS.Back {key = 'deck_deck',
                 for i = 1, self.config.deck_cards_start do
                     local chosen_key = nil
                     if #valid_pool > 0 then
-                        chosen_key = pseudorandom_element(valid_pool, pseudoseed('uv_card_deck'))
+                        chosen_key = pseudorandom_element(valid_pool, pseudoseed('uv_deck_deck'))
                     else
                         local backup_pool = {}
                         for k, v in pairs(G.P_CENTERS) do
@@ -238,7 +238,7 @@ SMODS.Back {key = 'deck_deck',
                                 table.insert(backup_pool, k)
                             end
                         end
-                        chosen_key = pseudorandom_element(backup_pool, pseudoseed('uv_card_deck_backup'))
+                        chosen_key = pseudorandom_element(backup_pool, pseudoseed('uv_deck_deck_backup'))
                     end
                     local card = create_card('DeckCard', G.consumeables, nil, nil, nil, nil, chosen_key, nil)
                     card:add_to_deck()
@@ -280,7 +280,7 @@ SMODS.Back {key = 'light_blue_deck',
     apply = function(self)
         G.E_MANAGER:add_event(Event({
             func = function()
-                G.consumeables.config.card_limit = G.consumeables.config.card_limit + 1
+                ease_consumeable_slots(1)
                 return true
             end
         }))
@@ -299,7 +299,7 @@ SMODS.Back {key = 'rainbow_deck',
             "{C:attention}+1{} card slot in the shop",
             "{C:money}+$1{}",
             "{C:attention}+1{} voucher slot",
-            "{C:attention}+1{} booster slot",
+            "{C:attention}+1{} boosterpack slot",
             "{C:blue}+1{} card play limit",
             "{C:red}+1{} card discard limit",
             "{C:attention}+1{} hand size",
@@ -324,8 +324,8 @@ SMODS.Back {key = 'rainbow_deck',
                 ease_discard(1)
                 ease_hands_played(1)
                 ease_ante(1)
-                G.consumeables.config.card_limit = G.consumeables.config.card_limit + 1
-                G.jokers.config.card_limit = G.jokers.config.card_limit + 1
+                ease_consumeable_slots(1)
+                ease_joker_slots(1)
                 ease_round(1)
                 change_shop_size(1)
                 ease_dollars(1)
@@ -339,7 +339,7 @@ SMODS.Back {key = 'rainbow_deck',
                 G.GAME.modifiers.money_per_discard = 1
                 G.GAME.interest_amount = G.GAME.interest_amount + 1
                 G.GAME.probabilities.normal = G.GAME.probabilities.normal + 1
-                G.GAME.round_resets.reroll_cost = G.GAME.round_resets.reroll_cost + 1
+                ease_reroll_cost(1)
                 G.GAME.inflation = 1
                 G.GAME.round_resets.blind_choices.Big = get_new_boss()
                 if G.FUNCS and G.FUNCS.set_blind_select and G.STATE == G.STATES.BLIND_SELECT then 
