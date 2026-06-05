@@ -1,39 +1,51 @@
-# Welcome!
-welcome to UltraViolet , this mod was inspired by Cryptid and Yahiamod.
-mod was made by 1 person and gallons of kvass, also ye, i'm russian.
+# 🌌 UltraViolet Mod for Balatro 🌌
 
-i'm gonna be ve-ery happy if you come here to install this mod, it means a lot to me!
-there are probably some bugs, but i play-tested all features that i add, so there are should be not so much of them
+Welcome to **UltraViolet**! This is a massive content expansion for Balatro, inspired by legendary mods like *Cryptid* and *Yahiamod*. 
 
-sometimes i post about my mod on r/balatro, my name on reddit is EbbSuccessful8461
+The entire mod was solo-developed by one teenager, fueled by gallons of kvass 🇷🇺. It adds a cosmic amount of fresh mechanics, chaotic scaling, and unique interactions!
 
-# Some cool things
-some jokers are interact with your PC! like moon joker or the task manager
+> 📢 **Fun Fact: Rainbow Deck** from this mod blew up on Reddit, gathering over 350k+ views on r/balatro! You can play it right here.
 
-there are jokers that gives interesting values - bottomles pocket gives ^1.6 discard, golden cookie gives x1.7 money, and milky way gives xPoker Hand Level
+---
 
-# cross-mod features
-there are 2 cross-mod jokers - 1 for cryptid and 1 for yahiamod, and 1 cross-mod deck (cryptid)
+## 🛠️ Installation
+1. Make sure you have **Steamodded** installed.
+2. Download this repository.
+3. Drop the `UltraViolet` folder into your Balatro `Mods` directory.
+4. Run the game and enjoy the chaos!
 
-bmm is also give bonus based on how much mods you have, but i dont very sure about that one
+*Thank you so much for downloading and playing. It truly means the world to me! 💜*
 
-# what this mod adds?
-currently it adds:
+---
 
-126 Jokers, 7 of them with new rarity - Super rare, and 1 legendary joker
+## 🚀 What's Inside?
+Currently UltraViolet has:
 
-19 Decks
+* 🃏 **126 Jokers** – Including 7 cards of a brand-new rarity: **Super Rare**, and 1 **Legendary** Joker.
+* 🎴 **19 Decks**
+* 🎟️ **6 Vouchers**
+* 🪐 **8 Poker Hands & Planets**
+* 🔮 **22 Deck Cards** – brand new consumable type
+* 📦 **5 Booster Packs**
+* 👁️ **14 Blinds**
 
-6 Vouchers
+---
 
-8 pokerhands/planets
+## ✨ Features & Highlights
 
-22 Deck cards (new consumable)
+* **Meta & PC Interactions:** Some Jokers interact directly with your computer! like *Moon Joker* or *The Task Manager*.
+* **Wild Mathematical Scaling:** Experience insane modifiers like `^Discards`,`xMoney`, `xPoker Hand Level` or `<<Chips/Mult`
+* **Cross-Mod Compatibility:** 
+  * 2 cross-mod Jokers, for *Cryptid* and *Yahiamod*.
+  * 1 custom cross-mod Deck (*Cryptid*).
+  * And also *BMM* Joker, that scale based on your total active mod count.
 
-5 boosterpacks
+---
 
-14 blinds
+## 🎨 Current State: Beta Notice
+The mod is currently in active **Beta**. 
+* **Why do some cards lack sprites?** Creating high-quality pixel art takes a lot of time! I really wanted to share the gameplay mechanics with the community as early as possible. Custom sprites are being added with every update.
+* **Bugs:** All features have been play-tested, but with 100+ cards, some interactions might get weird. 
 
-
-# why so many cards dont have sprites?
-mod is currently in beta, i just really wanted to share this mod with others, i'm making sprites, just sometimes it took very long time
+If you find a bug, want to share a broken combo, or just say hi, feel free to reach out!
+* **Reddit:** [u/EbbSuccessful8461](https://reddit.com)
