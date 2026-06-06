@@ -35,26 +35,26 @@ SMODS.Edition {key = 'quantum',
         end
     end
 }
-SMODS.Edition {key = 'ooopsier',
-    shader = 'uv_ooopsier',
-    loc_txt = {
-        name = 'Ooopsier',
-        text = {
-            "Triples all {C:green,E:1,S:1.1}probabilities{}",
-            "for this card",
-            "{C:inactive}(ex:{} {C:green,E:1,S:1.1}1 in 3{} {C:inactive}->{} {C:green,E:1,S:1.1}3 in 3{}{C:inactive}){}"
-        }
-    },
-    config = { x_chance = 3 },
-    unlocked = true,
-    discovered = true,
-    loc_vars = function(self, info_queue, card)
-        return { vars = { card and card.edition and card.edition.x_chance or self.config.x_chance } }
-    end,
-    adjust_chance = function(self, card, chance)
-        if card and card.edition and card.edition.key == 'e_uv_ooopsier' then
-            return chance * (card.edition.x_chance or 3)
-        end
-        return chance
-    end
-}
+-- SMODS.Edition {key = 'ooopsier',
+--     shader = 'uv_ooopsier',
+--     loc_txt = {
+--         name = 'Ooopsier',
+--         text = {
+--             "Triples all {C:green,E:1,S:1.1}probabilities{}",
+--             "for this card",
+--             "{C:inactive}(ex:{} {C:green,E:1,S:1.1}1 in 3{} {C:inactive}->{} {C:green,E:1,S:1.1}3 in 3{}{C:inactive}){}"
+--         }
+--     },
+--     config = { x_chance = 3 },
+--     unlocked = true,
+--     discovered = true,
+--     loc_vars = function(self, info_queue, card)
+--         return { vars = { card and card.edition and card.edition.x_chance or self.config.x_chance } }
+--     end,
+--     adjust_chance = function(self, card, chance)
+--         if card and card.edition and card.edition.key == 'e_uv_ooopsier' then
+--             return chance * (card.edition.x_chance or 3)
+--         end
+--         return chance
+--     end
+-- }
