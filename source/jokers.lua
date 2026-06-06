@@ -4917,6 +4917,7 @@ SMODS.Joker {key = 'all_4s',
     unlocked = true,
     discovered = true,
     blueprint_compat = false,
+    atlas = 'all_4s',
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra } }
     end,

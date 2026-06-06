@@ -21,7 +21,7 @@ The entire mod was solo-developed by one teenager, fueled by gallons of kvass �
 ## 🚀 What's Inside?
 Currently UltraViolet has:
 
-* 🃏 **126 Jokers** – Including 7 cards of a brand-new rarity: **Super Rare**, and 1 **Legendary** Joker.
+* 🃏 **129 Jokers** – Including 7 cards of a brand-new rarity: **Super Rare**, and 1 **Legendary** Joker.
 * 🎴 **19 Decks**
 * 🎟️ **6 Vouchers**
 * 🪐 **8 Poker Hands & Planets**
