@@ -526,7 +526,8 @@ SMODS.Back{key = 'supermarket_deck',
                 G.GAME.modifiers.no_interest = true
                 G.GAME.modifiers.money_per_hand = 0
                 change_shop_size(3)
-                G.GAME.round_resets.reroll_cost = G.GAME.round_resets.reroll_cost - 3
+                G.GAME.modifiers.reroll_cost = (G.GAME.modifiers.reroll_cost or 0) - 3
+                G.GAME.round_resets.reroll_cost = math.max(0, G.GAME.round_resets.reroll_cost - 3)
                 return true
             end
         }))

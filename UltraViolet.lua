@@ -13,6 +13,7 @@ G.localization.misc.dictionary.k_uv_super_rare_pack = "Super Rare Pack"
 G.localization.misc.dictionary.k_uv_deck_pack = "Deck Pack"
 G.localization.misc.dictionary.k_uv_jumbo_deck_pack = "Jumbo Deck Pack"
 G.localization.misc.dictionary.k_uv_mega_deck_pack = "Mega Deck Pack"
+G.localization.misc.dictionary.k_uv_oops_all_pack = "Oops! All pack"
 local ease_hands_ref = ease_hands
 function ease_hands(mod)
     ease_hands_ref(mod)
@@ -226,13 +227,15 @@ function evaluate_hand(hand, text, chips, mult, hand_names)
     ret.Xchip_mod = ret.Xchip_mod or 1
     ret.Echip_mod = ret.Echip_mod or 1
     ret.Emult_mod = ret.Emult_mod or 1
-    if ret.Xchip_mod ~= 1 then
-        ret.chips = ret.chips * ret.Xchip_mod
+    if ret.chips then
+        if ret.Xchip_mod ~= 1 then
+            ret.chips = ret.chips * ret.Xchip_mod
+        end
+        if ret.Echip_mod ~= 1 then
+            ret.chips = ret.chips ^ ret.Echip_mod
+        end
     end
-    if ret.Echip_mod ~= 1 then
-        ret.chips = ret.chips ^ ret.Echip_mod
-    end
-    if ret.Emult_mod ~= 1 then
+    if ret.mult and ret.Emult_mod ~= 1 then
         ret.mult = ret.mult ^ ret.Emult_mod
     end
     return ret
@@ -248,4 +251,8 @@ function ease_reroll_cost(mod)
 end
 function set_reroll_cost(mod)
     G.GAME.round_resets.reroll_cost = mod
+end
+if G.P_CENTERS.j_oops then
+        G.P_CENTERS.j_oops.pools = G.P_CENTERS.j_oops.pools or {}
+        G.P_CENTERS.j_oops.pools['Oops!'] = true
 end

@@ -278,16 +278,6 @@ SMODS.Atlas({key = "dr_balatro",
     px = 142,
     py = 190
 })
-SMODS.Atlas({key = "4clover",
-    path = "j_4clover.png",
-    px = 142,
-    py = 190
-})
-SMODS.Atlas({key = "friday13",
-    path = "j_friday13.png",
-    px = 142,
-    py = 190
-})
 SMODS.Atlas({key = "pqbd",
     path = "j_pqbd.png",
     px = 142,
@@ -500,6 +490,21 @@ SMODS.Atlas({key = "forgot_cube",
 })
 SMODS.Atlas({key = "all_4s",
     path = "j_all_4s.png",
+    px = 142,
+    py = 190
+})
+SMODS.Atlas({key = "all_0s",
+    path = "j_all_0s.png",
+    px = 142,
+    py = 190
+})
+SMODS.Atlas({key = "all_inf",
+    path = "j_all_inf.png",
+    px = 142,
+    py = 190
+})
+SMODS.Atlas({key = "all_oops",
+    path = "j_all_oops.png",
     px = 142,
     py = 190
 })

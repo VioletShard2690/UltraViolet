@@ -1201,7 +1201,7 @@ SMODS.Joker{key = "joker_outline",
                 }
             },
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.xmult } }
+        return { vars = { card.ability.mult } }
     end,
     calculate = function(self, card, context)
         if context.joker_main then
@@ -1518,55 +1518,6 @@ SMODS.Joker {key = 'dr_balatro',
                 }
             end
         end
-    end
-}
-SMODS.Joker {key = '4_leaf_clover',
-    loc_txt = {
-        name = '4-Leaf Clover',
-        text = {
-            "All {C:attention}listed{} {C:green,E:1,S:1.1}probabilities{}",
-            "are {C:dark_edition}guaranteed{}",
-            "{C:inactive}(ex:{} {C:green,E:1,S:1.1}1 in 3{} {C:inactive}->{} {C:green,E:1,S:1.1}1.000e9 in 3{}{C:inactive}){}"
-        }
-    },
-    config = {},
-    rarity = 3,
-    cost = 8,
-    unlocked = true,
-    discovered = true,
-    blueprint_compat = false,
-    atlas = '4clover',
-    add_to_deck = function(self, card, from_debuff)
-        G.GAME.probabilities.normal = G.GAME.probabilities.normal + (1e9)
-    end,
-    remove_from_deck = function(self, card, from_debuff)
-        G.GAME.probabilities.normal = G.GAME.probabilities.normal - (1e9)
-    end
-}
-SMODS.Joker {key = 'friday_13th',
-    loc_txt = {
-        name = 'Friday the 13th',
-        text = {
-            "Reduces all {C:attention}listed{}",
-            "{C:green,E:1,S:1.1}probabilities{} by {C:attention}#1#{}",
-            "{C:inactive}(ex:{} {C:green,E:1,S:1.1}1 in 3{} {C:inactive}->{} {C:green,E:1,S:1.1}0 in 3{}{C:inactive}){}"
-        }
-    },
-    config = { extra = 1 },
-    rarity = 2,
-    cost = 6,
-    unlocked = true,
-    discovered = true,
-    blueprint_compat = false,
-    atlas = 'friday13',
-    loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra } }
-    end,
-    add_to_deck = function(self, card, from_debuff)
-        G.GAME.probabilities.normal = G.GAME.probabilities.normal - card.ability.extra
-    end,
-    remove_from_deck = function(self, card, from_debuff)
-        G.GAME.probabilities.normal = G.GAME.probabilities.normal + card.ability.extra
     end
 }
 SMODS.Joker {key = 'frame_perfect',
@@ -4745,68 +4696,6 @@ SMODS.Joker {key = 'bmm',
         end
     end
 }
-SMODS.Joker {key = 'all_9s',
-    loc_txt = {
-        name = 'Oops! All 9s',
-        text = {
-            "square all {C:attention}listed{}",
-            "{C:green,E:1,S:1.1}probabilities{}",
-            "{C:inactive}(ex:{} {C:green,E:1,S:1.1}4 in 10{} {C:inactive}->{} {C:green,E:1,S:1.1}16 in 10{}{C:inactive}){}"
-        }
-    },
-    config = {},
-    rarity = 2,
-    cost = 6,
-    unlocked = true,
-    discovered = true,
-    blueprint_compat = false,
-    atlas = 'all_9s',
-    add_to_deck = function(self, card, from_debuff)
-        G.GAME.probabilities.normal = G.GAME.probabilities.normal ^ 2
-    end,
-    remove_from_deck = function(self, card, from_debuff)
-        G.GAME.probabilities.normal = G.GAME.probabilities.normal ^ 0.5
-    end
-}
-SMODS.Joker {key = 'D6',
-    loc_txt = {
-        name = 'Regular D6',
-        text = {
-            "{C:green}#1# in #2#{} chance to",
-            "Double all {C:attention}listed{}",
-            "{C:green,E:1,S:1.1}probabilities{}",
-            "when sold",
-            "{C:inactive}(ex:{} {C:green,E:1,S:1.1}1 in 3{} {C:inactive}->{} {C:green,E:1,S:1.1}2 in 3{}{C:inactive}){}"
-        }
-    },
-    config = { odds = 6 },
-    rarity = 1,
-    cost = 4,
-    unlocked = true,
-    discovered = true,
-    blueprint_compat = false,
-    atlas = 'D6',
-    loc_vars = function(self, info_queue, card)
-        return { vars = { (G.GAME.probabilities.normal or 1), card.ability.odds } }
-    end,
-    calculate = function(self, card, context)
-        if context.selling_self then
-            G.E_MANAGER:add_event(Event({
-                func = function()
-                    if pseudorandom('D6_roll') < G.GAME.probabilities.normal / card.ability.odds then
-                            play_sound('tarot2')
-                            G.GAME.probabilities.normal = G.GAME.probabilities.normal * 2
-                            return true
-                    else
-                        play_sound('tarot1')
-                        return true
-                    end
-                    return true
-                end
-            }))
-        end
-    end
-}
 SMODS.Joker{key = "DR34MC0R3",
     config = { extra = { exp1 = 1.35, faceX = 24, aceX = 96, oddMN = 1.2, exp2 = 1.4  } }, 
     rarity = 4,
@@ -4855,14 +4744,15 @@ SMODS.Joker{key = "DR34MC0R3",
                     card = context.other_card
                 }
             elseif ((context.other_card:get_id() <= 10 and context.other_card:get_id() >= 0 and context.other_card:get_id()%2 == 1) or (context.other_card:get_id() == 14)) then
-                local current_dollars = to_big(G.GAME.dollars)
-                local odd_money = ease_dollars(current_dollars * (card.ability.extra.oddMN - 1))
-                    return {
-                        message = 'x$' .. card.ability.extra.oddMN,
-                        dollars = odd_money,
-                        card = context.other_card,
-                        colour = G.C.MONEY
-                    }
+                local current_dollars = G.GAME.dollars or 0
+                local bonus_money = math.floor(current_dollars * (card.ability.extra.oddMN - 1))
+                if bonus_money < 1 then bonus_money = 1 end
+                return {
+                    message = 'x$' .. card.ability.extra.oddMN,
+                    dollars = bonus_money,
+                    card = context.other_card,
+                    colour = G.C.MONEY
+                }
             end
         end
         if context.individual and context.cardarea == G.hand then
@@ -4894,11 +4784,75 @@ SMODS.Joker{key = "DR34MC0R3",
                     end
                 })) 
                 return {
-                    message = '^' .. card.ability.extra.exp2,
+                    message = '^' .. card.ability.extra.exp2 .. ' Chips',
                     Echip_mod = card.ability.extra.exp2,
                     colour = G.C.BLUE
                 }
             end
+        end
+    end
+}
+SMODS.Joker {key = 'all_9s',
+    loc_txt = {
+        name = 'Oops! All 9s',
+        text = {
+            "square numerator of",
+            "all {C:attention}listed{} {C:green,E:1,S:1.1}probabilities{}",
+            "{C:inactive}(ex:{} {C:green,E:1,S:1.1}4 in 10{} {C:inactive}->{} {C:green,E:1,S:1.1}16 in 10{}{C:inactive}){}"
+        }
+    },
+    config = {},
+    rarity = 2,
+    cost = 6,
+    unlocked = true,
+    discovered = true,
+    blueprint_compat = false,
+    atlas = 'all_9s',
+	pools = { ["Oops!"] = true },
+    add_to_deck = function(self, card, from_debuff)
+        G.GAME.probabilities.normal = G.GAME.probabilities.normal ^ 2
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        G.GAME.probabilities.normal = G.GAME.probabilities.normal ^ 0.5
+    end
+}
+SMODS.Joker {key = 'D6',
+    loc_txt = {
+        name = 'Regular D6',
+        text = {
+            "{C:green}#1# in #2#{} chance to",
+            "Double all {C:attention}listed{}",
+            "{C:green,E:1,S:1.1}probabilities{}",
+            "when sold",
+            "{C:inactive}(ex:{} {C:green,E:1,S:1.1}1 in 3{} {C:inactive}->{} {C:green,E:1,S:1.1}2 in 3{}{C:inactive}){}"
+        }
+    },
+    config = { odds = 6 },
+    rarity = 1,
+    cost = 4,
+    unlocked = true,
+    discovered = true,
+    blueprint_compat = false,
+    atlas = 'D6',
+	pools = { ["Oops!"] = true },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { (G.GAME.probabilities.normal or 1), card.ability.odds } }
+    end,
+    calculate = function(self, card, context)
+        if context.selling_self then
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    if pseudorandom('D6_roll') < G.GAME.probabilities.normal / card.ability.odds then
+                            play_sound('coin6')
+                            G.GAME.probabilities.normal = G.GAME.probabilities.normal * 2
+                            return true
+                    else
+                        play_sound('glass6')
+                        return true
+                    end
+                    return true
+                end
+            }))
         end
     end
 }
@@ -4908,7 +4862,7 @@ SMODS.Joker {key = 'all_4s',
         text = {
             "Increases all {C:attention}listed{}",
             "{C:green,E:1,S:1.1}probabilities{} by {C:attention}#1#{}",
-            "{C:inactive}(ex:{} {C:green,E:1,S:1.1}1 in 3{} {C:inactive}->{} {C:green,E:1,S:1.1}2 in 3{}{C:inactive}){}"
+            "{C:inactive}(ex:{} {C:green,E:1,S:1.1}2 in 4{} {C:inactive}->{} {C:green,E:1,S:1.1}3 in 4{}{C:inactive}){}"
         }
     },
     config = { extra = 1 },
@@ -4918,6 +4872,7 @@ SMODS.Joker {key = 'all_4s',
     discovered = true,
     blueprint_compat = false,
     atlas = 'all_4s',
+	pools = { ["Oops!"] = true },
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra } }
     end,
@@ -4934,7 +4889,7 @@ SMODS.Joker {key = 'all_1s',
         text = {
             "halves all {C:attention}listed{}",
             "{C:green,E:1,S:1.1}probabilities{}",
-            "{C:inactive}(ex:{} {C:green,E:1,S:1.1}1 in 3{} {C:inactive}->{} {C:green,E:1,S:1.1}0.5 in 3{}{C:inactive}){}"
+            "{C:inactive}(ex:{} {C:green,E:1,S:1.1}2 in 3{} {C:inactive}->{} {C:green,E:1,S:1.1}1 in 3{}{C:inactive}){}"
         }
     },
     config = {},
@@ -4944,6 +4899,7 @@ SMODS.Joker {key = 'all_1s',
     discovered = true,
     blueprint_compat = false,
     atlas = 'all_1s',
+	pools = { ["Oops!"] = true },
     add_to_deck = function(self, card, from_debuff)
         G.GAME.probabilities.normal = G.GAME.probabilities.normal / 2
     end,
@@ -4955,31 +4911,121 @@ SMODS.Joker {key = 'forgot_cube',
     loc_txt = {
         name = 'Oops! I forgot the cube',
         text = {
-            "Scored {C:attention}6s{} Increase all",
+            "Scored {C:attention}7s{} Increase all",
             "listed {C:green,E:1,S:1.1}probabilities{} by {C:green}#1#{}",
             "{C:inactive}(ex:{} {C:green,E:1,S:1.1}1 in 3{} {C:inactive}->{} {C:green,E:1,S:1.1}#2# in 3{}{C:inactive}){}"
         }
     },
-    config = { g6 = 0.2 },
+    config = { g7 = 0.2 },
     rarity = 3,
     cost = 8,
     unlocked = true,
     discovered = true,
     blueprint_compat = false,
     atlas = 'forgot_cube',
+	pools = { ["Oops!"] = true },
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.g6, (1 + card.ability.g6) } }
+        return { vars = { card.ability.g7, (1 + card.ability.g7) } }
     end,
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play then
-            if context.other_card:get_id() == 6 then
-                G.GAME.probabilities.normal = G.GAME.probabilities.normal + card.ability.g6
+            if context.other_card:get_id() == 7 then
+                G.GAME.probabilities.normal = G.GAME.probabilities.normal + card.ability.g7
                 return {
-                    message = '+' .. card.ability.g6,
+                    message = '+' .. card.ability.g7,
                     card = context.other_card,
                     colour = G.C.GREEN
                 }
             end
+        end
+    end
+}
+SMODS.Joker {key = 'all_inf',
+    loc_txt = {
+        name = "Oops! All Inf's",
+        text = {
+            "All {C:attention}listed{} {C:green,E:1,S:1.1}probabilities{}",
+            "are {C:dark_edition}guaranteed{}",
+            "{C:inactive}(ex:{} {C:green,E:1,S:1.1}1 in 3{} {C:inactive}->{} {C:green,E:1,S:1.1}1.000e9 in 3{}{C:inactive}){}"
+        }
+    },
+    config = {},
+    rarity = 3,
+    cost = 8,
+    unlocked = true,
+    discovered = true,
+    blueprint_compat = false,
+    atlas = 'all_inf',
+	pools = { ["Oops!"] = true },
+    add_to_deck = function(self, card, from_debuff)
+        G.GAME.probabilities.normal = G.GAME.probabilities.normal + (1e9)
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        G.GAME.probabilities.normal = G.GAME.probabilities.normal - (1e9)
+    end
+}
+SMODS.Joker {key = 'all_0s',
+    loc_txt = {
+        name = 'Oops! All 0s',
+        text = {
+            "Reduces all {C:attention}listed{}",
+            "{C:green,E:1,S:1.1}probabilities{} by {C:attention}#1#{}",
+            "{C:inactive}(ex:{} {C:green,E:1,S:1.1}1 in 3{} {C:inactive}->{} {C:green,E:1,S:1.1}0 in 3{}{C:inactive}){}"
+        }
+    },
+    config = { extra = 1 },
+    rarity = 2,
+    cost = 6,
+    unlocked = true,
+    discovered = true,
+    blueprint_compat = false,
+    atlas = 'all_0s',
+	pools = { ["Oops!"] = true },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra } }
+    end,
+    add_to_deck = function(self, card, from_debuff)
+        G.GAME.probabilities.normal = G.GAME.probabilities.normal - card.ability.extra
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        G.GAME.probabilities.normal = G.GAME.probabilities.normal + card.ability.extra
+    end
+}
+SMODS.Joker {key = 'all_oops',
+    loc_txt = {
+        name = 'Oops! All Oops!',
+        text = {
+            "Creates random {C:green}Oops!{} joker",
+            "when sold",
+        }
+    },
+    config = {},
+    rarity = 2,
+    cost = 6,
+    unlocked = true,
+    discovered = true,
+    blueprint_compat = false,
+    atlas = 'all_oops',
+	pools = { ["Oops!"] = true },
+    calculate = function(self, card, context)
+        if context.selling_self then
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    local oops_pool = {}
+                    for k, v in pairs(G.P_CENTERS) do
+                        if v.set == 'Joker' and v.pools and v.pools['Oops!'] then
+                            oops_pool[#oops_pool + 1] = v.key
+                        end
+                    end
+                    if #oops_pool > 0 then
+                        local forced_key = pseudorandom_element(oops_pool, pseudoseed('all_oops_sell' .. (G.GAME.round_resets.ante or 1)))
+                        local new_card = create_card('Joker', G.jokers, nil, nil, nil, nil, forced_key, 'all_oops')
+                        new_card:add_to_deck()
+                        G.jokers:emplace(new_card)
+                    end
+                    return true
+                end
+            }))
         end
     end
 }

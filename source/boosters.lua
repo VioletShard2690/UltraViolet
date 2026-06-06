@@ -128,3 +128,38 @@ SMODS.Booster {key = 'deck_mega_1',
         return { vars = {card.config.center.config.choose, card.config.center.config.extra} }
     end
 }
+SMODS.Booster {key = 'oops_pack_1',
+    set = 'Booster',
+    kind = 'Joker',
+    config = { extra = 3, choose = 1 },
+    cost = 6,
+    weight = 1,
+    unlocked = true,
+    discovered = true,
+    group_key = 'k_uv_oops_all_pack',
+    loc_txt = {
+        name = 'Oops! All pack',
+        text = { 
+            "Choose {C:attention}#1#{} of up to",
+            "{C:attention}#2#{} {C:green}Oops!{} Jokers"
+        }
+    },
+    loc_vars = function(self, info_queue, card)
+        local choose = card and card.ability.choose or self.config.choose
+        local extra = card and card.ability.extra or self.config.extra
+        return { vars = { choose, extra } }
+    end,
+    create_card = function(self, card, i)
+        local oops_pool = {}
+        for k, v in pairs(G.P_CENTERS) do
+            if v.set == 'Joker' and v.pools and v.pools['Oops!'] then
+                oops_pool[#oops_pool + 1] = v.key
+            end
+        end
+        if #oops_pool == 0 then
+            return create_card('Joker', G.pack_cards, nil, nil, true, true, nil, 'oops_p')
+        end
+        local forced_key = pseudorandom_element(oops_pool, pseudoseed('oops_p' .. (G.GAME.round_resets.ante or 1)))
+        return create_card('Joker', G.pack_cards, nil, nil, true, true, forced_key, 'oops_p')
+    end
+}
