@@ -341,3 +341,50 @@ SMODS.Consumable {key = "planet_flush_1234",
         return true
     end,
 }
+SMODS.Consumable{key = 'meteorite',
+    set = "Planet",
+    loc_txt = {
+        name = 'Meteorite',
+        text = {
+            "Upgrades random {C:attention}poker hand{}",
+            "by {C:attention}1{} level",
+            "{C:green}#1# in #2#{} chance to upgrade it",
+            "by {C:attention}3{} levels instead"
+        }
+    },
+    config = { extra = { odds = 3 } },
+    cost = 3,
+    unlocked = true,
+    discovered = true,
+    can_use = function(self, card)
+        return true
+    end,
+    loc_vars = function(self, info_queue, center)
+        return { vars = { G.GAME.probabilities.normal, center.ability.extra.odds } }
+    end,
+    use = function(self, card, area, copier)
+        local used_consumable = copier or card
+        local random_hand
+        while true do
+            random_hand = pseudorandom_element(G.handlist, pseudoseed('meteorite' .. G.GAME.round_resets.ante))
+            if G.GAME.hands[random_hand] and G.GAME.hands[random_hand].visible then
+                break
+            end
+        end
+        local levels_to_add = 1
+        if pseudorandom('meteorite_chance') < G.GAME.probabilities.normal / card.ability.extra.odds then
+            levels_to_add = 3
+        end
+        update_hand_text({ sound = "button", volume = 0.7, pitch = 0.8, delay = 0.3 }, {
+            handname = localize(random_hand, "poker_hands"),
+            chips = G.GAME.hands[random_hand].chips,
+            mult = G.GAME.hands[random_hand].mult,
+            level = G.GAME.hands[random_hand].level,
+        })
+        level_up_hand(used_consumable, random_hand, nil, levels_to_add)
+        update_hand_text(
+            { sound = "button", volume = 0.7, pitch = 1.1, delay = 0 },
+            { mult = 0, chips = 0, handname = "", level = "" }
+        )
+    end
+}

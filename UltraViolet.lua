@@ -150,17 +150,6 @@ if not Card.open_ref_right_to_choose then
         return result
     end
 end
-local old_reroll_boss = G.FUNCS.reroll_boss
-G.FUNCS.reroll_boss = function(e)
-    if G.jokers and #SMODS.find_card('j_uv_noname') > 0 then
-        G.GAME.round_resets.blind_choices.Boss = 'bl_uv_void'
-        if G.GAME.blind_select then 
-            G.GAME.blind_select:juice_up() 
-        end
-        return 
-    end
-    old_reroll_boss(e)
-end
 local set_blind_ref = Blind.set_blind
 function Blind.set_blind(self, blind, anim, silent)
     set_blind_ref(self, blind, anim, silent)
@@ -255,4 +244,179 @@ end
 if G.P_CENTERS.j_oops then
         G.P_CENTERS.j_oops.pools = G.P_CENTERS.j_oops.pools or {}
         G.P_CENTERS.j_oops.pools['Oops!'] = true
+end
+local core_calculate_effect = SMODS.calculate_effect
+function SMODS.calculate_effect(effect, card)
+    if effect then
+        if effect.chult_mod then
+            effect.chip_mod = (effect.chip_mod or 0) + effect.chult_mod
+            effect.mult_mod = (effect.mult_mod or 0) + effect.chult_mod
+        end
+        if effect.Xchult_mod then
+            effect.Xchip_mod = (effect.Xchip_mod or 1) + effect.Xchult_mod - 1
+            effect.Xmult_mod = (effect.Xmult_mod or 1) + effect.Xchult_mod - 1
+        end
+        if effect.Echult_mod then
+            effect.Echip_mod = (effect.Echip_mod or 1) + effect.Echult_mod - 1
+            effect.Emult_mod = (effect.Emult_mod or 1) + effect.Echult_mod - 1
+        end
+    end
+    return core_calculate_effect(effect, card)
+end
+G.FUNCS.spawn_roboker_captcha = function()
+    local correct_code = string.char(math.random(65, 90)) .. math.random(10, 99)
+    local codes = {
+        correct_code,
+        string.char(math.random(65, 90)) .. math.random(10, 99),
+        string.char(math.random(65, 90)) .. math.random(10, 99),
+        string.char(math.random(65, 90)) .. math.random(10, 99)
+    }
+    local captcha_nodes = {}
+    local colors = {G.C.RED, G.C.BLUE, G.C.GREEN, G.C.GOLD, G.C.PURPLE, G.C.WHITE}
+    for i = 1, #correct_code do
+        local char = correct_code:sub(i,i)
+        table.insert(captcha_nodes, { n = G.UIT.T, config = { text = char, scale = 1.3, colour = colors[math.random(#colors)] } })
+    end
+    for i = #codes, 2, -1 do
+        local j = math.random(i)
+        codes[i], codes[j] = codes[j], codes[i]
+    end
+    local col1 = {}
+    local col2 = {}
+    for i = 1, 4 do
+        local func = (codes[i] == correct_code) and "captcha_correct" or "captcha_wrong"
+        local btn = {n = G.UIT.R, config = {align = "cm", padding = 0.2}, nodes = { 
+            UIBox_button({button = func, label = {codes[i]}, minw = 5, minh = 1.2, colour = G.C.BLUE}) 
+        }}
+        if i <= 2 then table.insert(col1, btn) else table.insert(col2, btn) end
+    end
+    local ui_definition = {n=G.UIT.ROOT, config={align = "cm", colour = G.C.CLEAR}, nodes={
+        {n=G.UIT.C, config={align = "cm", colour = G.C.BLACK, r = 0.2, padding = 1.0, outline = 1, outline_colour = G.C.WHITE, minw = 24, minh = 12}, nodes={
+            {n = G.UIT.R, config = {align = "cm", padding = 0.6}, nodes = {
+                {n = G.UIT.T, config = {text = "PROVE YOU ARE NOT A ROBOT", scale = 0.8, colour = G.C.WHITE, shadow = true}}
+            }},
+            {n = G.UIT.R, config = {align = "cm", padding = 0.6}, nodes = captcha_nodes},
+            {n = G.UIT.R, config = {align = "cm", padding = 0.4}, nodes = {
+                {n = G.UIT.C, config = {align = "cm", padding = 0.2}, nodes = col1},
+                {n = G.UIT.C, config = {align = "cm", padding = 0.2}, nodes = col2}
+            }}
+        }}
+    }}
+    G.FUNCS.overlay_menu{
+        definition = ui_definition,
+        config = {no_esc = true}
+    }
+end
+G.FUNCS.captcha_correct = function(e)
+    G.FUNCS.exit_overlay_menu()
+    play_sound('coin1')
+end
+G.FUNCS.captcha_wrong = function(e)
+    play_sound('tarot2', 0.8, 0.4)
+    G.FUNCS.exit_overlay_menu()
+    G.FUNCS.spawn_roboker_captcha()
+end
+G.FUNCS.spawn_teacher_quiz = function()
+    G.GAME.teacher_level = G.GAME.teacher_level or 1
+    G.GAME.correct_answers = G.GAME.correct_answers or 0
+    G.GAME.wrong_answers = G.GAME.wrong_answers or 0
+    local level = G.GAME.teacher_level
+    local a, b, op, result
+    local ops = {'+', '-', '*'}
+    if level >= 3 then table.insert(ops, '/') end
+    if level >= 6 then table.insert(ops, '^') end
+    op = ops[math.random(#ops)]
+    local range = 5 + (level * 3)
+    a = math.random(1, range)
+    b = math.random(1, range)
+    if op == '+' then result = a + b
+    elseif op == '-' then result = a - b
+    elseif op == '*' then 
+        a = math.random(1, math.max(2, range/2))
+        b = math.random(1, math.max(2, range/2))
+        result = a * b
+    elseif op == '/' then
+        result = a
+        a = a * b
+    elseif op == '^' then
+        a = math.random(0, 5)
+        if math.random(0, 4) == 4 then
+            b = 0.5
+        else
+            b = math.random(0, 3)
+        end
+        result = a ^ b
+    end
+    local is_meme = (op == '+' and ((a == 9 and b == 10)))
+    local num_answers = 3 + math.min(math.floor(level / 3), 3)
+    local answers = {}
+    table.insert(answers, result)
+    local attempts = 0
+    while #answers < num_answers and attempts < 100 do
+        attempts = attempts + 1
+        local fake = result + math.random(-6, 8)
+        local is_duplicate = false
+        for _, val in ipairs(answers) do
+            if val == fake then is_duplicate = true; break end
+        end
+        if fake ~= result and not is_duplicate then 
+            table.insert(answers, fake) 
+        end
+    end
+    if is_meme then table.insert(answers, 21) end
+    for i = #answers, 2, -1 do
+        local j = math.random(i)
+        answers[i], answers[j] = answers[j], answers[i]
+    end
+    local rows = {}
+    local current_row_nodes = {}
+    for i, val in ipairs(answers) do
+        local is_correct = (val == result) or (is_meme and val == 21)
+        local func = is_correct and "teacher_correct" or "teacher_wrong"
+        table.insert(current_row_nodes, {
+            n = G.UIT.C, config = {align = "cm", padding = 0.15}, nodes = {
+                UIBox_button({button = func, label = {tostring(val)}, minw = 5, minh = 1.3, colour = G.C.BLUE})
+            }
+        })
+        if #current_row_nodes == 3 or i == #answers then
+            table.insert(rows, {
+                n = G.UIT.R, config = {align = "cm", padding = 0.1}, nodes = current_row_nodes
+            })
+            current_row_nodes = {}
+        end
+    end
+    local ui_definition = {n=G.UIT.ROOT, config={align = "cm", colour = G.C.CLEAR}, nodes={
+        {n=G.UIT.C, config={align = "cm", colour = G.C.BLACK, r = 0.2, padding = 0.8, outline = 1, outline_colour = G.C.WHITE, minw = 24, minh = 14}, nodes={
+            {n = G.UIT.R, config = {align = "cm", padding = 0.4}, nodes = {
+                {n = G.UIT.T, config = {text = string.format("%d %s %d = ?", a, op, b), scale = 1.5, colour = G.C.WHITE}}
+            }},
+            -- Разворачиваем созданные строки с кнопками
+            {n = G.UIT.R, config = {align = "cm", padding = 0.2}, nodes = rows}
+        }}
+    }}
+    G.FUNCS.overlay_menu{ definition = ui_definition, config = {no_esc = true} }
+end
+G.FUNCS.teacher_correct = function(e)
+    G.GAME.correct_answers = G.GAME.correct_answers + 1
+    G.GAME.teacher_level = G.GAME.teacher_level + 1
+    play_sound('coin1')
+    G.FUNCS.exit_overlay_menu()
+end
+G.FUNCS.teacher_wrong = function(e)
+    G.GAME.wrong_answers = G.GAME.wrong_answers + 1
+    G.GAME.teacher_level = G.GAME.teacher_level - 1
+    play_sound('tarot2', 0.8, 0.4)
+    G.FUNCS.exit_overlay_menu()
+end
+if G.GAME then G.GAME.EULAV_S6_LLA = 1 end
+local old_add_to_deck = Card.add_to_deck
+function Card:add_to_deck(from_deblur)
+    old_add_to_deck(self, from_deblur)
+    if G.jokers and G.jokers.cards and self.ability and self.ability.set == 'Planet' then
+        if not self.from_meteorologist then
+            for i = 1, #G.jokers.cards do
+                G.jokers.cards[i]:calculate_joker({uv_planet_added = true, target = self})
+            end
+        end
+    end
 end

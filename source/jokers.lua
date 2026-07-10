@@ -24,7 +24,7 @@ SMODS.Joker{key = "sample_test_joker",
         loc_txt = {
                 name = "Sample Test joker",
                 text = { 
-                    "Gives {X:mult,C:white} X15 {} mult",
+                    "Gives {X:mult,C:white}X#1#{} Mult",
                     "{C:inactive}how it even ended up here?"
                 }
             },
@@ -1229,7 +1229,7 @@ SMODS.Joker{key = "small_joker",
     display_size = { w = 10000000, h = 10000000 },
 }
 SMODS.Joker{key = "code_joker", -- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    config = { extra = { gain = 0.1, mult = 4900 } },
+    config = { extra = { gain = 0.1, mult = 5119 } },
     rarity = 3,
     cost = 8,
     blueprint_compat = true,
@@ -2109,7 +2109,7 @@ SMODS.Joker {key = 'pear',
     calculate = function(self, card, context)
         if context.joker_main and card.ability.extra.current_x > 1 then
             return {
-                message = 'x' .. current_mult_val .. ' Chips',
+                message = 'x' .. card.ability.extra.current_x .. ' Chips',
                 Xchip_mod = card.ability.extra.current_x,
                 colour = G.C.CHIPS
             }
@@ -2933,8 +2933,8 @@ SMODS.Joker {key = 'joker_blind',
     loc_txt = {
         name = 'Joker Blind',
         text = {
-            "When {C:attention}sold{}, {C:attention}rerolls{} the",
-            "current Boss Blind"
+            "{C:attention}rerolls{} the",
+            "current Boss Blind when {C:attention}sold{}"
         }
     },
     config = {},
@@ -2952,6 +2952,7 @@ SMODS.Joker {key = 'joker_blind',
             G.E_MANAGER:add_event(Event({
                 func = function()
                     G.FUNCS.reroll_boss()
+                    ease_dollars(10)
                     attention_text({
                         text = 'Rerolled!',
                         scale = 1, 
@@ -3650,30 +3651,6 @@ SMODS.Joker {key = 'mob_spawner',
             card:juice_up(0.3, 0.1)
         end
         card.last_s_pressed = is_pressed
-    end
-}
-SMODS.Joker {key = 'turtle',
-    loc_txt = {
-        name = 'Turtle',
-        text = {
-            "Forces game speed",
-            "to {C:attention}0.5x{}"
-        }
-    },
-    rarity = 1,
-    cost = 0,
-    unlocked = true,
-    discovered = true,
-    blueprint_compat = false,
-    eternal_compat = true,
-    perishable_compat = false,
-    hidden = true,
-    update = function(self, card)
-        if G.SETTINGS and not card.debuff then
-            if G.SETTINGS.GAMESPEED ~= 0.5 then
-                G.SETTINGS.GAMESPEED = 0.5
-            end
-        end
     end
 }
 SMODS.Joker {key = 'grindstone',
@@ -4792,6 +4769,87 @@ SMODS.Joker{key = "DR34MC0R3",
         end
     end
 }
+SMODS.Joker {key = "chult_test_1",
+    config = { chult = 20 }, 
+    rarity = 1,
+    cost = 1,
+    blueprint_compat = true,
+    eternal_compat = true,
+    unlocked = true,
+    discovered = true,
+        loc_txt = {
+                name = "Chult Test 1",
+                text = { 
+                    "{C:purple}+#1#{} Chult"
+                }
+            },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.chult } }
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main then
+            return {
+                message = '+' .. card.ability.chult .. ' Chult',
+                colour = G.C.PURPLE,
+                chult_mod = card.ability.chult
+            }
+        end
+    end
+}
+SMODS.Joker {key = "chult_test_2",
+    config = { xchult = 2 }, 
+    rarity = 2,
+    cost = 2,
+    blueprint_compat = true,
+    eternal_compat = true,
+    unlocked = true,
+    discovered = true,
+        loc_txt = {
+                name = "Chult Test 2",
+                text = { 
+                    "{X:purple,C:white}X#1#{} Chult"
+                }
+            },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.xchult } }
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main then
+            return {
+                message = 'X' .. card.ability.xchult .. ' Chult',
+                colour = G.C.PURPLE,
+                Xchult_mod = card.ability.xchult
+            }
+        end
+    end
+}
+SMODS.Joker {key = "chult_test_3",
+    config = { echult = 2 }, 
+    rarity = 3,
+    cost = 3,
+    blueprint_compat = true,
+    eternal_compat = true,
+    unlocked = true,
+    discovered = true,
+        loc_txt = {
+                name = "Chult Test 3",
+                text = { 
+                    "{X:purple,C:white}^#1#{} Chult"
+                }
+            },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.echult } }
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main then
+            return {
+                message = '^' .. card.ability.echult .. ' Chult',
+                colour = G.C.PURPLE,
+                Echult_mod = card.ability.echult
+            }
+        end
+    end
+}
 SMODS.Joker {key = 'all_9s',
     loc_txt = {
         name = 'Oops! All 9s',
@@ -4913,7 +4971,8 @@ SMODS.Joker {key = 'forgot_cube',
         text = {
             "Scored {C:attention}7s{} Increase all",
             "listed {C:green,E:1,S:1.1}probabilities{} by {C:green}#1#{}",
-            "{C:inactive}(ex:{} {C:green,E:1,S:1.1}1 in 3{} {C:inactive}->{} {C:green,E:1,S:1.1}#2# in 3{}{C:inactive}){}"
+            "{C:inactive}(ex:{} {C:green,E:1,S:1.1}1 in 3{} {C:inactive}->{} {C:green,E:1,S:1.1}#2# in 3{}{C:inactive}){}",
+            "{C:inactive,s:0.7}Timmy! How the freak are we gonna play monopoly?!{}"
         }
     },
     config = { g7 = 0.2 },
@@ -4921,7 +4980,7 @@ SMODS.Joker {key = 'forgot_cube',
     cost = 8,
     unlocked = true,
     discovered = true,
-    blueprint_compat = false,
+    blueprint_compat = true,
     atlas = 'forgot_cube',
 	pools = { ["Oops!"] = true },
     loc_vars = function(self, info_queue, card)
@@ -4958,10 +5017,10 @@ SMODS.Joker {key = 'all_inf',
     atlas = 'all_inf',
 	pools = { ["Oops!"] = true },
     add_to_deck = function(self, card, from_debuff)
-        G.GAME.probabilities.normal = G.GAME.probabilities.normal + (1e9)
+        G.GAME.probabilities.normal = G.GAME.probabilities.normal * (1e9)
     end,
     remove_from_deck = function(self, card, from_debuff)
-        G.GAME.probabilities.normal = G.GAME.probabilities.normal - (1e9)
+        G.GAME.probabilities.normal = G.GAME.probabilities.normal / (1e9)
     end
 }
 SMODS.Joker {key = 'all_0s',
@@ -4970,7 +5029,7 @@ SMODS.Joker {key = 'all_0s',
         text = {
             "Reduces all {C:attention}listed{}",
             "{C:green,E:1,S:1.1}probabilities{} by {C:attention}#1#{}",
-            "{C:inactive}(ex:{} {C:green,E:1,S:1.1}1 in 3{} {C:inactive}->{} {C:green,E:1,S:1.1}0 in 3{}{C:inactive}){}"
+            "{C:inactive}(ex:{} {C:green,E:1,S:1.1}3 in 4{} {C:inactive}->{} {C:green,E:1,S:1.1}2 in 4{}{C:inactive}){}"
         }
     },
     config = { extra = 1 },
@@ -5026,6 +5085,779 @@ SMODS.Joker {key = 'all_oops',
                     return true
                 end
             }))
+        end
+    end
+}
+SMODS.Joker {key = 'all_legendary',
+    loc_txt = {
+        name = "Oops! I'm legendary now",
+        text = {
+            "{C:green}#1# in #2#{} chance to create",
+            "random {C:dark_edition}negative{} {C:red}rare{} joker",
+            "at end of round",
+            "otherwise creates {C:dark_edition}negative{} {C:green}Oops! All Oops!{}"
+        }
+    },
+    config = { extra = { odds = 33 } },
+    rarity = 4,
+    cost = 20,
+    unlocked = true,
+    discovered = true,
+    blueprint_compat = true,
+    atlas = 'all_rares',
+    soul_pos = {x=0,y=1},
+	pools = { ["Oops!"] = true },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { (G.GAME.probabilities.normal or 1), card.ability.extra.odds } }
+    end,
+    calculate = function(self, card, context)
+        if context.end_of_round and not context.blueprint and not context.repetition and not context.individual then
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    local forced_key = nil
+                    if pseudorandom('all_rares_roll') < G.GAME.probabilities.normal / card.ability.extra.odds then
+                        local rare_pool = {}
+                        for k, v in pairs(G.P_CENTERS) do
+                            if v.set == 'Joker' and v.rarity == 3 then
+                                rare_pool[#rare_pool + 1] = v.key
+                            end
+                        end
+                        if #rare_pool > 0 then
+                            forced_key = pseudorandom_element(rare_pool, pseudoseed('all_rares_success'))
+                        end
+                    else
+                        forced_key = 'j_uv_all_oops'
+                    end
+                    if forced_key and G.P_CENTERS[forced_key] then
+                        local new_card = create_card('Joker', G.jokers, nil, nil, nil, nil, forced_key, 'all_rares')
+                        new_card:set_edition({negative = true}, true, true)
+                        new_card:add_to_deck()
+                        G.jokers:emplace(new_card)
+                        card:juice_up(0.3, 0.5)
+                    end
+                    return true
+                end
+            }))
+        end
+    end
+}
+SMODS.Joker {key = 'all_misprints',
+    loc_txt = {
+        name = 'Oops! All misprints',
+        text = {
+            "{C:green}#1##2#{} to all",
+            "{C:attention}listed{} {C:green,E:1,S:1.1}probabilities{}",
+            "{C:inactive}(ex:{} {C:green,E:1,S:1.1}1 in 3{} {C:inactive}->{} {C:green,E:1,S:1.1}#3# in 3{}{C:inactive}){}",
+            "{C:inactive}(Changes every round){}"
+        }
+    },
+    config = { extra = { op = 'X', n = 1, original_prob = 1, ex = 1 } },
+    rarity = 3,
+    cost = 8,
+    unlocked = true,
+    discovered = true,
+    blueprint_compat = false,
+    atlas = 'all_misprints',
+    pools = { ["Oops!"] = true },
+    loc_vars = function(self, info_queue, card)
+        local display_op = card.ability.extra.op
+        if display_op == 'X' then display_op = 'x' end
+        return { vars = { display_op, card.ability.extra.n, card.ability.extra.ex } }
+    end,
+    add_to_deck = function(self, card, from_debuff)
+        card.ability.extra.original_prob = G.GAME.probabilities.normal
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        G.GAME.probabilities.normal = card.ability.extra.original_prob
+    end,
+    calculate = function(self, card, context)
+        if context.end_of_round and not context.blueprint and not context.repetition and not context.individual and not card.debuff then
+            local operators = {'+', '-', 'X', '/', '^'}
+            card.ability.extra.op = pseudorandom_element(operators, pseudoseed('misprint_op' .. G.GAME.round_resets.ante))
+            local random_n = pseudorandom('misprint_n' .. G.GAME.round_resets.ante) * 4.5 + 0.5
+            card.ability.extra.n = tonumber(string.format("%.1f", random_n))
+            local base_prob = card.ability.extra.original_prob or 1
+            if card.ability.extra.op == '+' then
+                G.GAME.probabilities.normal = base_prob + card.ability.extra.n
+                card.ability.extra.ex = 1 + card.ability.extra.n
+            elseif card.ability.extra.op == '-' then
+                G.GAME.probabilities.normal = base_prob - card.ability.extra.n
+                card.ability.extra.ex = 1 - card.ability.extra.n
+            elseif card.ability.extra.op == 'X' then
+                G.GAME.probabilities.normal = base_prob * card.ability.extra.n
+                card.ability.extra.ex = 1 * card.ability.extra.n
+            elseif card.ability.extra.op == '/' then
+                G.GAME.probabilities.normal = card.ability.extra.n ~= 0 and (base_prob / card.ability.extra.n) or base_prob
+                card.ability.extra.ex = 1 / card.ability.extra.n
+            elseif card.ability.extra.op == '^' then
+                G.GAME.probabilities.normal = base_prob ^ card.ability.extra.n
+                card.ability.extra.ex = 1 ^ card.ability.extra.n
+            end
+            return {
+                message = 'Oops!',
+                colour = G.C.GREEN
+            }
+        end
+    end
+}
+SMODS.Joker {key = 'all_is',
+    loc_txt = {
+        name = "Oops! All i's",
+        text = {
+            "square root numerator of",
+            "all {C:attention}listed{} {C:green,E:1,S:1.1}probabilities{}",
+            "{C:inactive}(ex:{} {C:green,E:1,S:1.1}16 in 20{} {C:inactive}->{} {C:green,E:1,S:1.1}4 in 20{}{C:inactive}){}"
+        }
+    },
+    config = {},
+    rarity = 2,
+    cost = 6,
+    unlocked = true,
+    discovered = true,
+    blueprint_compat = false,
+    atlas = 'all_is',
+	pools = { ["Oops!"] = true },
+    add_to_deck = function(self, card, from_debuff)
+        G.GAME.probabilities.normal = G.GAME.probabilities.normal ^ 0.5
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        G.GAME.probabilities.normal = G.GAME.probabilities.normal ^ 2
+    end
+}
+SMODS.Joker {key = 's6_lla',
+    loc_txt = {
+        name = "s6 llA !spoO",
+        text = {
+            "{C:green}#1# in 12{} chance to permanetly double all {C:attention}listed{}",
+            "{C:green,E:1,S:1.1}probabilities{} at end of round",
+            "increases {C:green,E:1,S:1.1}probability{} by {C:green}0.5{} every time roll is failed",
+            "{C:green,E:1,S:1.1}probability{} set back to {C:green}1{} when chance is sucsessfully rolled",
+            "chance can't be changed in any other way"
+        }
+    },
+    config = {},
+    rarity = 4,
+    cost = 20,
+    unlocked = true,
+    discovered = true,
+    blueprint_compat = false,
+    atlas = 's6_lla',
+    soul_pos = {x=0,y=1},
+	pools = { ["Oops!"] = true },
+    loc_vars = function(self, info_queue, card)
+        local chance = (G.GAME and G.GAME.EULAV_S6_LLA) or 1
+        return { vars = { chance } }
+    end,
+    calculate = function(self, card, context)
+        if context.end_of_round and not context.blueprint and not context.repetition and not context.individual then
+            G.GAME.EULAV_S6_LLA = G.GAME.EULAV_S6_LLA or 1
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    if pseudorandom('llor_6D') < G.GAME.EULAV_S6_LLA / 12 then
+                        play_sound('coin6')
+                        G.GAME.probabilities.normal = G.GAME.probabilities.normal * 2
+                        G.GAME.EULAV_S6_LLA = 1
+                        card:juice_up()
+                    else
+                        G.GAME.EULAV_S6_LLA = G.GAME.EULAV_S6_LLA + 0.5
+                        play_sound('glass6')
+                        card:juice_up()
+                    end
+                    return true
+                end
+            }))
+        end
+    end
+}
+SMODS.Joker {key = 'all_madnesss',
+    loc_txt = {
+        name = 'Oops! All madnesss',
+        text = {
+            "{C:green}#1# in{} {C:blue}#2# out of{} {C:purple}#3#{} chance",
+            "to get {X:chips,C:white}^green banana{} Chips,",
+            "with a {C:green}#4# in FOUR{} chance to",
+            "re-index the matrix by {X:mult,C:white}^#5#{} mult.",
+            "Every time {C:green}New-York in 12.673e$!* {C:blue}between jokir12 {C:purple}out 6",
+            "{C:red}inside sideway potato {C:attention}with i for range(chance){} chance is triggered",
+            "this joker gains {C:green}+#6# probability{} if {C:attention}1 in cow{} chance not triggered.",
+            "If {C:red}System.Error(void){} == {C:blue}true{}, formats {C:attention}G.GAME.hands['NaN']{}",
+            "into {X:mult,C:white}^#7#{} mult inside your actual {C:inactive}windows/system32/{}",
+            "{C:red}FATAL ERROR:{} Unhandled potato exception in {C:attention}G.FUNCS.collide_cow(){}",
+            "Multiply Ante by {X:purple,C:white}^0.0001%{} for each {C:money}sub-atomic cent{} owned",
+            "Convert {C:hearts}Hearts{} into {C:diamonds}Diamonds{} sideways",
+            "If played hand contains exactly {C:attention}3.54 of a Kind{}, delete {C:joker}Joker 4{} from reality Number 907",
+            "Execute {C:purple}for _, v in ipairs(G.GALAXY) do void() end{}",
+            "{X:mult,C:white}^cucumber{} mult if system clock is divisible by {C:attention}green{}",
+            "{C:green}sqrt(-1) out of pi{} chance to trigger all of this",
+            "each frame there are a {C:green}* inside #8#{} chance for {C:green}backflip in q order 84 chances {C:blue}with geometrical finger{} chance",
+            "for {C:green}el primo in vortex {C:blue}in ^2^ {C:purple}out {C:red}inside {C:attention}between {}{C:money}under {}{C:inactive}on WASD{} chance of",
+            "{C:green}#9# on shardium{} chance to trigger {C:red}+1-1{} Mult",
+            "otherwise:",
+            "{C:green}blueberry in milky way Number D{} chance of {C:green}!! in !!!!!!{} chance for {C:green}yaguar in white pants {C:blue}in australia{} chance",
+            "to do {C:dark_edition}NOTHING{} if {C:green}socks in butterfly {C:blue}with leaf {C:purple}out lighter{} chance not triggered {C:attention}328{} times in a row.",
+            "{C:inactive}(Increases or decreases all variations of Luck, Potatoes, Bovines and Your Sanity){}"
+        }
+    },
+    config = {
+        extra = {
+            madness_level = 3, apple_factor = 2, four_factorial = 24, banana_exponent = 1.5, mult_power = 0.77,
+            cow_prob = 1, potato_power = 999
+        }
+    },
+    rarity = 'uv_super_rare',
+    cost = 15,
+    unlocked = true,
+    discovered = true,
+    blueprint_compat = true,
+    pools = { ["Oops!"] = true },
+    loc_vars = function(self, info_queue, card)
+        local vars = (card and card.ability and card.ability.extra) and card.ability.extra or self.config.extra
+        return { vars = { 
+            vars.madness_level, vars.apple_factor, "apple", 
+            vars.banana_exponent, vars.mult_power, vars.cow_prob, vars.potato_power,
+            "([{*!*}])", "{C:green}"
+        } }
+    end,
+    calculate = function(self, card, context)
+        local extra = card.ability.extra
+        if context.joker_main then
+            if pseudorandom('cow_chance') > (G.GAME.probabilities.normal / 10) then
+                extra.cow_prob = extra.cow_prob + 1
+                if pseudorandom('sideway_potato') < 0.90 then
+                    local shift_amount = math.random(1, 4)
+                    local sub_atomic_cents = (G.GAME.dollars % 1) * 1000
+                    if sub_atomic_cents > 0 then
+                        ease_ante(sub_atomic_cents * 0.00001)
+                    end
+                    local cucumber_mult = 1
+                    if os.time() % 2 == 0 then
+                        cucumber_mult = 1.5
+                    end
+                    if pseudorandom('backflip') < 0.50 then
+                        SMODS.change_play_limit(math.random(-1, 1))
+                        SMODS.change_discard_limit(math.random(-1, 1))
+                    end
+                    local final_emult = (extra.mult_power ^ extra.cow_prob) * cucumber_mult
+                    return {
+                        message = '+1-1 Mult',
+                        Xchip_mod = 2 ^ shift_amount,
+                        Emult_mod = final_emult,
+                        colour = G.C.GREEN
+                    }
+                end
+            else
+                extra.cow_prob = 1
+                extra.socks_streak = 0
+                G.hand:change_size(-2)
+                return {
+                    message = 'COW COLLISION ERROR!',
+                    colour = G.C.RED
+                }
+            end
+            extra.socks_streak = extra.socks_streak + 1
+            if extra.socks_streak >= 328 then
+                extra.socks_streak = 0
+                return {
+                    message = 'ABSOLUTE NOTHINGNESS',
+                    colour = G.C.DARK_EDITION
+                }
+            end
+        end
+        if context.discard and not context.blueprint then
+            if #context.full_hand == 3 then
+                for _, c in ipairs(G.hand.cards) do
+                    if c.base.suit == 'Hearts' then
+                        c:change_suit('Diamonds')
+                    end
+                end
+                return { message = 'Hearts rotated 90°', colour = G.C.PURPLE }
+            end
+        end
+    end
+}
+SMODS.Joker {key = 'all_ultraviolets',
+    loc_txt = {
+        name = 'Oops! All UltraViolets',
+        text = {
+            "Gains {X:mult,C:white}X#1#{} Mult for every",
+            "{C:green}Oops!{} Joker you own",
+            "{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)"
+        }
+    },
+    config = { extra = { x_mult_gain = 0.3 } },
+    rarity = 2,
+    cost = 6,
+    unlocked = true,
+    discovered = true,
+    blueprint_compat = true,
+    pools = { ["Oops!"] = true },
+    atlas = 'all_ultraviolets',
+    loc_vars = function(self, info_queue, card)
+        local count = 0
+        if G.jokers and G.jokers.cards then
+            for _, j in ipairs(G.jokers.cards) do
+                if j.config.center and j.config.center.pools and j.config.center.pools["Oops!"] then
+                    count = count + 1
+                end
+            end
+        end
+        local current_mult = 1 + (count * card.ability.extra.x_mult_gain)
+        return { vars = { card.ability.extra.x_mult_gain, current_mult } }
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main then
+            local count = 0
+            for _, j in ipairs(G.jokers.cards) do
+                if j.config.center and j.config.center.pools and j.config.center.pools["Oops!"] then
+                    count = count + 1
+                end
+            end
+            local current_mult = 1 + (count * card.ability.extra.x_mult_gain)
+            if current_mult > 1 then
+                return {
+                    message = 'X' .. current_mult .. ' Mult',
+                    Xmult_mod = current_mult,
+                    colour = G.C.MULT
+                }
+            end
+        end
+    end
+}
+SMODS.Joker {key = 'god_of_all_oops',
+    loc_txt = {
+        name = 'The God of all Oops!',
+        text = {
+            "Gains {X:chips,C:white}^#1#{} Chips whenever you buy,",
+            "obtain, or sell an {C:green}Oops!{} Joker",
+            "{C:inactive}(Currently {X:chips,C:white}^#2#{C:inactive} Chips)",
+            "Creates {C:attention}#3#{} random {C:dark_edition}Negative{} {C:green}Oops!{} Jokers",
+            "at the end of the round. This amount increases",
+            "by {C:attention}1{} every time {C:green}Oops! All Oops!{} is sold"
+        }
+    },
+    config = { extra = { gain = 0.03, current_e_chips = 1, base_negatives = 1, sold_bonus = 0, pack_mult = 9 } },
+    rarity = 4,
+    cost = 20,
+    unlocked = true,
+    discovered = true,
+    blueprint_compat = true,
+    pools = { ["Oops!"] = true },
+    loc_vars = function(self, info_queue, card)
+        local total_negatives = card.ability.extra.base_negatives + card.ability.extra.sold_bonus
+        return { vars = { card.ability.extra.gain, card.ability.extra.current_e_chips, total_negatives, card.ability.extra.pack_mult } }
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main and card.ability.extra.current_e_chips > 1 then
+            return {
+                message = '^' .. card.ability.extra.current_e_chips .. ' Chips',
+                Echip_mod = card.ability.extra.current_e_chips,
+                colour = G.C.BLUE
+            }
+        end
+        if (context.buying_card and context.card and context.card.config.center and context.card.config.center.pools and context.card.config.center.pools['Oops!']) or
+           (context.open_booster and context.card and context.card.config.center and context.card.config.center.pools and context.card.config.center.pools['Oops!']) then
+            card.ability.extra.current_e_chips = card.ability.extra.current_e_chips + card.ability.extra.gain
+            card_eval_status_text(card, 'extra', nil, nil, nil, {message = 'Upgrade!', colour = G.C.GREEN})
+        end
+        if context.selling_card and context.card and context.card.config.center then
+            if context.card.config.center.pools and context.card.config.center.pools['Oops!'] then
+                card.ability.extra.current_e_chips = card.ability.extra.current_e_chips + card.ability.extra.gain
+                card_eval_status_text(card, 'extra', nil, nil, nil, {message = 'Upgrade!', colour = G.C.GREEN})
+            end
+            if context.card.config.center.key == 'j_uv_all_oops' then
+                card.ability.extra.sold_bonus = card.ability.extra.sold_bonus + 1
+                card_eval_status_text(card, 'extra', nil, nil, nil, {message = '+1 Negative!', colour = G.C.DARK_EDITION})
+            end
+        end
+        if context.end_of_round and not context.blueprint and not context.repetition and not context.individual and not card.debuff then
+            local total_negatives = card.ability.extra.base_negatives + card.ability.extra.sold_bonus
+            local oops_pool = {}
+            for k, v in pairs(G.P_CENTERS) do
+                if v.set == 'Joker' and v.pools and v.pools['Oops!'] then
+                    oops_pool[#oops_pool + 1] = v.key
+                end
+            end
+            for i = 1, total_negatives do
+                if #G.jokers.cards < G.jokers.config.card_limit or true then -- Негативные могут превышать лимит слотов
+                    local forced_key = #oops_pool > 0 and pseudorandom_element(oops_pool, pseudoseed('god_oops')) or nil
+                    local new_card = create_card('Joker', G.jokers, nil, nil, nil, nil, forced_key, 'god_oops')
+                    new_card:set_edition({negative = true}, true)
+                    new_card:add_to_deck()
+                    G.jokers:emplace(new_card)
+                end
+            end
+            return {
+                message = 'Blessing!',
+                colour = G.C.GREEN
+            }
+        end
+    end
+}
+SMODS.Joker {key = 'roboker',
+    loc_txt = {
+        name = 'Roboker',
+        text = {
+            "{X:mult,C:white}X#1#{} Mult",
+            "Must solve a {C:blue}CAPTCHA{}",
+            "before each blind"
+        }
+    },
+    config = { extra = { Xmult = 4 } },
+    rarity = 3,
+    cost = 8,
+    unlocked = true,
+    discovered = true,
+    blueprint_compat = true,
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.Xmult } }
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main then
+            return {
+                message = 'X' .. card.ability.extra.Xmult .. ' Mult',
+                Xmult_mod = card.ability.extra.Xmult,
+                colour = G.C.MULT
+            }
+        end
+        if context.setting_blind and not context.blueprint then
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.5,
+                func = function()
+                    G.FUNCS.spawn_roboker_captcha()
+                    return true
+                end
+            }))
+        end
+    end
+}
+SMODS.Joker {key = 'teacher',
+    loc_txt = {
+        name = 'Teacher Joker',
+        text = {
+            "{X:mult,C:white}X#1#{} Mult",
+            "Must solve math problem before each round",
+            "Gains {X:mult,C:white}X#2#{} Mult for each correct answer",
+            "reduces by {X:mult,C:white}X#3#{} on wrong answer",
+            "#4#           #5#"
+        }
+    },
+    config = { extra = { mult_mod = 0.5, reduce_mod = 0.75 } },
+    rarity = 2,
+    cost = 6,
+    unlocked = true,
+    discovered = true,
+    blueprint_compat = true,
+    loc_vars = function(self, info_queue, card)
+        local current_mult = 1 + ((G.GAME.correct_answers or 0) * 0.5) - ((G.GAME.wrong_answers or 0) * 0.25)
+        return { vars = { 
+            current_mult, 
+            card.ability.extra.mult_mod, 
+            card.ability.extra.reduce_mod,
+            (G.GAME.correct_answers or 0),
+            (G.GAME.wrong_answers or 0)
+        } }
+    end,
+    calculate = function(self, card, context)
+        local current_mult = 1 + ((G.GAME.correct_answers or 0) * 0.5) - ((G.GAME.wrong_answers or 0) * 0.25)
+        if context.setting_blind and not (context.blueprint_or_negative) then
+            G.FUNCS.spawn_teacher_quiz(card)
+        end
+        if context.joker_main then
+            if card.ability.extra.current_mult ~= 1 then
+                return {
+                    Xmult_mod = current_mult,
+                    message = 'X' .. current_mult .. ' Mult',
+                    colour = G.C.RED
+                }
+            end
+        end
+    end
+}
+SMODS.Joker {key = 'match',
+    loc_txt = {
+        name = 'Match',
+        text = {
+            "{C:green}#1# in #2#{} chance for each scored card",
+            "to be destroyed and give {C:mult}+#3#{} Mult",
+            "to this Joker",
+            "{C:inactive}(Currently {C:mult}+#4#{C:inactive} Mult)"
+        }
+    },
+    config = { extra = { odds = 6, mult_gain = 10, mult = 0 } },
+    rarity = 2,
+    cost = 6,
+    unlocked = true,
+    discovered = true,
+    blueprint_compat = true,
+    loc_vars = function(self, info_queue, card)
+        return { vars = { G.GAME.probabilities.normal, card.ability.extra.odds, card.ability.extra.mult_gain, card.ability.extra.mult } }
+    end,
+    calculate = function(self, card, context)
+        if context.cardarea == G.play and context.destroying_card and not context.blueprint then
+            if pseudorandom('match') < G.GAME.probabilities.normal / card.ability.extra.odds then
+                card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_gain
+                return true
+            end
+        end
+        if context.joker_main and card.ability.extra.mult > 0 then
+            return {
+                message = '+' .. card.ability.extra.mult .. ' Mult',
+                mult_mod = card.ability.extra.mult,
+                colour = G.C.MULT
+            }
+        end
+    end
+}
+SMODS.Joker {key = 'broken_mirror',
+    loc_txt = {
+        name = 'Broken Mirror',
+        text = {
+            "{C:green}#1# in #2#{} chance to apply a random",
+            "{C:dark_edition}Edition{} to the second card",
+            "If played hand is 2 {C:attention}identical{} cards"
+        }
+    },
+    config = { extra = { odds_num = 4, odds_den = 7 } },
+    rarity = 2,
+    cost = 6,
+    unlocked = true,
+    discovered = true,
+    blueprint_compat = true,
+    loc_vars = function(self, info_queue, card)
+        return { vars = { G.GAME.probabilities.normal * card.ability.extra.odds_num, card.ability.extra.odds_den } }
+    end,
+    calculate = function(self, card, context)
+        if context.before and context.scoring_hand and #context.scoring_hand == 2 then
+            local card1 = context.scoring_hand[1]
+            local card2 = context.scoring_hand[2]
+
+            local is_identical = card1.base.id == card2.base.id and
+                                 card1.base.suit == card2.base.suit and
+                                 card1.ability.name == card2.ability.name and
+                                 (card1.seal or '') == (card2.seal or '') and
+                                 ((card1.edition and card1.edition.key) or '') == ((card2.edition and card2.edition.key) or '')
+
+            if is_identical then
+                if pseudorandom('broken_mirror') < (G.GAME.probabilities.normal * card.ability.extra.odds_num) / card.ability.extra.odds_den then
+                    local edition = poll_edition('broken_mirror', nil, true, true)
+                    if edition then
+                        card2:set_edition(edition, true)
+                    end
+                end
+            end
+        end
+    end
+}
+SMODS.Joker {key = 'russian_roulette',
+    loc_txt = {
+        name = 'Russian Roulette',
+        text = {
+            "Gains {X:mult,C:white}X#1#{} Mult after each round.",
+            "Has a {C:green}#2# in #3#{} chance to be",
+            "{C:red}destroyed{} at the end of every round",
+            "{C:inactive}(Currently {X:mult,C:white}X#4#{C:inactive} Mult)"
+        }
+    },
+    config = { extra = { Xmult_gain = 0.5, Xmult = 1, odds = 6 } },
+    rarity = 2,
+    cost = 6,
+    unlocked = true,
+    discovered = true,
+    blueprint_compat = true,
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.Xmult_gain, G.GAME.probabilities.normal, card.ability.extra.odds, card.ability.extra.Xmult } }
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main and card.ability.extra.Xmult > 1 then
+            return {
+                message = 'X' .. card.ability.extra.Xmult .. ' Mult',
+                Xmult_mod = card.ability.extra.Xmult,
+                colour = G.C.MULT
+            }
+        end
+        if context.end_of_round and not context.blueprint and not context.repetition and not context.individual then
+            card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_gain
+            if pseudorandom('russian_roulette') < G.GAME.probabilities.normal / card.ability.extra.odds then
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        play_sound('tarot1')
+                        card:start_dissolve()
+                        return true
+                    end
+                }))
+                return {
+                    message = 'Bang!',
+                    colour = G.C.RED
+                }
+            else
+                return {
+                    message = 'Save!',
+                    colour = G.C.GREEN
+                }
+            end
+        end
+    end
+}
+SMODS.Joker {key = 'meteorologist',
+    loc_txt = {
+        name = 'Meteorologist',
+        text = {
+            "When a {C:planet}Planet{} card is obtained,",
+            "has a {C:green}#1# in #2#{} chance to create",
+            "a {C:dark_edition}Negative{} copy of it"
+        }
+    },
+    config = { extra = { odds = 2 } },
+    rarity = 2,
+    cost = 6,
+    unlocked = true,
+    discovered = true,
+    blueprint_compat = true,
+    loc_vars = function(self, info_queue, card)
+        return { vars = { G.GAME.probabilities.normal, card.ability.extra.odds } }
+    end,
+    calculate = function(self, card, context)
+        if context.uv_planet_added and context.target and not context.blueprint then
+            if pseudorandom('meteorologist') < G.GAME.probabilities.normal / card.ability.extra.odds then
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 0.4,
+                    func = function()
+                        local copy = copy_card(context.target, nil, nil, G.consumeables)
+                        copy.from_meteorologist = true
+                        copy:set_edition({negative = true}, true)
+                        copy:add_to_deck()
+                        G.consumeables:emplace(copy)
+                        return true
+                    end
+                }))
+            end
+        end
+    end
+}
+SMODS.Joker {key = 'casino_royale',
+    loc_txt = {
+        name = 'Casino Royale',
+        text = {
+            "{C:green}#1# in #2#{} chance for each",
+            "played {C:attention}face{} card to become {C:green}lucky{} card"
+        }
+    },
+    config = { extra = { odds = 3 } },
+    rarity = 2,
+    cost = 6,
+    unlocked = true,
+    discovered = true,
+    blueprint_compat = true,
+    loc_vars = function(self, info_queue, card)
+        return { vars = { G.GAME.probabilities.normal, card.ability.extra.odds } }
+    end,
+    calculate = function(self, card, context)
+        if context.before and context.scoring_hand then
+            for i = 1, #context.scoring_hand do
+                local target_card = context.scoring_hand[i]
+                if target_card:is_face() then
+                    if pseudorandom('casino_royale') < G.GAME.probabilities.normal / card.ability.extra.odds then
+                        G.E_MANAGER:add_event(Event({
+                            trigger = 'after',
+                            delay = 0.1,
+                            func = function()
+                                target_card:set_ability(G.P_CENTERS.m_lucky)
+                                target_card:juice_up()
+                                return true
+                            end
+                        }))
+                    end
+                end
+            end
+        end
+    end
+}
+SMODS.Joker {key = 'shuler',
+    loc_txt = {
+        name = 'Shuler',
+        text = {
+            "{C:green}#1# in #2#{} chance to give",
+            "your discard back when",
+            "you {C:red}discarding{} cards"
+        }
+    },
+    config = { extra = { odds_num = 2, odds_den = 5, debt = 0 } },
+    rarity = 2,
+    cost = 6,
+    unlocked = true,
+    discovered = true,
+    blueprint_compat = true,
+    loc_vars = function(self, info_queue, card)
+        return { vars = { G.GAME.probabilities.normal * card.ability.extra.odds_num, card.ability.extra.odds_den } }
+    end,
+    calculate = function(self, card, context)
+        if context.setting_blind and not context.blueprint then
+            card.ability.extra.debt = 0
+        end
+        if context.pre_discard and not context.blueprint then
+            if pseudorandom('shuler') < (G.GAME.probabilities.normal * card.ability.extra.odds_num) / card.ability.extra.odds_den then
+                card.ability.extra.debt = card.ability.extra.debt + 1
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 0.1,
+                    func = function()
+                        ease_discard(1)
+                        return true
+                    end
+                }))
+            end
+        end
+        if context.end_of_round and not context.blueprint and not context.repetition then
+            if card.ability.extra.debt > 0 then
+                local current_debt = card.ability.extra.debt
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 0.1,
+                    func = function()
+                        ease_discard(-current_debt)
+                        return true
+                    end
+                }))
+                card.ability.extra.debt = 0
+            end
+        end
+    end
+}
+SMODS.Joker {key = 'jackpot',
+    loc_txt = {
+        name = 'Jackpot',
+        text = {
+            "{C:green}#1# in #2#{} chance to",
+            "give {C:money}+$#3#{} at the end of round"
+        }
+    },
+    config = { extra = { odds_num = 7, odds_den = 77, money = 100 } },
+    rarity = 2,
+    cost = 6,
+    unlocked = true,
+    discovered = true,
+    blueprint_compat = true,
+    loc_vars = function(self, info_queue, card)
+        return { vars = { G.GAME.probabilities.normal * card.ability.extra.odds_num, card.ability.extra.odds_den, card.ability.extra.money } }
+    end,
+    calculate = function(self, card, context)
+        if context.end_of_round and not context.blueprint and not context.repetition and not context.individual then
+            if pseudorandom('jackpot') < (G.GAME.probabilities.normal * card.ability.extra.odds_num) / card.ability.extra.odds_den then
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 0.1,
+                    func = function()
+                        ease_dollars(card.ability.extra.money)
+                        return true
+                    end
+                }))
+                return {
+                    message = '+$' .. card.ability.extra.money,
+                    colour = G.C.GOLD
+                }
+            end
         end
     end
 }

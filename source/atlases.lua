@@ -508,3 +508,28 @@ SMODS.Atlas({key = "all_oops",
     px = 142,
     py = 190
 })
+SMODS.Atlas({key = "all_rares",
+    path = "j_all_rares.png",
+    px = 142,
+    py = 190
+})
+SMODS.Atlas({key = "all_misprints",
+    path = "j_all_misprints.png",
+    px = 142,
+    py = 190
+})
+SMODS.Atlas({key = "all_is",
+    path = "j_all_is.png",
+    px = 142,
+    py = 190
+})
+SMODS.Atlas({key = "all_ultraviolets",
+    path = "j_all_ultraviolets.png",
+    px = 142,
+    py = 190
+})
+SMODS.Atlas({key = "s6_lla",
+    path = "j_s6_lla.png",
+    px = 142,
+    py = 190
+})

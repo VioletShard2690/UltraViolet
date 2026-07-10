@@ -1,0 +1,21 @@
+-- SMODS.Consumable{key = 'blueprint_tarot',
+--     unlocked = true,
+--     discovered = true,
+--     set = 'Tarot',
+--     pos = {x = 0, y = 3},
+--     config = {},
+--     loc_vars = function(self, info_queue, center)
+--         return { vars = {} }
+--     end
+-- }
+-- if G.P_CENTERS and G.P_CENTERS['c_uv_blueprint_tarot'] then
+--     G.P_CENTERS['c_uv_blueprint_tarot'].atlas = 'Jokers'
+-- else
+--     local old_set_atlases = Game.set_atlases
+--     function Game:set_atlases()
+--         old_set_atlases(self)
+--         if G.P_CENTERS and G.P_CENTERS['c_uv_blueprint_tarot'] then
+--             G.P_CENTERS['c_uv_blueprint_tarot'].atlas = 'Jokers'
+--         end
+--     end
+-- end

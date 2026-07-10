@@ -117,29 +117,6 @@ SMODS.Back {key = 'tyrants_deck',
     discovered = true,
     config = { tyrant_mode = true }
 }
-SMODS.Back {key = 'turtle_deck',
-    loc_txt = {
-        name = 'Turtle Deck',
-        text = {
-            "Start with a {C:dark_edition}Negative{} {C:attention}Eternal{} {C:attention}Turtle{}",
-            "Win the run at {C:attention}Ante 4{}"
-        }
-    },
-    config = { win_ante = 4 },
-    apply = function(self)
-        G.E_MANAGER:add_event(Event({
-            func = function()
-                G.GAME.win_ante = self.config.win_ante
-                local card = create_card('Joker', G.jokers, nil, nil, nil, nil, 'j_uv_turtle', 'turtle_start')
-                card:set_edition({negative = true}, true)
-                card:set_eternal(true)
-                card:add_to_deck()
-                G.jokers:emplace(card)
-                return true
-            end
-        }))
-    end
-}
 SMODS.Back {key = 'orange_deck',
     loc_txt = {
         name = 'Orange Deck',
@@ -190,7 +167,7 @@ SMODS.Back {key = 'royal_deck',
         name = "Royal Deck",
         text = {
             "Start with every {C:attention}Queen{} and",
-            "{C:attention}Jack{} turned into a {C:attention}King{}"
+            "{C:attention}Jack{} turned into a {C:attention}Kings{}"
         }
     },
     apply = function(self)
@@ -427,7 +404,6 @@ SMODS.Back{key = 'chimps_deck',
             ease_hands_played(-3)
             G.GAME.modifiers.no_interest = true
             G.GAME.win_ante = 10
-            G.GAME.modifiers.cry_price_mod = (G.GAME.modifiers.cry_price_mod or 1) * 2
             ease_dollars(-14)
             G.hand:change_size(-1)
             return true
@@ -460,8 +436,8 @@ SMODS.Back{key = 'subscription_deck',
     loc_txt = {
         name = "Subscription Deck",
         text = {
-            "shop has no {C:attention}booster pack{} slots",
-            "shop has 3 {C:attention}voucher{} slots"
+            "{C:red}-2{} {C:attention}booster pack{} slots",
+            "{C:attention}+2 voucher{} slots"
         }
     },
     unlocked = true,
@@ -481,7 +457,7 @@ SMODS.Back{key = 'desktop_deck',
         name = 'Desktop Deck',
         text = {
             "Start with {C:money}+$1{} for every",
-            "{C:attention}50 files{} on your real Desktop.",
+            "{C:attention}50 files{} on your Desktop.",
             "{C:inactive}(Currently {C:money}+$#1#{C:inactive})"
         }
     },
@@ -494,7 +470,6 @@ SMODS.Back{key = 'desktop_deck',
     apply = function(self)
         G.E_MANAGER:add_event(Event({
             func = function()
-                G.E_DECK = true
                 local money_bonus = math.floor(G.DESKTOP_FILE_COUNT / 50)
                 if money_bonus > 0 then
                     ease_dollars(money_bonus)
@@ -509,7 +484,7 @@ SMODS.Back{key = 'supermarket_deck',
         name = "Supermarket Deck",
         text = {
             "blind gives no money from {C:blue}hands{}",
-            "and {C:attention}interest",
+            "no {C:attention}interest",
             "{C:attention}+2 voucher{} slots",
             "{C:attention}+1 booster{} slot",
             "{C:attention}+3 card{} slots in the shop",

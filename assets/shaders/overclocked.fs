@@ -3,7 +3,7 @@
 #else
     #define MY_HIGHP_OR_MEDIUMP mediump
 #endif
-extern MY_HIGHP_OR_MEDIUMP vec2 ooopsier;
+extern MY_HIGHP_OR_MEDIUMP vec2 overclocked;
 extern MY_HIGHP_OR_MEDIUMP number dissolve;
 extern MY_HIGHP_OR_MEDIUMP number time;
 extern MY_HIGHP_OR_MEDIUMP vec4 texture_details;
@@ -30,7 +30,7 @@ vec4 effect( vec4 colour, Image texture, vec2 texture_coords, vec2 screen_coords
 {
     vec4 tex = Texel(texture, texture_coords);
     vec2 uv = (((texture_coords)*(image_details)) - texture_details.xy*texture_details.ba)/texture_details.ba;
-    if (burn_colour_1.a < 0.0 || burn_colour_2.a < 0.0 || ooopsier.x > 999.0 || hovering > 999.0 || screen_scale < -999.0) {
+    if (burn_colour_1.a < 0.0 || burn_colour_2.a < 0.0 || overclocked.x > 999.0 || hovering > 999.0 || screen_scale < -999.0) {
         tex.rgba += burn_colour_1 * 0.000001 + burn_colour_2 * 0.000001;
         tex.xy += mouse_screen_pos * 0.000001;
         tex.x += hovering * 0.000001 + screen_scale * 0.000001;
@@ -38,12 +38,11 @@ vec4 effect( vec4 colour, Image texture, vec2 texture_coords, vec2 screen_coords
     if (shadow) {
         return dissolve_mask(tex, texture_coords, uv);
     }
-    float t = time * 3.0;
-    float scanline = sin(uv.y * 60.0 + t) * 0.15;
-    float noise = fract(sin(dot(uv * t, vec2(12.9898,78.233))) * 43758.5453) * 0.08;
-    vec3 green_glow = vec3(0.1, 0.85, 0.2) * (1.0 + scanline + noise);
-    tex.rgb = mix(tex.rgb, green_glow, 0.4 * tex.a);
-    tex.rgb += green_glow * 0.15 * tex.a;
+    float t = time * 4.0;
+    float heat_lines = sin(uv.y * 30.0 - t) * cos(uv.x * 20.0 + t * 0.5);
+    vec3 fire_glow = vec3(1.0, 0.35, 0.0) * (0.8 + heat_lines * 0.4);
+    tex.rgb = mix(tex.rgb, fire_glow, 0.42 * tex.a);
+    tex.rgb += fire_glow * 0.2 * tex.a;
     return dissolve_mask(tex, texture_coords, uv);
 }
 #ifdef VERTEX
