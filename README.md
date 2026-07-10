@@ -14,6 +14,7 @@ Here's gonna be written what was added in most recent update for this mod!
 * last "Oops!" update, some of Oops! jokers are pure chaos, also i added more content that based on probabilities.
 * currently working on challenges, right now file challenges.lua has *nothing*, still dont understand how they works
 * Thank you for playing UltraViolet mod!
+* also sorry for being inactive, my laptop was being repaired
 
 # 🌌 UltraViolet Mod for Balatro 🌌
 
