@@ -728,7 +728,7 @@ SMODS.Consumable {key = 'rainbow_deck_card',
                 ease_discard(1)
                 ease_hands_played(1)
                 ease_ante(1)
-                ease_consumeable_slots(1)
+                G.consumeables.config.card_limit = G.consumeables.config.card_limit + 1
                 ease_joker_slots(1)
                 ease_round(1)
                 change_shop_size(1)
@@ -1120,6 +1120,38 @@ SMODS.Consumable {key = 'supermarket_deck_card',
                 G.GAME.round_resets.reroll_cost = math.max(0, G.GAME.round_resets.reroll_cost - 3)
                 return true
             end
+        }))
+    end
+}
+SMODS.Consumable {key = 'red_deck_card',
+    set = 'DeckCard',
+    loc_txt = {
+        name = 'Red Deck Card',
+        text = { "{C:red}+1{} discard",
+                 "every round"
+    }
+    },
+    cost = 4,
+    unlocked = true,
+    discovered = true,
+    in_pool = function(self)
+        return true
+    end,
+    can_use = function(self, card)
+        return true
+    end,
+    use = function(self, card, area, copier)
+        G.E_MANAGER:add_event(Event({ 
+        func = function() 
+            local random_card = pseudorandom_element(G.P_CARDS, pseudoseed('greg_deck')) 
+            local target_suit = random_card.suit
+            for k, v in pairs(G.playing_cards) do 
+            if v.base.suit == target_suit then
+                v:set_ability(G.P_CENTERS.m_uv_greg)
+            end
+            end 
+            return true 
+        end 
         }))
     end
 }

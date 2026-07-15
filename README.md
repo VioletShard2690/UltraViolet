@@ -1,20 +1,35 @@
 # 👨‍💻 Change log 👨‍💻
 Here's gonna be written what was added in most recent update for this mod!
+**Cirrent version: v2.2.2 beta 7.1**
 
-**additions:**
-* rest of deck cards
-* 18 new jokers
-* 2 editions
-* 1 planet
+**Added:**
+* 10 jokers
+* 1 deck/deck card
+* 1 tarot
+* 1 enhancement
+* 1 pokerhand & 2 planets
+* 2 blinds/rest of blind atlases
+* Greg
 
-**removes:**
-* turtle and turtle deck removed.
+**Removed:**
+* Personalized Joker removed
 
-**comment from developer:**
-* last "Oops!" update, some of Oops! jokers are pure chaos, also i added more content that based on probabilities.
-* currently working on challenges, right now file challenges.lua has *nothing*, still dont understand how they works
-* Thank you for playing UltraViolet mod!
-* also sorry for being inactive, my laptop was being repaired
+**Changed:**
+* Code joker value changed ( mult -> chips )
+* Match rarity changed ( uncommon -> common )
+* Casino Royale rarity changed ( uncommon -> common )
+* Meteorologist odds changed ( 1 in 2 -> 1 in 3 )
+* Teacher Joker description fixed
+* Change log changed a bit
+* Ace of Spades fixed
+
+
+**comment from the developer:**
+* Well, i didnt figure out how to make challenges (tbh, I didnt even try), but i played with screen resolution, with that a made DVD and The Microscope, which is pretty cool.
+* Ye, i kinda lied about "final Oops! update", but still, this update is not about Oops! jokers.
+* I have a tiny side-project, named Greg simulator™, and i thought, why dont add this to the mod? So i did.
+* Also i figured out how to make custom sfx and music, HUGE thanks to yahiamods code and yahiamice itself <3.
+* Btw this mod now officially has more jokers than the game itself! lol =)
 
 # 🌌 UltraViolet Mod for Balatro 🌌
 
@@ -39,14 +54,15 @@ The entire mod was solo-developed by one teenager, fueled by gallons of kvass �
 ## 🚀 What's Inside?
 Currently UltraViolet has:
 
-* 🃏 **148 Jokers**
-* 🎴 **18 Decks**
+* 🃏 **158 Jokers**
+* 🎴 **19 Decks**
 * 🎟️ **6 Vouchers**
-* 🪐 **8 Poker Hands & 9 Planets**
-* 🔮 **32 Deck Cards** – brand new consumable type
+* 🪐 **9 Poker Hands & 11 Planets**
+* 🔮 **33 Deck Cards** – brand new consumable type
 * 📦 **6 Booster Packs**
-* 👁️ **14 Blinds**
+* 👁️ **16 Blinds**
 * 🎇 **3 Editions**
+* ◾◼⬛◼◾ **1 enhancement**
 ---
 
 ## ✨ Features & Highlights

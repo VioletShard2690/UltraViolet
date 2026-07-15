@@ -1,6 +1,5 @@
 SMODS.Consumable{key = "planet_three_pair",
     set = "Planet",
-    object_type = "Consumable",
     loc_txt = {
         name = "test three pair",
         text = {
@@ -42,7 +41,6 @@ SMODS.Consumable{key = "planet_three_pair",
 }
 SMODS.Consumable{key = "planet_two_sets",
     set = "Planet",
-    object_type = "Consumable",
     loc_txt = {
         name = "Two Sets",
         text = {
@@ -83,9 +81,8 @@ SMODS.Consumable{key = "planet_two_sets",
         return true
     end,
 }
-SMODS.Consumable {key = "planet_flush_four",
+SMODS.Consumable{key = "planet_flush_four",
     set = "Planet",
-    object_type = "Consumable",
     loc_txt = {
         name = "Flush Four",
         text = {
@@ -126,9 +123,8 @@ SMODS.Consumable {key = "planet_flush_four",
         return true
     end,
 }
-SMODS.Consumable {key = "planet_wild_forest",
+SMODS.Consumable{key = "planet_wild_forest",
     set = "Planet",
-    object_type = "Consumable",
     loc_txt = {
         name = "Wild Forest",
         text = {
@@ -169,9 +165,8 @@ SMODS.Consumable {key = "planet_wild_forest",
         return true
     end,
 }
-SMODS.Consumable {key = "planet_flush_two_pair",
+SMODS.Consumable{key = "planet_flush_two_pair",
     set = "Planet",
-    object_type = "Consumable",
     loc_txt = {
         name = "Flush Two Pair",
         text = {
@@ -212,9 +207,8 @@ SMODS.Consumable {key = "planet_flush_two_pair",
         return true
     end,
 }
-SMODS.Consumable {key = "planet_1234",
+SMODS.Consumable{key = "planet_1234",
     set = "Planet",
-    object_type = "Consumable",
     loc_txt = {
         name = "1234",
         text = {
@@ -255,9 +249,8 @@ SMODS.Consumable {key = "planet_1234",
         return true
     end,
 }
-SMODS.Consumable {key = "planet_art_gallery",
+SMODS.Consumable{key = "planet_art_gallery",
     set = "Planet",
-    object_type = "Consumable",
     loc_txt = {
         name = "Art Gallery",
         text = {
@@ -298,9 +291,8 @@ SMODS.Consumable {key = "planet_art_gallery",
         return true
     end,
 }
-SMODS.Consumable {key = "planet_flush_1234",
+SMODS.Consumable{key = "planet_flush_1234",
     set = "Planet",
-    object_type = "Consumable",
     loc_txt = {
         name = "Flush 1234",
         text = {
@@ -387,4 +379,90 @@ SMODS.Consumable{key = 'meteorite',
             { mult = 0, chips = 0, handname = "", level = "" }
         )
     end
+}
+SMODS.Consumable{key = 'polar_star',
+    set = 'Planet',
+    loc_txt = {
+        name = 'Polar Star',
+        text = {
+            "Levels up your",
+            "{C:attention}most played{} Poker Hand",
+            "{C:inactive}(Currently: {C:attention}#1#{C:inactive})"
+        }
+    },
+    cost = 3,
+    unlocked = true,
+    discovered = true,
+    loc_vars = function(self, info_queue, card)
+        local most_played_hand = "High Card"
+        local max_plays = -1
+        if G.GAME and G.GAME.hands then
+            for k, v in pairs(G.GAME.hands) do
+                if v.played > max_plays then
+                    max_plays = v.played
+                    most_played_hand = k
+                end
+            end
+        end
+        local hand_name = G.GAME and G.GAME.hands[most_played_hand] and G.GAME.hands[most_played_hand].label or most_played_hand
+        return { vars = { hand_name } }
+    end,
+    can_use = function(self, card)
+        return true
+    end,
+    use = function(self, card, area, copier)
+        local most_played_hand = "High Card"
+        local max_plays = -1
+        for k, v in pairs(G.GAME.hands) do
+            if v.played > max_plays then
+                max_plays = v.played
+                most_played_hand = k
+            end
+        end
+        update_hand_text({sound = 'button', volume = 0.7, pitch = 0.8, delay = 0.3}, {handname = G.GAME.hands[most_played_hand].label, level = G.GAME.hands[most_played_hand].level})
+        level_up_hand(card, most_played_hand, nil, 1)
+        update_hand_text({sound = 'button', volume = 0.7, pitch = 1.1, delay = 0}, {mult = 0, chips = 0, level = ''})
+    end
+}
+SMODS.Consumable{key = "planet_flush_1234",
+    set = "Planet",
+    loc_txt = {
+        name = "Greg poker hand",
+        text = {
+            "({V:1}lvl.#1#{}) Level up",
+            "{C:attention}Greg poker hand{}",
+            "{C:mult}+#2#{} Mult and",
+            "{C:chips}+#3#{} Chips"
+        },
+    },
+    loc_vars = function(self, info_queue, card)
+        if G.GAME and G.GAME.hands and G.GAME.hands["uv_greg_hand"] then
+            local hand = G.GAME.hands["uv_greg_hand"]
+            return {
+                vars = {
+                    hand.level,
+                    hand.l_mult,
+                    hand.l_chips,
+                    colours = {
+                        (
+                            to_big(G.GAME.hands["uv_greg_hand"].level) == to_big(1) and G.C.UI.TEXT_DARK
+                            or G.C.HAND_LEVELS[to_number(math.min(7, G.GAME.hands["uv_greg_hand"].level))]
+                        ),
+                    },
+                },
+            }
+        else
+            return { vars = { 1, 5, 50 } }
+        end
+    end,
+    unlocked = true,
+    discovered = true,
+    hidden = true,
+    cost = 3,
+    use = function(self, card, area, copier)
+        SMODS.smart_level_up_hand(card, "uv_greg_hand")
+    end,
+    can_use = function(self, card)
+        return true
+    end,
 }

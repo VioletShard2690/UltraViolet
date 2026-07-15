@@ -533,3 +533,88 @@ SMODS.Atlas({key = "s6_lla",
     px = 142,
     py = 190
 })
+SMODS.Atlas({key = "all_negative",
+    path = "j_all_negative.png",
+    px = 142,
+    py = 190
+})
+SMODS.Atlas({key = "all_a",
+    path = "j_all_a.png",
+    px = 88,
+    py = 190
+})
+SMODS.Atlas({key = "next_person",
+    path = "j_next_person.png",
+    px = 142,
+    py = 190
+})
+SMODS.Atlas({key = "missing_cube",
+    path = "j_missing_cube.png",
+    px = 89,
+    py = 89
+})
+SMODS.Atlas({key = "280p_joker",
+    path = "j_280p_joker.png",
+    px = 142,
+    py = 190
+})
+SMODS.Atlas({key = "anchor",
+    path = "bl_anchor.png",
+    px = 64,
+    py = 64
+})
+SMODS.Atlas({key = "fossil",
+    path = "bl_fossil.png",
+    px = 64,
+    py = 64
+})
+SMODS.Atlas({key = "decay",
+    path = "bl_decay.png",
+    px = 64,
+    py = 64
+})
+SMODS.Atlas({key = "void",
+    path = "bl_void.png",
+    px = 64,
+    py = 64
+})
+SMODS.Atlas({key = "microscope",
+    path = "bl_microscope.png",
+    px = 64,
+    py = 64
+})
+SMODS.Atlas({key = "evil_greg",
+    path = "bl_greg_evil.png",
+    px = 64,
+    py = 64
+})
+SMODS.Atlas({key = "greg",
+    path = "enh_greg.png",
+    px = 142,
+    py = 190
+})
+SMODS.Atlas({key = "greg_tarot",
+    path = "c_greg.png",
+    px = 142,
+    py = 190
+})
+SMODS.Atlas({key = "greg_box",
+    path = "j_greg_box.png",
+    px = 142,
+    py = 142
+})
+SMODS.Atlas({key = "greg_hitboxes",
+    path = "j_greg_hitboxes.png",
+    px = 142,
+    py = 190
+})
+SMODS.Atlas({key = "all_gregs",
+    path = "j_all_gregs.png",
+    px = 142,
+    py = 190
+})
+SMODS.Atlas({key = "greg_deck",
+    path = "greg_deck.png",
+    px = 142,
+    py = 190
+})

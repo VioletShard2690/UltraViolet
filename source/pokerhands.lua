@@ -267,3 +267,33 @@ SMODS.PokerHand {key = 'flush_1234',
         end
     end
 }
+SMODS.PokerHand{key = 'greg_hand',
+    loc_txt = {
+        name = 'Greg poker hand',
+        description = {
+            "any 5 greg cards"
+        }
+    },
+    visible = false,
+    chips = 200,
+    mult = 20,
+    l_chips = 50,
+    l_mult = 5,
+    example = {
+        { 'S_9', true, enhancement = 'm_uv_greg' },
+        { 'D_4', true, enhancement = 'm_uv_greg' },
+        { 'H_Q', true, enhancement = 'm_uv_greg' },
+        { 'C_3', true, enhancement = 'm_uv_greg' },
+        { 'S_7', true, enhancement = 'm_uv_greg' }
+    },
+    evaluate = function(parts, hand)
+        if #hand < 5 then return end
+        for i = 1, #hand do
+            local center = hand[i].config.center
+            if not (center and center.key == 'm_uv_greg') then
+                return
+            end
+        end
+        return {hand}
+    end
+}

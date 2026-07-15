@@ -40,7 +40,7 @@ SMODS.Joker{key = "sample_test_joker",
         end
     end
 }
-SMODS.Joker {key = 'valavo',
+SMODS.Joker{key = 'valavo',
     name = 'Valavo',
     loc_txt = {
         name = 'Valavo',
@@ -106,7 +106,7 @@ SMODS.Joker {key = 'valavo',
         end
     end
 }
-SMODS.Joker {key = 'second_second',
+SMODS.Joker{key = 'second_second',
     loc_txt = {
         name = '2nd Second',
         text = {
@@ -133,7 +133,7 @@ SMODS.Joker {key = 'second_second',
         end
     end
 }
-SMODS.Joker {key = 'tea_for_two',
+SMODS.Joker{key = 'tea_for_two',
     loc_txt = {
         name = 'Tea for Two',
         text = {
@@ -171,7 +171,7 @@ SMODS.Joker {key = 'tea_for_two',
         end
     end
 }
-SMODS.Joker {key = 'mr_two',
+SMODS.Joker{key = 'mr_two',
     loc_txt = {
         name = 'Mr. Two',
         text = { "Gives {X:mult,C:white} X#1# {} Mult if played hand",
@@ -278,7 +278,7 @@ SMODS.Joker{key = 'pavel',
         end
     end
 }
-SMODS.Joker {key = 'smart_magnifying_glass',
+SMODS.Joker{key = 'smart_magnifying_glass',
     loc_txt = {
         name = 'Smart Magnifying Glass',
         text = {
@@ -307,7 +307,7 @@ SMODS.Joker {key = 'smart_magnifying_glass',
         end
     end
 }
-SMODS.Joker {key = 'diamond_pickaxe',
+SMODS.Joker{key = 'diamond_pickaxe',
     loc_txt = {
         name = 'Diamond Pickaxe',
         text = {
@@ -345,7 +345,7 @@ SMODS.Joker {key = 'diamond_pickaxe',
         end
     end
 }
-SMODS.Joker {key = 'shadow',
+SMODS.Joker{key = 'shadow',
     loc_txt = {
         name = 'Shadow',
         text = {
@@ -374,7 +374,7 @@ SMODS.Joker {key = 'shadow',
     end
  end
 }
-SMODS.Joker {key = 'math_draft',
+SMODS.Joker{key = 'math_draft',
     loc_txt = {
         name = 'Math Draft',
         text = {
@@ -403,7 +403,7 @@ SMODS.Joker {key = 'math_draft',
         return card.ability.extra.money
     end
 }
-SMODS.Joker {key = 'broken_brick',
+SMODS.Joker{key = 'broken_brick',
     loc_txt = {
          name = 'Broken Brick',
           text = {
@@ -427,7 +427,7 @@ SMODS.Joker {key = 'broken_brick',
         end
     end
 }
-SMODS.Joker {key = 'brick',
+SMODS.Joker{key = 'brick',
     loc_txt = {
         name = 'Brick',
         text = {
@@ -474,7 +474,7 @@ SMODS.Joker {key = 'brick',
     end
  end
 }
-SMODS.Joker {key = 'edition_joker',
+SMODS.Joker{key = 'edition_joker',
     loc_txt = {
         name = 'The Edition Joker',
         text = {
@@ -512,7 +512,7 @@ SMODS.Joker {key = 'edition_joker',
         end
     end
 }
-SMODS.Joker {key = 'prism',
+SMODS.Joker{key = 'prism',
     loc_txt = {
         name = 'Prism',
         text = {
@@ -581,7 +581,7 @@ SMODS.Joker {key = 'prism',
         end
     end
 }
-SMODS.Joker {key = 'joker_lua',
+SMODS.Joker{key = 'joker_lua',
     loc_txt = {
         name = 'SMODS.Joker',
         text = {"SMODS.Atlas({",
@@ -590,7 +590,7 @@ SMODS.Joker {key = 'joker_lua',
     "px = 71,",
     "py = 95",
  "})",
-            "SMODS.Joker {",
+            "SMODS.Joker{",
     "key = 'joker_lua',",
     "loc_txt = {",
         "name = 'SMODS.Joker',",
@@ -630,7 +630,7 @@ SMODS.Joker {key = 'joker_lua',
         end
     end
 }
-SMODS.Joker {key = 'lucky_block',
+SMODS.Joker{key = 'lucky_block',
     loc_txt = {
         name = 'Lucky Block',
         text = {
@@ -675,7 +675,7 @@ SMODS.Joker {key = 'lucky_block',
         end
     end
 }
-SMODS.Joker {key = 'doomsday',
+SMODS.Joker{key = 'doomsday',
     loc_txt = {
         name = 'Doomsday',
         text = {
@@ -716,7 +716,7 @@ SMODS.Joker {key = 'doomsday',
         end
     end
 }
-SMODS.Joker {key = 'tax_haven',
+SMODS.Joker{key = 'tax_haven',
     loc_txt = {
         name = 'Tax Haven',
         text = {
@@ -756,7 +756,7 @@ SMODS.Joker {key = 'tax_haven',
         end
     end
 }
-SMODS.Joker {key = 'cube_joker',
+SMODS.Joker{key = 'cube_joker',
     loc_txt = {
         name = 'Cube Joker',
         text = {
@@ -780,7 +780,7 @@ SMODS.Joker {key = 'cube_joker',
         end
     end
 }
-SMODS.Joker {key = 'exponential_growth',
+SMODS.Joker{key = 'exponential_growth',
     loc_txt = {
     name = 'Exponential Growth',
     text = { 
@@ -817,7 +817,7 @@ SMODS.Joker {key = 'exponential_growth',
         end
     end
 }
-SMODS.Joker {key = 'doublet',
+SMODS.Joker{key = 'doublet',
     loc_txt = {
         name = 'Doublet',
         text = { 
@@ -855,7 +855,7 @@ SMODS.Joker {key = 'doublet',
         end
     end
 }
-SMODS.Joker {key = 'second_chance',
+SMODS.Joker{key = 'second_chance',
     loc_txt = {
         name = 'Second Chance',
         text = { "{C:chips}+#1#{} Chips if this is the", "{C:attention}second{} played hand of the round" }
@@ -878,7 +878,7 @@ SMODS.Joker {key = 'second_chance',
         end
     end
 }
-SMODS.Joker {key = 'binary_code',
+SMODS.Joker{key = 'binary_code',
     loc_txt = {
         name = 'Binary Code',
         text = { "{X:mult,C:white} X2 {} Mult if played hand", "contains exactly {C:attention}2{} ranks", "and {C:attention}2{} suits" }
@@ -912,7 +912,7 @@ SMODS.Joker {key = 'binary_code',
         end
     end
 }
-SMODS.Joker {key = 'night_watch',
+SMODS.Joker{key = 'night_watch',
     loc_txt = {
         name = 'Night Watch',
         text = { 
@@ -965,17 +965,10 @@ SMODS.Joker{key = "ace_of_spades",
                 if not card.debuff then
                     card:set_debuff(true)
                 end
-            else
-                if card.debuff then
-                    card:set_debuff(false)
-                end
             end
-        elseif card.debuff then
-            card:set_debuff(false)
         end
     end,
     calculate = function(self, card, context)
-        if card.debuff then return end
         if context.joker_main then
             return {
                 message = '+' .. card.ability.chips,
@@ -984,7 +977,7 @@ SMODS.Joker{key = "ace_of_spades",
         end
     end
 }
-SMODS.Joker {key = 'charm_joker',
+SMODS.Joker{key = 'charm_joker',
     loc_txt = {
         name = 'Mega Arcana Pack',
         text = {
@@ -1017,7 +1010,7 @@ SMODS.Joker {key = 'charm_joker',
         end
     end
 }
-SMODS.Joker {key = 'Imposter',
+SMODS.Joker{key = 'Imposter',
     loc_txt = {
         name = 'Imposter',
         text = {
@@ -1065,7 +1058,7 @@ SMODS.Joker {key = 'Imposter',
         end
     end
 }
-SMODS.Joker {key = 'void_contract',
+SMODS.Joker{key = 'void_contract',
     loc_txt = {
         name = 'Void Contract',
         text = {
@@ -1109,7 +1102,7 @@ SMODS.Joker {key = 'void_contract',
     end
     end
 }
-SMODS.Joker {key = 'joker_404',
+SMODS.Joker{key = 'joker_404',
     loc_txt = {
         name = '404: Joker not found',
         text = {
@@ -1148,7 +1141,7 @@ SMODS.Joker {key = 'joker_404',
         end
     end
 }
-SMODS.Joker {key = 'schrodinger_cat',
+SMODS.Joker{key = 'schrodinger_cat',
     loc_txt = {
         name = "Schrödinger's Cat",
         text = {
@@ -1229,7 +1222,7 @@ SMODS.Joker{key = "small_joker",
     display_size = { w = 10000000, h = 10000000 },
 }
 SMODS.Joker{key = "code_joker", -- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    config = { extra = { gain = 0.1, mult = 5119 } },
+    config = { extra = { gain = 0.1, chips = 6281 } },
     rarity = 3,
     cost = 8,
     blueprint_compat = true,
@@ -1240,25 +1233,26 @@ SMODS.Joker{key = "code_joker", -- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         loc_txt = {
                 name = "Code joker",
                 text = { 
-                    "gives {C:mult}+#1#{} for every line of code in {C:blue}jokers.lua{}",
-                    "{C:inactive}(currently{} {C:mult}+#2#{}{C:inactive} mult){}"
+                    "gives {C:chips}+#1#{} chips for every line",
+                    "of code in {C:blue}jokers.lua{}",
+                    "{C:inactive}(currently{} {C:chips}+#2#{}{C:inactive} chips){}"
                 }
             },
     loc_vars = function(self, info_queue, card)
-        local final_mult = card.ability.extra.mult * card.ability.extra.gain
-        return { vars = { card.ability.extra.gain, final_mult } }
+        local final_chips = card.ability.extra.chips * card.ability.extra.gain
+        return { vars = { card.ability.extra.gain, final_chips } }
     end,
     calculate = function(self, card, context)
         if context.joker_main then
-            local final_mult = card.ability.extra.mult * card.ability.extra.gain
+            local final_chips = card.ability.extra.chips * card.ability.extra.gain
             return {
-                message = '+' .. final_mult .. ' Mult',
-                mult_mod = final_mult
+                message = '+' .. final_chips .. ' Chips',
+                chip_mod = final_chips
             }
         end
     end
 }
-SMODS.Joker {key = 'bloody_knife',
+SMODS.Joker{key = 'bloody_knife',
     atlas = 'bloody_knife', 
     rarity = 2,
     cost = 6,
@@ -1289,7 +1283,7 @@ SMODS.Joker {key = 'bloody_knife',
         end
     end
 }
-SMODS.Joker {key = 'shark',
+SMODS.Joker{key = 'shark',
     atlas = 'shark',
     rarity = 3,
     cost = 8,
@@ -1348,7 +1342,7 @@ SMODS.Joker {key = 'shark',
         end
     end
 }
-SMODS.Joker {key = 'tooth',
+SMODS.Joker{key = 'tooth',
     loc_txt = {
         name = '2th',
         text = {
@@ -1378,7 +1372,7 @@ SMODS.Joker {key = 'tooth',
         end
     end
 }
-SMODS.Joker {key = 'book',
+SMODS.Joker{key = 'book',
     loc_txt = {
         name = 'Book',
         text = {
@@ -1422,7 +1416,7 @@ SMODS.Joker {key = 'book',
         end
     end
 }
-SMODS.Joker {key = 'accumulation',
+SMODS.Joker{key = 'accumulation',
     loc_txt = {
         name = 'Accumulation',
         text = {
@@ -1456,7 +1450,7 @@ SMODS.Joker {key = 'accumulation',
         end
     end
 }
-SMODS.Joker {key = 'banana_farm',
+SMODS.Joker{key = 'banana_farm',
     loc_txt = {
         name = 'Banana Farm',
         text = {
@@ -1491,7 +1485,7 @@ SMODS.Joker {key = 'banana_farm',
         end
     end
 }
-SMODS.Joker {key = 'dr_balatro',
+SMODS.Joker{key = 'dr_balatro',
     loc_txt = {
         name = 'Dr. Balatro',
         text = {
@@ -1520,7 +1514,7 @@ SMODS.Joker {key = 'dr_balatro',
         end
     end
 }
-SMODS.Joker {key = 'frame_perfect',
+SMODS.Joker{key = 'frame_perfect',
     loc_txt = {
         name = 'Frame Perfect',
         text = {
@@ -1552,7 +1546,7 @@ SMODS.Joker {key = 'frame_perfect',
         end
     end
 }
-SMODS.Joker {key = 'bouncy_ball',
+SMODS.Joker{key = 'bouncy_ball',
     loc_txt = {
         name = 'Bouncy Ball',
         text = {
@@ -1603,7 +1597,7 @@ SMODS.Joker {key = 'bouncy_ball',
         end
     end
 }
-SMODS.Joker {key = 'golden_bullet',
+SMODS.Joker{key = 'golden_bullet',
     loc_txt = {
     name = 'Golden Bullet',
     text = {
@@ -1633,7 +1627,7 @@ SMODS.Joker {key = 'golden_bullet',
         end
     end
 }
-SMODS.Joker {key = 'face_james',
+SMODS.Joker{key = 'face_james',
     loc_txt = {
         name = 'Face James',
         text = {
@@ -1663,7 +1657,7 @@ SMODS.Joker {key = 'face_james',
         end
     end
 }
-SMODS.Joker {key = 'pqbd',
+SMODS.Joker{key = 'pqbd',
     loc_txt = {
         name = 'pqbd',
         text = {
@@ -1709,7 +1703,7 @@ SMODS.Joker {key = 'pqbd',
         end
     end
 }
-SMODS.Joker {key = 'bear_skeleton',
+SMODS.Joker{key = 'bear_skeleton',
     loc_txt = {
     name = 'Bear Skeleton',
         text = {
@@ -1741,7 +1735,7 @@ SMODS.Joker {key = 'bear_skeleton',
         end
     end
 }
-SMODS.Joker {key = 'cursed_calculator',
+SMODS.Joker{key = 'cursed_calculator',
     loc_txt = {
         name = 'Cursed Calculator',
         text = {
@@ -1770,7 +1764,7 @@ SMODS.Joker {key = 'cursed_calculator',
         end
     end
 }
-SMODS.Joker {key = 'math_chaos',
+SMODS.Joker{key = 'math_chaos',
     loc_txt = {
         name = 'Mathematical Chaos',
         text = {
@@ -1895,7 +1889,7 @@ SMODS.Joker {key = 'math_chaos',
         end
     end
 }
-SMODS.Joker {key = 'bag_of_chips',
+SMODS.Joker{key = 'bag_of_chips',
     loc_txt = {
         name = 'Bag of Chips',
         text = { "Gives {X:chips,C:white}x#1#{} chips" }
@@ -1920,7 +1914,7 @@ SMODS.Joker {key = 'bag_of_chips',
         end
     end
 }
-SMODS.Joker {key = 'factorial_joker',
+SMODS.Joker{key = 'factorial_joker',
     loc_txt = {
         name = 'Factorial Joker',
         text = {
@@ -1957,7 +1951,7 @@ SMODS.Joker {key = 'factorial_joker',
         end
     end
 }
-SMODS.Joker {key = 'trash_can',
+SMODS.Joker{key = 'trash_can',
     loc_txt = {
         name = 'The Trash Can',
         text = { "{C:red}+#1#{} card discard limit" }
@@ -1979,7 +1973,7 @@ SMODS.Joker {key = 'trash_can',
         SMODS.change_discard_limit(-card.ability.extra)
     end
 }
-SMODS.Joker {key = 'lemon',
+SMODS.Joker{key = 'lemon',
     loc_txt = {
         name = 'Lemon',
         text = {
@@ -2033,7 +2027,7 @@ SMODS.Joker {key = 'lemon',
         end
     end
 }
-SMODS.Joker {key = 'exponential_power',
+SMODS.Joker{key = 'exponential_power',
     loc_txt = {
         name = 'Exponential Power',
         text = {
@@ -2059,7 +2053,7 @@ SMODS.Joker {key = 'exponential_power',
         end
     end
 }
-SMODS.Joker {key = 'great_equalizer',
+SMODS.Joker{key = 'great_equalizer',
     loc_txt = {
         name = 'The Great Equalizer',
         text = {
@@ -2088,7 +2082,7 @@ SMODS.Joker {key = 'great_equalizer',
         end
     end
 }
-SMODS.Joker {key = 'pear',
+SMODS.Joker{key = 'pear',
     loc_txt = {
         name = 'Pear',
         text = {
@@ -2138,7 +2132,7 @@ SMODS.Joker {key = 'pear',
         end
     end
 }
-SMODS.Joker {key = 'plum',
+SMODS.Joker{key = 'plum',
     loc_txt = {
         name = 'Plum',
         text = {
@@ -2188,7 +2182,7 @@ SMODS.Joker {key = 'plum',
         end
     end
 }
-SMODS.Joker {key = 'kiwi',
+SMODS.Joker{key = 'kiwi',
     loc_txt = {
         name = 'Kiwi',
         text = {
@@ -2238,7 +2232,7 @@ SMODS.Joker {key = 'kiwi',
         end
     end
 }
-SMODS.Joker {key = 'overclock',
+SMODS.Joker{key = 'overclock',
     loc_txt = {
         name = 'Overclock',
         text = {
@@ -2277,7 +2271,7 @@ SMODS.Joker {key = 'overclock',
         end
     end
 }
-SMODS.Joker {key = 'puzzle',
+SMODS.Joker{key = 'puzzle',
     loc_txt = {
         name = 'Puzzle',
         text = {
@@ -2325,7 +2319,7 @@ SMODS.Joker {key = 'puzzle',
         end
     end
 }
-SMODS.Joker {key = 'pomegranate',
+SMODS.Joker{key = 'pomegranate',
     loc_txt = {
         name = 'Pomegranate',
         text = {
@@ -2378,7 +2372,7 @@ SMODS.Joker {key = 'pomegranate',
         end
     end
 }
-SMODS.Joker {key = 'hand_mutant',
+SMODS.Joker{key = 'hand_mutant',
     loc_txt = {
         name = 'Hand-Mutant',
         text = {
@@ -2401,7 +2395,7 @@ SMODS.Joker {key = 'hand_mutant',
         G.GAME.round_resets.hands = G.GAME.round_resets.hands - card.ability.extra.hands
     end,
 }
-SMODS.Joker {key = 'gangle_mask',
+SMODS.Joker{key = 'gangle_mask',
     loc_txt = {
         name = "Gangle's Mask",
         text = {
@@ -2444,7 +2438,7 @@ SMODS.Joker {key = 'gangle_mask',
         end
     end
 }
-SMODS.Joker {key = 'scissors',
+SMODS.Joker{key = 'scissors',
     loc_txt = {
         name = 'Scissors',
         text = {
@@ -2491,7 +2485,7 @@ SMODS.Joker {key = 'scissors',
         end
     end
 }
-SMODS.Joker {key = 'recursive_hands',
+SMODS.Joker{key = 'recursive_hands',
     loc_txt = {
         name = 'Recursive Hands',
         text = {
@@ -2514,7 +2508,7 @@ SMODS.Joker {key = 'recursive_hands',
         G.GAME.round_resets.hands = G.GAME.round_resets.hands / card.ability.extra.hand_mod
     end,
 }
-SMODS.Joker {key = 'bottomless_pocket',
+SMODS.Joker{key = 'bottomless_pocket',
     loc_txt = {
         name = 'Bottomless Pocket',
         text = {
@@ -2538,7 +2532,7 @@ SMODS.Joker {key = 'bottomless_pocket',
         G.GAME.round_resets.discards = old_discards
     end,
 }
-SMODS.Joker {key = 'infinite_staircase',
+SMODS.Joker{key = 'infinite_staircase',
     loc_txt = {
         name = 'Infinite Staircase',
         text = {
@@ -2571,7 +2565,7 @@ SMODS.Joker {key = 'infinite_staircase',
         end
     end
 }
-SMODS.Joker {key = 'golden_cookie',
+SMODS.Joker{key = 'golden_cookie',
     loc_txt = {
         name = 'Golden Cookie',
         text = {
@@ -2607,7 +2601,7 @@ SMODS.Joker {key = 'golden_cookie',
         end
     end
 }
-SMODS.Joker {key = 'ai_generated_joker',
+SMODS.Joker{key = 'ai_generated_joker',
     loc_txt = {
         name = 'AI-Generated Joker',
         text = {
@@ -2686,7 +2680,7 @@ SMODS.Joker {key = 'ai_generated_joker',
         end
     end
 }
-SMODS.Joker {key = 'the_headstart',
+SMODS.Joker{key = 'the_headstart',
     loc_txt = {
         name = 'The Headstart',
         text = {
@@ -2719,7 +2713,7 @@ SMODS.Joker {key = 'the_headstart',
         end
     end
 }
-SMODS.Joker {key = 'bureaucrat',
+SMODS.Joker{key = 'bureaucrat',
     loc_txt = {
         name = 'The Bureaucrat',
         text = {
@@ -2772,7 +2766,7 @@ SMODS.Joker {key = 'bureaucrat',
         end
     end
 }
-SMODS.Joker {key = 'telescope',
+SMODS.Joker{key = 'telescope',
     loc_txt = {
         name = 'Telescope',
         text = {
@@ -2811,7 +2805,7 @@ SMODS.Joker {key = 'telescope',
         end
     end
 }
-SMODS.Joker {key = 'vcr_player',
+SMODS.Joker{key = 'vcr_player',
     loc_txt = {
         name = 'VCR Player',
         text = {
@@ -2848,7 +2842,7 @@ SMODS.Joker {key = 'vcr_player',
         end
     end
 }
-SMODS.Joker {key = 'snail',
+SMODS.Joker{key = 'snail',
     loc_txt = {
         name = 'Snail',
         text = {
@@ -2878,7 +2872,7 @@ SMODS.Joker {key = 'snail',
         end
     end
 }
-SMODS.Joker {key = 'collectors_album',
+SMODS.Joker{key = 'collectors_album',
     loc_txt = {
         name = "collector's album",
         text = {
@@ -2929,7 +2923,7 @@ SMODS.Joker {key = 'collectors_album',
         end
     end
 }
-SMODS.Joker {key = 'joker_blind',
+SMODS.Joker{key = 'joker_blind',
     loc_txt = {
         name = 'Joker Blind',
         text = {
@@ -2966,7 +2960,7 @@ SMODS.Joker {key = 'joker_blind',
         end
     end
 }
-SMODS.Joker {key = 'discord',
+SMODS.Joker{key = 'discord',
     loc_txt = {
         name = 'Discord Joker',
         text = {
@@ -3005,7 +2999,7 @@ SMODS.Joker {key = 'discord',
         end
     end
 }
-SMODS.Joker {key = 'spotify',
+SMODS.Joker{key = 'spotify',
     loc_txt = {
         name = 'Spotify',
         text = {
@@ -3055,7 +3049,7 @@ SMODS.Joker {key = 'spotify',
         end
     end
 }
-SMODS.Joker {key = 'roblox',
+SMODS.Joker{key = 'roblox',
     loc_txt = {
         name = 'Roblox',
         text = {
@@ -3086,7 +3080,7 @@ SMODS.Joker {key = 'roblox',
         end
     end
 }
-SMODS.Joker {key = 'messenger_max',
+SMODS.Joker{key = 'messenger_max',
     loc_txt = {
         name = 'Messenger Max',
         text = {
@@ -3140,7 +3134,7 @@ SMODS.Joker {key = 'messenger_max',
         end
     end
 }
-SMODS.Joker {key = 'socrates',
+SMODS.Joker{key = 'socrates',
     loc_txt = {
         name = 'Socrates',
         text = {
@@ -3159,7 +3153,7 @@ SMODS.Joker {key = 'socrates',
     calculate = function(self, card, context)
     end
 }
-SMODS.Joker {key = 'lcdirects0.5',
+SMODS.Joker{key = 'lcdirects0.5',
     loc_txt = {
         name = 'LCDirects with 10.5 points',
         text = {
@@ -3187,7 +3181,7 @@ SMODS.Joker {key = 'lcdirects0.5',
         end
     end
 }
-SMODS.Joker {key = 'eight_four',
+SMODS.Joker{key = 'eight_four',
     loc_txt = {
         name = 'Eight Four',
         text = {
@@ -3222,7 +3216,7 @@ SMODS.Joker {key = 'eight_four',
         end
     end
 }
-SMODS.Joker {key = 'x',
+SMODS.Joker{key = 'x',
     loc_txt = {
         name = 'X',
         text = {
@@ -3257,7 +3251,7 @@ SMODS.Joker {key = 'x',
         end
     end
 }
-SMODS.Joker {key = 'extender',
+SMODS.Joker{key = 'extender',
     loc_txt = {
         name = 'Extender',
         text = {
@@ -3286,7 +3280,7 @@ SMODS.Joker {key = 'extender',
         SMODS.change_discard_limit(-card.ability.extra.discard_limit)
     end
 }
-SMODS.Joker {key = 'sleepy_joker',
+SMODS.Joker{key = 'sleepy_joker',
     loc_txt = {
         name = 'Sleepy Joker',
         text = {
@@ -3320,7 +3314,7 @@ SMODS.Joker {key = 'sleepy_joker',
         end
     end
 }
-SMODS.Joker {key = 'nuclear_bomb',
+SMODS.Joker{key = 'nuclear_bomb',
     loc_txt = {
         name = 'Nuclear Bomb',
         text = {
@@ -3357,7 +3351,7 @@ SMODS.Joker {key = 'nuclear_bomb',
         end
     end
 }
-SMODS.Joker {key = 'desperate_hope',
+SMODS.Joker{key = 'desperate_hope',
     loc_txt = {
         name = "Desperate Hope",
         text = {
@@ -3383,7 +3377,7 @@ SMODS.Joker {key = 'desperate_hope',
         end
     end
 }
-SMODS.Joker {key = 'watermelon_paradox',
+SMODS.Joker{key = 'watermelon_paradox',
     loc_txt = {
         name = 'Watermelon Paradox',
         text = {
@@ -3434,7 +3428,7 @@ SMODS.Joker {key = 'watermelon_paradox',
         end
     end
 }
-SMODS.Joker {key = 'plunger',
+SMODS.Joker{key = 'plunger',
     loc_txt = {
         name = 'Plunger',
         text = {
@@ -3465,7 +3459,7 @@ SMODS.Joker {key = 'plunger',
         end
     end
 }
-SMODS.Joker {key = 'utility_belt',
+SMODS.Joker{key = 'utility_belt',
     loc_txt = {
         name = 'Utility Belt',
         text = {
@@ -3503,7 +3497,7 @@ SMODS.Joker {key = 'utility_belt',
         G.consumeables.config.card_limit = G.consumeables.config.card_limit - card.ability.extra
     end
 }
-SMODS.Joker {key = 'ace_in_hole',
+SMODS.Joker{key = 'ace_in_hole',
     loc_txt = {
         name = 'Ace in the Hole',
         text = {
@@ -3541,7 +3535,7 @@ SMODS.Joker {key = 'ace_in_hole',
         end
     end
 }
-SMODS.Joker {key = 'muscle_memory',
+SMODS.Joker{key = 'muscle_memory',
     loc_txt = {
         name = 'Muscle Memory',
         text = {
@@ -3608,7 +3602,7 @@ SMODS.Joker {key = 'muscle_memory',
         end
     end
 }
-SMODS.Joker {key = 'mob_spawner',
+SMODS.Joker{key = 'mob_spawner',
     loc_txt = {
         name = 'Mob Spawner',
         text = {
@@ -3653,7 +3647,7 @@ SMODS.Joker {key = 'mob_spawner',
         card.last_s_pressed = is_pressed
     end
 }
-SMODS.Joker {key = 'grindstone',
+SMODS.Joker{key = 'grindstone',
     loc_txt = {
         name = 'Grindstone',
         text = {
@@ -3690,7 +3684,7 @@ SMODS.Joker {key = 'grindstone',
         end
     end
 }
-SMODS.Joker {key = 'hedge',
+SMODS.Joker{key = 'hedge',
     loc_txt = {
         name = 'Hedge',
         text = {
@@ -3719,7 +3713,7 @@ SMODS.Joker {key = 'hedge',
         end
     end
 }
-SMODS.Joker {key = 'echo_chamber',
+SMODS.Joker{key = 'echo_chamber',
     loc_txt = {
         name = 'Echo Chamber',
         text = {
@@ -3753,7 +3747,7 @@ SMODS.Joker {key = 'echo_chamber',
         end
     end
 }
-SMODS.Joker {key = 'introvert_joker',
+SMODS.Joker{key = 'introvert_joker',
     loc_txt = {
         name = 'Introvert Joker',
         text = {
@@ -3802,7 +3796,7 @@ SMODS.Joker {key = 'introvert_joker',
         return nil
     end
 }
-SMODS.Joker {key = 'repeater',
+SMODS.Joker{key = 'repeater',
     loc_txt = {
         name = 'Repeater',
         text = {
@@ -3833,7 +3827,7 @@ SMODS.Joker {key = 'repeater',
         return nil
     end
 }
-SMODS.Joker {key = 'scales',
+SMODS.Joker{key = 'scales',
     loc_txt = {
         name = 'Scales',
         text = {
@@ -3875,7 +3869,7 @@ SMODS.Joker {key = 'scales',
         return nil
     end
 }
-SMODS.Joker {key = 'alchemist',
+SMODS.Joker{key = 'alchemist',
     config = {extra = 0.1},
     rarity = 1,
     cost = 4,
@@ -3922,7 +3916,7 @@ SMODS.Joker {key = 'alchemist',
         end
     end
 } 
-SMODS.Joker {key = 'milky_way',
+SMODS.Joker{key = 'milky_way',
     rarity = 'uv_super_rare',
     cost = 15,
     unlocked = true,
@@ -3962,7 +3956,7 @@ SMODS.Joker {key = 'milky_way',
         end
     end
 }
-SMODS.Joker {key = 'homeless',
+SMODS.Joker{key = 'homeless',
     config = { extra = { mult = 0, gain = 1 } },
     rarity = 1,
     cost = 4,
@@ -4006,7 +4000,7 @@ SMODS.Joker {key = 'homeless',
         end
     end
 }
-SMODS.Joker {key = 'cyan',
+SMODS.Joker{key = 'cyan',
     config = { extra = { dollars_per_discard = 1 } },
     rarity = 1,
     cost = 4,
@@ -4030,7 +4024,7 @@ SMODS.Joker {key = 'cyan',
         end
     end
 }
-SMODS.Joker {key = 'horseman',
+SMODS.Joker{key = 'horseman',
     config = {extra = {xmult_gain = 0.5}},
     loc_txt = {
         name = "Horseman Joker",
@@ -4080,7 +4074,7 @@ SMODS.Joker {key = 'horseman',
         end
     end
 }
-SMODS.Joker {key = 'tooth_fairy',
+SMODS.Joker{key = 'tooth_fairy',
     config = {extra = {money = 6}},
     loc_txt = {
         name = "Tooth Fairy",
@@ -4110,7 +4104,7 @@ SMODS.Joker {key = 'tooth_fairy',
         end
     end
 }
-SMODS.Joker {key = 'spirit_joker',
+SMODS.Joker{key = 'spirit_joker',
     loc_txt = {
         name = "Spirit Joker",
         text = {
@@ -4148,7 +4142,7 @@ SMODS.Joker {key = 'spirit_joker',
         end
     end
 }
-SMODS.Joker {key = 'teo',
+SMODS.Joker{key = 'teo',
     config = {extra = {xchips_gain = 0.1, xchips = 1, odds = 5}},
     loc_txt = {
         name = "Teo",
@@ -4211,7 +4205,7 @@ SMODS.Joker {key = 'teo',
         end
     end
 }
-SMODS.Joker {key = 'digital_green',
+SMODS.Joker{key = 'digital_green',
     config = {extra = {}},
     loc_txt = {
         name = "Digital Green",
@@ -4254,49 +4248,6 @@ SMODS.Joker {key = 'digital_green',
                     }
                 end
             end
-        end
-    end
-}
-SMODS.Joker{key = 'personalized',
-    config = { extra = 1.5 },
-    loc_txt = {
-        name = 'Personalized Joker',
-        text = {
-            "Gives {X:chips,C:white}X#1#{} chips",
-            "if your PC name is",
-            "{C:attention}#2#"
-        }
-    },
-    rarity = 1,
-    cost = 4,
-    unlocked = true,
-    discovered = true,
-    blueprint_compat = true,
-    loc_vars = function(self, info, card)
-        local raw_name = os.getenv("USERNAME") or os.getenv("USER") or "Player"
-        local safe = true
-        for i = 1, #raw_name do
-            local byte = string.byte(raw_name, i)
-            if byte > 127 then
-                safe = false
-                break
-            end
-        end
-        local display_name = "Player"
-        if safe then
-            display_name = raw_name
-        else
-            display_name = "RUSSIAN LETTERS NOT SUPPORTED"
-        end
-        return { vars = { card.ability.extra, display_name } }
-    end,
-    calculate = function(self, card, context)
-        if context.joker_main then
-            return {
-                message = 'x' .. card.ability.extra .. ' Chips',
-                Xchip_mod = card.ability.extra,
-                colour = G.C.CHIPS
-            }
         end
     end
 }
@@ -4467,7 +4418,7 @@ SMODS.Joker{key = 'hyper_volume',
         end
     end
 }
-SMODS.Joker {key = 'domino',
+SMODS.Joker{key = 'domino',
     loc_txt = {
         name = 'Domino',
         text = {
@@ -4508,7 +4459,7 @@ SMODS.Joker {key = 'domino',
         end
     end
 }
-SMODS.Joker {key = 'shredder',
+SMODS.Joker{key = 'shredder',
     loc_txt = {
         name = 'Shredder',
         text = {
@@ -4551,7 +4502,7 @@ SMODS.Joker {key = 'shredder',
         end
     end
 }
-SMODS.Joker {key = 'quantum_immortality',
+SMODS.Joker{key = 'quantum_immortality',
     loc_txt = {
         name = 'Quantum Immortality',
         text = {
@@ -4575,7 +4526,7 @@ SMODS.Joker {key = 'quantum_immortality',
         end
     end
 }
-SMODS.Joker {key = 'absolute_zero',
+SMODS.Joker{key = 'absolute_zero',
     rarity = 'uv_super_rare',
     cost = 15,
     unlocked = true,
@@ -4600,7 +4551,7 @@ SMODS.Joker {key = 'absolute_zero',
         end
     end
 }
-SMODS.Joker {key = 'bitwise_shift',
+SMODS.Joker{key = 'bitwise_shift',
     loc_txt = {
         name = 'Bitwise Shift',
         text = {
@@ -4631,12 +4582,12 @@ SMODS.Joker {key = 'bitwise_shift',
         end
     end
 }
-SMODS.Joker {key = 'bmm',
+SMODS.Joker{key = 'bmm',
     loc_txt = {
         name = 'Balatro Mod Manager',
         text = {
             "Gives {X:mult,C:white}xMult{} equal to the",
-            "number of installed mods",
+            "number of installed mods, disabled or not",
             "{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)"
         }
     },
@@ -4769,7 +4720,7 @@ SMODS.Joker{key = "DR34MC0R3",
         end
     end
 }
-SMODS.Joker {key = "chult_test_1",
+SMODS.Joker{key = "chult_test_1",
     config = { chult = 20 }, 
     rarity = 1,
     cost = 1,
@@ -4796,7 +4747,7 @@ SMODS.Joker {key = "chult_test_1",
         end
     end
 }
-SMODS.Joker {key = "chult_test_2",
+SMODS.Joker{key = "chult_test_2",
     config = { xchult = 2 }, 
     rarity = 2,
     cost = 2,
@@ -4823,7 +4774,7 @@ SMODS.Joker {key = "chult_test_2",
         end
     end
 }
-SMODS.Joker {key = "chult_test_3",
+SMODS.Joker{key = "chult_test_3",
     config = { echult = 2 }, 
     rarity = 3,
     cost = 3,
@@ -4850,7 +4801,7 @@ SMODS.Joker {key = "chult_test_3",
         end
     end
 }
-SMODS.Joker {key = 'all_9s',
+SMODS.Joker{key = 'all_9s',
     loc_txt = {
         name = 'Oops! All 9s',
         text = {
@@ -4874,7 +4825,7 @@ SMODS.Joker {key = 'all_9s',
         G.GAME.probabilities.normal = G.GAME.probabilities.normal ^ 0.5
     end
 }
-SMODS.Joker {key = 'D6',
+SMODS.Joker{key = 'D6',
     loc_txt = {
         name = 'Regular D6',
         text = {
@@ -4914,7 +4865,7 @@ SMODS.Joker {key = 'D6',
         end
     end
 }
-SMODS.Joker {key = 'all_4s',
+SMODS.Joker{key = 'all_4s',
     loc_txt = {
         name = 'Oops! All 4s',
         text = {
@@ -4941,7 +4892,7 @@ SMODS.Joker {key = 'all_4s',
         G.GAME.probabilities.normal = G.GAME.probabilities.normal - card.ability.extra
     end
 }
-SMODS.Joker {key = 'all_1s',
+SMODS.Joker{key = 'all_1s',
     loc_txt = {
         name = 'Oops! All 1s',
         text = {
@@ -4965,7 +4916,7 @@ SMODS.Joker {key = 'all_1s',
         G.GAME.probabilities.normal = G.GAME.probabilities.normal * 2
     end
 }
-SMODS.Joker {key = 'forgot_cube',
+SMODS.Joker{key = 'forgot_cube',
     loc_txt = {
         name = 'Oops! I forgot the cube',
         text = {
@@ -4999,7 +4950,37 @@ SMODS.Joker {key = 'forgot_cube',
         end
     end
 }
-SMODS.Joker {key = 'all_inf',
+SMODS.Joker{key = 'missing_cube',
+    loc_txt = {
+        name = "Oops! I found the missing cube",
+        text = {
+            "sell it to have permanent {X:green,C:white}^3{} bonus",
+            "for all {C:attention}listed{} {C:green,E:1,S:1.1}probabilities{}",
+            "if you have {C:green}Oops! I for got the cube{}",
+            "{C:inactive,s:0.7}oh, so that's were he was!{}"
+        }
+    },
+    config = {},
+    rarity = 2,
+    cost = 6,
+    unlocked = true,
+    discovered = true,
+    blueprint_compat = false,
+    atlas = 'missing_cube',
+    soul_pos = {x=0,y=0},
+	pools = { ["Oops!"] = true },
+    display_size = { w = 44.5, h = 44.5 },
+    calculate = function(self, card, context)
+        if context.selling_self and next(SMODS.find_card('j_uv_forgot_cube')) then
+            G.GAME.probabilities.normal = G.GAME.probabilities.normal ^ 3
+            return {
+                message = '^3',
+                colour = G.C.GREEN
+            }
+        end
+    end
+}
+SMODS.Joker{key = 'all_inf',
     loc_txt = {
         name = "Oops! All Inf's",
         text = {
@@ -5023,7 +5004,7 @@ SMODS.Joker {key = 'all_inf',
         G.GAME.probabilities.normal = G.GAME.probabilities.normal / (1e9)
     end
 }
-SMODS.Joker {key = 'all_0s',
+SMODS.Joker{key = 'all_0s',
     loc_txt = {
         name = 'Oops! All 0s',
         text = {
@@ -5050,7 +5031,7 @@ SMODS.Joker {key = 'all_0s',
         G.GAME.probabilities.normal = G.GAME.probabilities.normal + card.ability.extra
     end
 }
-SMODS.Joker {key = 'all_oops',
+SMODS.Joker{key = 'all_oops',
     loc_txt = {
         name = 'Oops! All Oops!',
         text = {
@@ -5088,7 +5069,7 @@ SMODS.Joker {key = 'all_oops',
         end
     end
 }
-SMODS.Joker {key = 'all_legendary',
+SMODS.Joker{key = 'all_legendary',
     loc_txt = {
         name = "Oops! I'm legendary now",
         text = {
@@ -5141,7 +5122,7 @@ SMODS.Joker {key = 'all_legendary',
         end
     end
 }
-SMODS.Joker {key = 'all_misprints',
+SMODS.Joker{key = 'all_misprints',
     loc_txt = {
         name = 'Oops! All misprints',
         text = {
@@ -5200,7 +5181,7 @@ SMODS.Joker {key = 'all_misprints',
         end
     end
 }
-SMODS.Joker {key = 'all_is',
+SMODS.Joker{key = 'all_is',
     loc_txt = {
         name = "Oops! All i's",
         text = {
@@ -5224,7 +5205,7 @@ SMODS.Joker {key = 'all_is',
         G.GAME.probabilities.normal = G.GAME.probabilities.normal ^ 2
     end
 }
-SMODS.Joker {key = 's6_lla',
+SMODS.Joker{key = 's6_lla',
     loc_txt = {
         name = "s6 llA !spoO",
         text = {
@@ -5269,7 +5250,162 @@ SMODS.Joker {key = 's6_lla',
         end
     end
 }
-SMODS.Joker {key = 'all_madnesss',
+SMODS.Joker{key = 'all_negative',
+    loc_txt = {
+        name = "Oops! All negative",
+        text = {
+            "{X:green,C:white}X-1{} to all",
+            "{C:attention}listed{} {C:green,E:1,S:1.1}probabilities{}",
+            "{C:inactive}(ex:{} {C:green,E:1,S:1.1}1 in 3{} {C:inactive}->{} {C:green,E:1,S:1.1}-1 in 3{}{C:inactive}){}"
+        }
+    },
+    config = {},
+    rarity = 2,
+    cost = 6,
+    unlocked = true,
+    discovered = true,
+    blueprint_compat = false,
+    atlas = 'all_negative',
+	pools = { ["Oops!"] = true },
+    add_to_deck = function(self, card, from_debuff)
+        G.GAME.probabilities.normal = G.GAME.probabilities.normal * -1
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        G.GAME.probabilities.normal = G.GAME.probabilities.normal * -1
+    end
+}
+SMODS.Joker{key = 'all_a',
+    loc_txt = {
+        name = "Oops! A",
+        text = {
+            "{X:green,C:white}X1.5{} to all",
+            "{C:attention}listed{} {C:green,E:1,S:1.1}probabilities{}",
+            "{C:inactive}(ex:{} {C:green,E:1,S:1.1}6 in 10{} {C:inactive}->{} {C:green,E:1,S:1.1}9 in 10{}{C:inactive}){}"
+        }
+    },
+    config = {},
+    rarity = 2,
+    cost = 6,
+    unlocked = true,
+    discovered = true,
+    blueprint_compat = false,
+    atlas = 'all_a',
+	pools = { ["Oops!"] = true },
+    display_size = { w = 44, h = 95 },
+    add_to_deck = function(self, card, from_debuff)
+        G.GAME.probabilities.normal = G.GAME.probabilities.normal * 1.5
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        G.GAME.probabilities.normal = G.GAME.probabilities.normal / 3 * 2
+    end
+}
+SMODS.Joker{key = 'all_berries',
+    loc_txt = {
+        name = "Oops! All berries",
+        text = {
+            "gives {X:mult,C:white}XMult{} equal to",
+            "value of {C:green,E:1,S:1.1}probabilities{} divided by {C:attention}100{}",
+            "{C:inactive}(currently {X:mult,C:white}X#1#{C:inactive} Mult)",
+        }
+    },
+    config = {},
+    rarity = 3,
+    cost = 8,
+    unlocked = true,
+    discovered = true,
+    blueprint_compat = true,
+	pools = { ["Oops!"] = true },
+    loc_vars = function(self, info_queue, card)
+        local mult = (((G.GAME and G.GAME.probabilities.normal) or 1) / 100) + 1
+        return { vars = { mult } }
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main then
+            return {
+                message = 'X' .. (G.GAME.probabilities.normal / 100) + 1 .. ' Mult',
+                Xmult_mod = (G.GAME.probabilities.normal / 100) + 1,
+                colour = G.C.RED
+                
+            }
+        end
+    end
+}
+SMODS.Joker{key = 'all_in',
+    loc_txt = {
+        name = 'Oops! All In',
+        text = {
+            "Permanently doubles all {C:attention}listed{}",
+            "{C:green,E:1,S:1.1}probabilities{} if blind is",
+            "defeated in {C:attention}1{} hand",
+            "otherwise sets all {C:attention}listed{} {C:green,E:1,S:1.1}probabilities{} to {C:attention}0{}"
+        }
+    },
+    config = {},
+    rarity = 2,
+    cost = 6,
+    unlocked = true,
+    discovered = true,
+    blueprint_compat = false,
+    pools = { ["Oops!"] = true },
+    calculate = function(self, card, context)
+        if context.end_of_round and not context.repetition and not context.blueprint and not context.individual then
+            if G.GAME.hands_played == 1 then
+                G.GAME.probabilities.normal = G.GAME.probabilities.normal * 2
+                return {
+                    message = 'X2 Probs.',
+                    colour = G.C.GREEN
+                }
+            else
+                G.GAME.probabilities.normal = 0
+                return {
+                    message = 'X0 Probs.',
+                    colour = G.C.RED
+                }
+            end
+        end
+    end
+}
+SMODS.Joker{key = 'all_double_it',
+    loc_txt = {
+        name = 'Oops! It and give it to the next person',
+        text = {
+            'permanently doubles value of',
+            'this joker when it {C:attention}sold{}',
+            '{C:inactive}(currently {X:green,C:white}X#1#{C:inactive} to all listed probabilities)'
+        }
+    },
+    config = {},
+    rarity = 2,
+    cost = 6,
+    unlocked = true,
+    discovered = true,
+    blueprint_compat = false,
+    pools = { ["Oops!"] = true },
+    atlas = 'next_person',
+    loc_vars = function(self, info_queue, card)
+        G.GAME.double_it_mult = G.GAME.double_it_mult or 1
+        return { vars = { G.GAME.double_it_mult } }
+    end,
+    add_to_deck = function(self, card, from_debuff)
+        G.GAME.double_it_mult = G.GAME.double_it_mult or 1
+        G.GAME.probabilities.normal = G.GAME.probabilities.normal * G.GAME.double_it_mult
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        G.GAME.double_it_mult = G.GAME.double_it_mult or 1
+        G.GAME.probabilities.normal = G.GAME.probabilities.normal / (G.GAME.double_it_mult / 2)
+    end,
+    calculate = function(self, card, context)
+        if context.selling_self and not context.blueprint then
+            G.GAME.double_it_mult = G.GAME.double_it_mult or 1
+            G.GAME.double_it_mult = G.GAME.double_it_mult * 2
+            return {
+                message = 'X' .. G.GAME.double_it_mult,
+                colour = G.C.GREEN
+            }
+        end
+    end
+}
+SMODS.Joker{key = 'all_madnesss',
     loc_txt = {
         name = 'Oops! All madnesss',
         text = {
@@ -5375,7 +5511,72 @@ SMODS.Joker {key = 'all_madnesss',
         end
     end
 }
-SMODS.Joker {key = 'all_ultraviolets',
+SMODS.Joker{key = 'all_gregs',
+    loc_txt = {
+        name = 'Oops! All Gregs',
+        text = {
+            "Adds {C:green}+#1#{} to all {C:attention}listed{}",
+            "{C:green,E:1,S:1.1}probabilities{} for every",
+            "{C:attention}Greg{} card in your deck",
+            "{C:inactive}(Currently {C:green}+#2#{C:inactive}){}"
+        }
+    },
+    config = { extra = { prob_per_greg = 4, last_applied = 0 } },
+    rarity = 2,
+    cost = 6,
+    unlocked = true,
+    discovered = true,
+    blueprint_compat = false,
+    pools = { ["Oops!"] = true },
+    atlas = 'all_gregs',
+    loc_vars = function(self, info_queue, card)
+        local greg_count = 0
+        if G.playing_cards then
+            for _, c in ipairs(G.playing_cards) do
+                if c.config.center and c.config.center.key == 'm_uv_greg' then
+                    greg_count = greg_count + 1
+                end
+            end
+        end
+        local current_bonus = greg_count * card.ability.extra.prob_per_greg
+        return { vars = { card.ability.extra.prob_per_greg, current_bonus } }
+    end,
+    update = function(self, card)
+        if G.STAGE == G.STAGES.RUN and card.area == G.jokers then
+            local greg_count = 0
+            if G.playing_cards then
+                for _, c in ipairs(G.playing_cards) do
+                    if c.config.center and c.config.center.key == 'm_uv_greg' then
+                        greg_count = greg_count + 1
+                    end
+                end
+            end
+            local target_bonus = greg_count * card.ability.extra.prob_per_greg
+            if target_bonus ~= card.ability.extra.last_applied then
+                local diff = target_bonus - card.ability.extra.last_applied
+                G.GAME.probabilities.normal = G.GAME.probabilities.normal + diff
+                card.ability.extra.last_applied = target_bonus
+            end
+        end
+    end,
+    add_to_deck = function(self, card, from_debuff)
+        local greg_count = 0
+        if G.playing_cards then
+            for _, c in ipairs(G.playing_cards) do
+                if c.config.center and c.config.center.key == 'm_uv_greg' then
+                    greg_count = greg_count + 1
+                end
+            end
+        end
+        card.ability.extra.last_applied = greg_count * card.ability.extra.prob_per_greg
+        G.GAME.probabilities.normal = G.GAME.probabilities.normal + card.ability.extra.last_applied
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        G.GAME.probabilities.normal = G.GAME.probabilities.normal - card.ability.extra.last_applied
+        card.ability.extra.last_applied = 0
+    end
+}
+SMODS.Joker{key = 'all_ultraviolets',
     loc_txt = {
         name = 'Oops! All UltraViolets',
         text = {
@@ -5423,7 +5624,7 @@ SMODS.Joker {key = 'all_ultraviolets',
         end
     end
 }
-SMODS.Joker {key = 'god_of_all_oops',
+SMODS.Joker{key = 'god_of_all_oops',
     loc_txt = {
         name = 'The God of all Oops!',
         text = {
@@ -5493,7 +5694,7 @@ SMODS.Joker {key = 'god_of_all_oops',
         end
     end
 }
-SMODS.Joker {key = 'roboker',
+SMODS.Joker{key = 'roboker',
     loc_txt = {
         name = 'Roboker',
         text = {
@@ -5531,15 +5732,14 @@ SMODS.Joker {key = 'roboker',
         end
     end
 }
-SMODS.Joker {key = 'teacher',
+SMODS.Joker{key = 'teacher',
     loc_txt = {
         name = 'Teacher Joker',
         text = {
             "{X:mult,C:white}X#1#{} Mult",
             "Must solve math problem before each round",
             "Gains {X:mult,C:white}X#2#{} Mult for each correct answer",
-            "reduces by {X:mult,C:white}X#3#{} on wrong answer",
-            "#4#           #5#"
+            "reduces by {X:mult,C:white}X#3#{} on wrong answer"
         }
     },
     config = { extra = { mult_mod = 0.5, reduce_mod = 0.75 } },
@@ -5553,9 +5753,7 @@ SMODS.Joker {key = 'teacher',
         return { vars = { 
             current_mult, 
             card.ability.extra.mult_mod, 
-            card.ability.extra.reduce_mod,
-            (G.GAME.correct_answers or 0),
-            (G.GAME.wrong_answers or 0)
+            card.ability.extra.reduce_mod
         } }
     end,
     calculate = function(self, card, context)
@@ -5574,7 +5772,7 @@ SMODS.Joker {key = 'teacher',
         end
     end
 }
-SMODS.Joker {key = 'match',
+SMODS.Joker{key = 'match',
     loc_txt = {
         name = 'Match',
         text = {
@@ -5585,8 +5783,8 @@ SMODS.Joker {key = 'match',
         }
     },
     config = { extra = { odds = 6, mult_gain = 10, mult = 0 } },
-    rarity = 2,
-    cost = 6,
+    rarity = 1,
+    cost = 4,
     unlocked = true,
     discovered = true,
     blueprint_compat = true,
@@ -5609,7 +5807,7 @@ SMODS.Joker {key = 'match',
         end
     end
 }
-SMODS.Joker {key = 'broken_mirror',
+SMODS.Joker{key = 'broken_mirror',
     loc_txt = {
         name = 'Broken Mirror',
         text = {
@@ -5649,7 +5847,7 @@ SMODS.Joker {key = 'broken_mirror',
         end
     end
 }
-SMODS.Joker {key = 'russian_roulette',
+SMODS.Joker{key = 'russian_roulette',
     loc_txt = {
         name = 'Russian Roulette',
         text = {
@@ -5699,7 +5897,7 @@ SMODS.Joker {key = 'russian_roulette',
         end
     end
 }
-SMODS.Joker {key = 'meteorologist',
+SMODS.Joker{key = 'meteorologist',
     loc_txt = {
         name = 'Meteorologist',
         text = {
@@ -5708,7 +5906,7 @@ SMODS.Joker {key = 'meteorologist',
             "a {C:dark_edition}Negative{} copy of it"
         }
     },
-    config = { extra = { odds = 2 } },
+    config = { extra = { odds = 3 } },
     rarity = 2,
     cost = 6,
     unlocked = true,
@@ -5736,7 +5934,7 @@ SMODS.Joker {key = 'meteorologist',
         end
     end
 }
-SMODS.Joker {key = 'casino_royale',
+SMODS.Joker{key = 'casino_royale',
     loc_txt = {
         name = 'Casino Royale',
         text = {
@@ -5745,8 +5943,8 @@ SMODS.Joker {key = 'casino_royale',
         }
     },
     config = { extra = { odds = 3 } },
-    rarity = 2,
-    cost = 6,
+    rarity = 1,
+    cost = 4,
     unlocked = true,
     discovered = true,
     blueprint_compat = true,
@@ -5774,7 +5972,7 @@ SMODS.Joker {key = 'casino_royale',
         end
     end
 }
-SMODS.Joker {key = 'shuler',
+SMODS.Joker{key = 'shuler',
     loc_txt = {
         name = 'Shuler',
         text = {
@@ -5825,7 +6023,7 @@ SMODS.Joker {key = 'shuler',
         end
     end
 }
-SMODS.Joker {key = 'jackpot',
+SMODS.Joker{key = 'jackpot',
     loc_txt = {
         name = 'Jackpot',
         text = {
@@ -5857,6 +6055,219 @@ SMODS.Joker {key = 'jackpot',
                     message = '+$' .. card.ability.extra.money,
                     colour = G.C.GOLD
                 }
+            end
+        end
+    end
+}
+SMODS.Joker{key = 'dvd',
+    loc_txt = {
+        name = 'DVD',
+        text = {
+            "{X:purple,C:white}X#1#{} Chult,",
+            "but the game window",
+            "bounces around your screen"
+        }
+    },
+    config = { extra = { x_chult = 4, speed_x = 62.5, speed_y = 50, active = false } },
+    rarity = 3,
+    cost = 8,
+    unlocked = true,
+    discovered = true,
+    blueprint_compat = true,
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.x_chult } }
+    end,
+    calculate = function(self, card, context)
+        if card.ability.extra.speed_x ~= 62.5 then card.ability.extra.speed_x = 62.5 end
+        if card.ability.extra.speed_y ~= 50 then card.ability.extra.speed_y = 50 end
+        if context.joker_main then
+            if not card.ability.extra.active then
+                if not card.ability.extra.original_settings then
+                    card.ability.extra.original_settings = {
+                        screenmode = G.SETTINGS.WINDOW.screenmode,
+                        w = G.SETTINGS.screen_res and G.SETTINGS.screen_res.w or love.graphics.getWidth(),
+                        h = G.SETTINGS.screen_res and G.SETTINGS.screen_res.h or love.graphics.getHeight()
+                    }
+                end
+                card.ability.extra.active = true
+                local old_updateMode = love.window.updateMode
+                love.window.updateMode = function(w, h, settings)
+                    if card.ability.extra.active then
+                        settings.resizable = false
+                    end
+                    return old_updateMode(w, h, settings)
+                end
+                G.SETTINGS.QUEUED_CHANGE = {
+                    screenmode = 'Windowed',
+                    screenres = { w = 640, h = 480 }
+                }
+                G.SETTINGS.WINDOW.screenmode = 'Windowed'
+                if G.SETTINGS.screen_res then
+                    G.SETTINGS.screen_res.w = 640
+                    G.SETTINGS.screen_res.h = 480
+                end
+                G.FUNCS.apply_window_changes()
+                love.window.updateMode = old_updateMode
+            end
+            if not card.ability.extra.dir_x then
+                card.ability.extra.dir_x = math.random() > 0.5 and 1 or -1
+                card.ability.extra.dir_y = math.random() > 0.5 and 1 or -1
+            end
+            return {
+                message = 'X' .. card.ability.extra.x_chult .. ' Chult',
+                Xchult_mod = card.ability.extra.x_chult
+            }
+        end
+    end,
+    update = function(self, card, dt)
+        if card.ability.extra.active and not G.SETTINGS.paused then
+            if G.SETTINGS.WINDOW.screenmode ~= 'Windowed' then
+                G.SETTINGS.QUEUED_CHANGE = {
+                    screenmode = 'Windowed',
+                    screenres = { w = 640, h = 480 }
+                }
+                G.SETTINGS.WINDOW.screenmode = 'Windowed'
+                if G.SETTINGS.screen_res then
+                    G.SETTINGS.screen_res.w = 640
+                    G.SETTINGS.screen_res.h = 480
+                end
+                local old_updateMode = love.window.updateMode
+                love.window.updateMode = function(w, h, settings)
+                    settings.resizable = false
+                    return old_updateMode(w, h, settings)
+                end
+                G.FUNCS.apply_window_changes()
+                love.window.updateMode = old_updateMode
+            end
+            local wx, wy = love.window.getPosition()
+            local ww, wh = love.window.getMode()
+            local dw, dh = love.window.getDesktopDimensions()
+            local next_x = wx + card.ability.extra.speed_x * card.ability.extra.dir_x * dt
+            local next_y = wy + card.ability.extra.speed_y * card.ability.extra.dir_y * dt
+            if next_x <= 0 then
+                card.ability.extra.dir_x = 1
+                next_x = 0
+            elseif next_x + ww >= dw then
+                card.ability.extra.dir_x = -1
+                next_x = dw - ww
+            end
+            if next_y <= 0 then
+                card.ability.extra.dir_y = 1
+                next_y = 0
+            elseif next_y + wh >= dh then
+                card.ability.extra.dir_y = -1
+                next_y = dh - wh
+            end
+            love.window.setPosition(math.floor(next_x), math.floor(next_y))
+        end
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        card.ability.extra.active = false
+        if card.ability.extra.original_settings then
+            local orig = card.ability.extra.original_settings
+            G.SETTINGS.QUEUED_CHANGE = {
+                screenmode = orig.screenmode,
+                screenres = { w = orig.w, h = orig.h }
+            }
+            G.SETTINGS.WINDOW.screenmode = orig.screenmode
+            if G.SETTINGS.screen_res then
+                G.SETTINGS.screen_res.w = orig.w
+                G.SETTINGS.screen_res.h = orig.h
+            end
+            G.FUNCS.apply_window_changes()
+        end
+        local dw, dh = love.window.getDesktopDimensions()
+        local ww, wh = love.window.getMode()
+        love.window.setPosition(math.floor((dw - ww) / 2), math.floor((dh - wh) / 2))
+    end
+}
+SMODS.Joker{key = 'greg_hitboxes',
+    loc_txt = {
+        name = 'Greg Hitboxes',
+        text = {
+            "Gains {X:purple,C:white}X#1#{} Chult for each",
+            "{C:attention}Greg{} card in your deck",
+            "{C:inactive}(Currently {X:purple,C:white}X#2#{C:inactive} Chult){}"
+        }
+    },
+    config = { extra = { chult_per_greg = 0.1, current_chult = 1 } },
+    rarity = 3,
+    cost = 8,
+    unlocked = true,
+    discovered = true,
+    blueprint_compat = true,
+    atlas = 'greg_hitboxes',
+    loc_vars = function(self, info_queue, card)
+        local greg_count = 0
+        if G.playing_cards then
+            for _, c in ipairs(G.playing_cards) do
+                if c.config.center and c.config.center.key == 'm_uv_greg' then
+                    greg_count = greg_count + 1
+                end
+            end
+        end
+        card.ability.extra.current_chult = 1 + (greg_count * card.ability.extra.chult_per_greg)
+        return { vars = { card.ability.extra.chult_per_greg, card.ability.extra.current_chult } }
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main then
+            local greg_count = 0
+            if G.playing_cards then
+                for _, c in ipairs(G.playing_cards) do
+                    if c.config.center and c.config.center.key == 'm_uv_greg' then
+                        greg_count = greg_count + 1
+                    end
+                end
+            end
+            card.ability.extra.current_chult = 1 + (greg_count * card.ability.extra.chult_per_greg)
+            if card.ability.extra.current_chult > 1 then
+                return {
+                    message = 'X' .. card.ability.extra.current_chult .. ' Chult',
+                    Xchult_mod = card.ability.extra.current_chult,
+                    colour = G.C.PURPLE
+                }
+            end
+        end
+    end
+}
+SMODS.Joker{key = 'greg_box',
+    loc_txt = {
+        name = 'Greg Box',
+        text = {
+            "{C:green}#1# in #2#{} chance to create",
+            "a {C:tarot}Greg tarot{}",
+            "at the end of round",
+            "{C:inactive}(Must have room){}"
+        }
+    },
+    config = { extra = { odds = 6 } },
+    rarity = 2,
+    cost = 6,
+    unlocked = true,
+    discovered = true,
+    blueprint_compat = true,
+    atlas = 'greg_box',
+    display_size = { w = 71, h = 71 },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { G.GAME.probabilities.normal or 1, card.ability.extra.odds } }
+    end,
+    calculate = function(self, card, context)
+        if context.end_of_round and not context.blueprint and not context.repetition and not context.individual then
+            if #G.consumeables < G.consumeables.config.card_limit then
+                if pseudorandom('greg_box') < G.GAME.probabilities.normal / card.ability.extra.odds then
+                    local tarot = create_card('Tarot', G.consumeables, nil, nil, nil, nil, 'c_uv_greg_tarot', 'greg_box')
+                    tarot:add_to_deck()
+                    G.consumeables:emplace(tarot)
+                    return {
+                        message = 'Greg',
+                        colour = G.C.PURPLE
+                    }
+                else
+                    return {
+                        message = 'Not Greg',
+                        colour = G.C.RED
+                    }
+                end
             end
         end
     end

@@ -257,7 +257,7 @@ SMODS.Back {key = 'light_blue_deck',
     apply = function(self)
         G.E_MANAGER:add_event(Event({
             func = function()
-                ease_consumeable_slots(1)
+                G.consumeables.config.card_limit = G.consumeables.config.card_limit + 1
                 return true
             end
         }))
@@ -301,7 +301,7 @@ SMODS.Back {key = 'rainbow_deck',
                 ease_discard(1)
                 ease_hands_played(1)
                 ease_ante(1)
-                ease_consumeable_slots(1)
+                G.consumeables.config.card_limit = G.consumeables.config.card_limit + 1
                 ease_joker_slots(1)
                 ease_round(1)
                 change_shop_size(1)
@@ -506,5 +506,32 @@ SMODS.Back{key = 'supermarket_deck',
                 return true
             end
         }))
+    end
+}
+SMODS.Back{key = 'greg_deck',
+    loc_txt = {
+        name = 'Greg Deck',
+        text = {
+            "Start run with all cards",
+            "of a {C:attention}random suit{}",
+            "converted into {C:attention}Greg{} cards"
+        }
+    },
+    unlocked = true,
+    discovered = true,
+    atlas = 'greg_deck',
+    apply = function(self) 
+        G.E_MANAGER:add_event(Event({ 
+        func = function() 
+            local random_card = pseudorandom_element(G.P_CARDS, pseudoseed('greg_deck')) 
+            local target_suit = random_card.suit
+            for k, v in pairs(G.playing_cards) do 
+            if v.base.suit == target_suit then
+                v:set_ability(G.P_CENTERS.m_uv_greg)
+            end
+            end 
+            return true 
+        end 
+        })) 
     end
 }

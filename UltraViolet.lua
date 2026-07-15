@@ -232,9 +232,6 @@ end
 function ease_joker_slots(mod)
     G.jokers.config.card_limit = G.jokers.config.card_limit + mod
 end
-function ease_consumeable_slots(mod)
-    G.consumeables.config.card_limit = G.consumeables.config.card_limit + mod
-end
 function ease_reroll_cost(mod)
     G.GAME.round_resets.reroll_cost = G.GAME.round_resets.reroll_cost + mod
 end
@@ -420,3 +417,4 @@ function Card:add_to_deck(from_deblur)
         end
     end
 end
+if G.GAME then G.GAME.double_it_mult = 1 end

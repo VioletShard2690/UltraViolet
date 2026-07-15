@@ -1,4 +1,4 @@
-SMODS.Blind {key = 'weed',
+SMODS.Blind{key = 'weed',
     loc_txt = {
         name = "The Weed",
         text = { 
@@ -118,7 +118,7 @@ SMODS.Blind{key = "pass",
         end
     end
 }
-SMODS.Blind {key = 'trademark',
+SMODS.Blind{key = 'trademark',
     pos = {x = 0, y = 0},
     atlas = 'trademark',
     boss_colour = HEX('cfa36d'),
@@ -166,7 +166,7 @@ SMODS.Blind {key = 'eraser',
         end
     end
 }
-SMODS.Blind {key = 'planetarium',
+SMODS.Blind{key = 'planetarium',
     pos = {x = 0, y = 0},
     atlas = 'planetarium',
     boss_colour = HEX('1E1E1E'),
@@ -189,7 +189,7 @@ SMODS.Blind {key = 'planetarium',
         end
     end
 }
-SMODS.Blind {key = 'mask',
+SMODS.Blind{key = 'mask',
     pos = {x = 0, y = 0},
     atlas = 'mask',
     unlocked = true,
@@ -212,7 +212,7 @@ SMODS.Blind {key = 'mask',
         end
     end
 }
-SMODS.Blind {key = 'overkill',
+SMODS.Blind{key = 'overkill',
     pos = {x = 0, y = 0},
     atlas = 'overkill',
     unlocked = true,
@@ -246,7 +246,7 @@ SMODS.Blind {key = 'overkill',
         end
     end
 }
-SMODS.Blind {key = 'bigger',
+SMODS.Blind{key = 'bigger',
     atlas = 'bigger',
     boss_colour = HEX('8d7c72'),
     mult = 2,
@@ -262,7 +262,7 @@ SMODS.Blind {key = 'bigger',
         }
     },
 }
-SMODS.Blind {key = 'anchor',
+SMODS.Blind{key = 'anchor',
     loc_txt = {
         name = 'The Anchor',
         text = {
@@ -276,6 +276,7 @@ SMODS.Blind {key = 'anchor',
     unlocked = true,
     discovered = true,
     dollars = 5,
+    atlas = 'anchor',
     boss_colour = HEX('9e9b9b'),
     defeat = function(self)
         local eligible_jokers = {}
@@ -291,7 +292,7 @@ SMODS.Blind {key = 'anchor',
         end
     end
 }
-SMODS.Blind {key = 'fossil',
+SMODS.Blind{key = 'fossil',
     loc_txt = {
         name = 'The Fossil',
         text = {
@@ -305,6 +306,7 @@ SMODS.Blind {key = 'fossil',
     unlocked = true,
     discovered = true,
     dollars = 5,
+    atlas = 'fossil',
     boss_colour = HEX('9e9b9b'),
     defeat = function(self)
         local eligible_jokers = {}
@@ -320,7 +322,7 @@ SMODS.Blind {key = 'fossil',
         end
     end
 }
-SMODS.Blind {key = 'decay',
+SMODS.Blind{key = 'decay',
     loc_txt = {
         name = 'The Decay',
         text = {
@@ -334,6 +336,7 @@ SMODS.Blind {key = 'decay',
     unlocked = true,
     discovered = true,
     dollars = 5,
+    atlas = 'decay',
     boss_colour = HEX('568f8f'),
     defeat = function(self)
         local eligible_jokers = {}
@@ -349,12 +352,13 @@ SMODS.Blind {key = 'decay',
         end
     end
 }
-SMODS.Blind {key = 'void',
+SMODS.Blind{key = 'void',
     loc_txt = { name = 'The Void', text = { "Suffer." } }, -- game crashes if you have chicot, but this is fine
     dollars = 0,
     mult = 4,
     boss = {min = 100},
     boss_colour = HEX('000000'),
+    atlas = 'void',
     stay_flipped = function(self, area, card)
         if next(SMODS.find_card('j_uv_DR34MC0R3')) then return end
         if area == G.hand then return true end
@@ -388,5 +392,144 @@ SMODS.Blind {key = 'void',
                 if not G.jokers.cards[i].debuff then G.jokers.cards[i]:set_debuff(true) end
             end
         end
+    end
+}
+SMODS.Blind{key = 'microscope',
+    loc_txt = {
+        name = 'The Microscope',
+        text = {
+            "Sets the game window",
+            "size to 100x75"
+        }
+    },
+    boss = {min = 1},
+    boss_colour = HEX('72c4c0'),
+    dollars = 5,
+    mult = 2,
+    unlocked = true,
+    discovered = true,
+    atlas = 'microscope',
+    set_blind = function(self, blind)
+        if not G.microscope_original_settings then
+            G.microscope_original_settings = {
+                screenmode = G.SETTINGS.WINDOW.screenmode,
+                w = G.SETTINGS.screen_res and G.SETTINGS.screen_res.w or love.graphics.getWidth(),
+                h = G.SETTINGS.screen_res and G.SETTINGS.screen_res.h or love.graphics.getHeight()
+            }
+        end
+        self:enforce_microscope_size()
+    end,
+    update = function(self, dt)
+        if G.SETTINGS.paused then return end
+        local w, h, flags = love.window.getMode()
+        if w ~= 100 or h ~= 75 or not flags.borderless or flags.resizable then
+            self:enforce_microscope_size()
+        end
+    end,
+    enforce_microscope_size = function(self)
+        local old_getMin = love.window.getMin
+        love.window.getMin = function()
+            return 10, 10
+        end
+        local old_updateMode = love.window.updateMode
+        love.window.updateMode = function(w, h, settings)
+            settings.resizable = false
+            settings.borderless = true
+            settings.minwidth = 10
+            settings.minheight = 10
+            return old_updateMode(100, 75, settings)
+        end
+        G.SETTINGS.QUEUED_CHANGE = {
+            screenmode = 'Windowed',
+            screenres = { w = 100, h = 75 }
+        }
+        G.SETTINGS.WINDOW.screenmode = 'Windowed'
+        if G.SETTINGS.screen_res then
+            G.SETTINGS.screen_res.w = 100
+            G.SETTINGS.screen_res.h = 75
+        end
+        love.window.setMode(100, 75, {resizable = false, borderless = true, minwidth = 10, minheight = 10})
+        G.FUNCS.apply_window_changes()
+        love.window.updateMode = old_updateMode
+        love.window.getMin = old_getMin
+    end,
+    defeat = function(self, blind)
+        if G.microscope_original_settings then
+            local orig = G.microscope_original_settings
+            G.SETTINGS.QUEUED_CHANGE = {
+                screenmode = orig.screenmode,
+                screenres = { w = orig.w, h = orig.h }
+            }
+            G.SETTINGS.WINDOW.screenmode = orig.screenmode
+            if G.SETTINGS.screen_res then
+                G.SETTINGS.screen_res.w = orig.w
+                G.SETTINGS.screen_res.h = orig.h
+            end
+            local old_updateMode = love.window.updateMode
+            love.window.updateMode = function(w, h, settings)
+                settings.borderless = false
+                settings.resizable = true
+                return old_updateMode(w, h, settings)
+            end
+            G.FUNCS.apply_window_changes()
+            love.window.updateMode = old_updateMode
+            G.microscope_original_settings = nil
+        end
+        local dw, dh = love.window.getDesktopDimensions()
+        local ww, wh = love.window.getMode()
+        love.window.setPosition(math.floor((dw - ww) / 2), math.floor((dh - wh) / 2))
+    end,
+    disable = function(self, blind)
+        if G.microscope_original_settings then
+            local orig = G.microscope_original_settings
+            G.SETTINGS.QUEUED_CHANGE = {
+                screenmode = orig.screenmode,
+                screenres = { w = orig.w, h = orig.h }
+            }
+            G.SETTINGS.WINDOW.screenmode = orig.screenmode
+            if G.SETTINGS.screen_res then
+                G.SETTINGS.screen_res.w = orig.w
+                G.SETTINGS.screen_res.h = orig.h
+            end
+            local old_updateMode = love.window.updateMode
+            love.window.updateMode = function(w, h, settings)
+                settings.borderless = false
+                settings.resizable = true
+                return old_updateMode(w, h, settings)
+            end
+            G.FUNCS.apply_window_changes()
+            love.window.updateMode = old_updateMode
+            G.microscope_original_settings = nil
+        end
+        local dw, dh = love.window.getDesktopDimensions()
+        local ww, wh = love.window.getMode()
+        love.window.setPosition(math.floor((dw - ww) / 2), math.floor((dh - wh) / 2))
+    end
+}
+SMODS.Blind{key = 'evil_greg',
+    loc_txt = {
+        name = 'Evil Greg',
+        text = {
+            "you can play",
+            "only Greg cards"
+        }
+    },
+    boss = {min = 1},
+    boss_colour = HEX('969696'),
+    dollars = 5,
+    mult = 2,
+    unlocked = true,
+    discovered = true,
+    atlas = 'evil_greg',
+    debuff_hand = function(self, cards, hand, handname, check)
+        for _, card in ipairs(cards) do
+            if not (card.config.center and card.config.center.key == 'm_uv_greg') then
+                return true
+            end
+        end
+        return false
+    end,
+    get_loc_debuff_text = function(self)
+        return "you can play only Greg cards"
     end
 }
