@@ -229,6 +229,11 @@ SMODS.Blind{key = 'overkill',
             "hand you lose"
         }
     },
+    set_blind = function(self, blind)
+        if next(SMODS.find_card('j_uv_doomsday')) then
+            check_for_unlock({ type = "dead_end" })
+        end
+    end,
     defeat = function(self)
         if G.GAME.current_round.hands_played == 1 then
             attention_text({
@@ -364,6 +369,7 @@ SMODS.Blind{key = 'void',
         if area == G.hand then return true end
     end,
     set_blind = function(self)
+        -- if next(SMODS.find_card('j_chicot')) then idk kill.chicot end
         if next(SMODS.find_card('j_uv_DR34MC0R3')) then return end
         for _, v in ipairs(G.hand.cards) do v:flip() end
         if G.jokers then
@@ -392,6 +398,22 @@ SMODS.Blind{key = 'void',
                 if not G.jokers.cards[i].debuff then G.jokers.cards[i]:set_debuff(true) end
             end
         end
+    end,
+    defeat = function(self, blind)
+        check_for_unlock({ type = "htf" })
+    end,
+    debuff_hand = function(self, cards, hand, handname, check)
+        local card_count = 0
+        for _, card in ipairs(cards) do
+            card_count = card_count + 1
+        end
+        if card_count ~= 1 then
+            return true
+        end
+        return false
+    end,
+    get_loc_debuff_text = function(self)
+        return "you can play only 1 card"
     end
 }
 SMODS.Blind{key = 'microscope',
@@ -454,6 +476,9 @@ SMODS.Blind{key = 'microscope',
         love.window.getMin = old_getMin
     end,
     defeat = function(self, blind)
+        if next(SMODS.find_card('j_uv_smart_magnifying_glass')) then
+            check_for_unlock({ type = "need_glasses" })
+        end
         if G.microscope_original_settings then
             local orig = G.microscope_original_settings
             G.SETTINGS.QUEUED_CHANGE = {

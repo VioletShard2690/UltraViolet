@@ -418,3 +418,18 @@ function Card:add_to_deck(from_deblur)
     end
 end
 if G.GAME then G.GAME.double_it_mult = 1 end
+local card_open_ref = Card.open
+function Card:open()
+    if self.ability.set == 'Booster' and self.config and self.config.center then
+        G.GAME.current_booster_key = self.config.center.key
+    end
+    return card_open_ref(self)
+end
+local skip_booster_ref = G.FUNCS.skip_booster
+G.FUNCS.skip_booster = function(e)
+    skip_booster_ref(e)
+    if G.GAME.current_booster_key == 'p_uv_super_rare_pack' then
+        check_for_unlock({ type = 'why' })
+    end
+    G.GAME.current_booster_key = nil
+end

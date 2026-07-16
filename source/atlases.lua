@@ -303,8 +303,8 @@ SMODS.Atlas({key = "face_james",
     px = 90,
     py = 120
 })
-SMODS.Atlas({key = "factorial_joker",
-    path = "j_fact_joker.png",
+SMODS.Atlas({key = "pascal",
+    path = "j_pascal.png",
     px = 142,
     py = 190
 })
@@ -553,11 +553,6 @@ SMODS.Atlas({key = "missing_cube",
     px = 89,
     py = 89
 })
-SMODS.Atlas({key = "280p_joker",
-    path = "j_280p_joker.png",
-    px = 142,
-    py = 190
-})
 SMODS.Atlas({key = "anchor",
     path = "bl_anchor.png",
     px = 64,
@@ -616,5 +611,10 @@ SMODS.Atlas({key = "all_gregs",
 SMODS.Atlas({key = "greg_deck",
     path = "greg_deck.png",
     px = 142,
+    py = 190
+})
+SMODS.Atlas({key = "placeholder_sleeve",
+    path = "sl_placeholder.png",
+    px = 146,
     py = 190
 })

@@ -796,6 +796,9 @@ SMODS.Joker{key = 'exponential_growth',
     atlas = 'exponential_growth',
     unlocked = true,
     discovered = true,
+    add_to_deck = function(self, card, from_debuff)
+        check_for_unlock({ type = "getting_somewhere" })
+    end,
     calculate = function(self, card, context)
         if context.end_of_round and not context.repetition and not context.individual then
             if G.GAME.chips >= G.GAME.blind.chips * 10 then
@@ -1207,19 +1210,21 @@ SMODS.Joker{key = "joker_outline",
 }
 SMODS.Joker{key = "small_joker",
     config = {}, 
-    rarity = 1,
+    rarity = 3,
     cost = 1,
-    blueprint_compat = true,
-    eternal_compat = true,
+    blueprint_compat = false,
     unlocked = true,
     discovered = true,
         loc_txt = {
-                name = "small joker",
+                name = "Small Joker",
                 text = { 
                     "yay u found Easter Egg yippee"
                 }
             },
     display_size = { w = 10000000, h = 10000000 },
+    add_to_deck = function(self, card, from_debuff)
+        check_for_unlock({ type = "big_boi" })
+    end
 }
 SMODS.Joker{key = "code_joker", -- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     config = { extra = { gain = 0.1, chips = 6281 } },
@@ -1595,6 +1600,9 @@ SMODS.Joker{key = 'bouncy_ball',
                 }
             end
         end
+        if card.ability.extra.chips >= 1000 then
+            check_for_unlock({ type = "spacebar_warrior" })
+        end
     end
 }
 SMODS.Joker{key = 'golden_bullet',
@@ -1795,6 +1803,9 @@ SMODS.Joker{key = 'math_chaos',
     unlocked = true,
     discovered = true,
     atlas = 'math_chaos',
+    add_to_deck = function(self, card, from_debuff)
+        check_for_unlock({ type = "getting_somewhere" })
+    end,
     loc_vars = function(self, info_queue, card)
         local vars = (card and card.ability and card.ability.extra) and card.ability.extra or self.config.extra
         local left_jokers = 0
@@ -1914,39 +1925,53 @@ SMODS.Joker{key = 'bag_of_chips',
         end
     end
 }
-SMODS.Joker{key = 'factorial_joker',
+SMODS.Joker{key = 'pascal',
     loc_txt = {
-        name = 'Factorial Joker',
+        name = 'Pascal',
         text = {
-            "Gives {X:mult,C:white}x(n!){} mult",
-            "n is number of scored cards",
-            "in current hand"
+            "Gives {X:mult,C:white}Xfactorial{} mult",
+            "equal to scored cards",
+            "in current hand",
+            "{C:enhanced}+#1#{} card selection limit"
         }
     },
-    config = { extra = {} },
-    rarity = 3,
+    config = { extra = { csl = 1 } },
+    rarity = 4,
+    cost = 20,
     unlocked = true,
     discovered = true,
-    atlas = 'factorial_joker',
+    atlas = 'pascal',
+    soul_pos={x=0,y=1},
     blueprint_compat = true,
     loc_vars = function(self, info_queue, card)
-        local n = 0
-        if G.play and G.play.cards then
-            n = #G.play.cards
-        end
-        return { vars = { factorial(n) } }
+        return { vars = { card.ability.extra.csl } }
+    end,
+    add_to_deck = function(self, card, from_debuff)
+        SMODS.change_play_limit(card.ability.extra.csl)
+        SMODS.change_discard_limit(card.ability.extra.csl)
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        SMODS.change_play_limit(-card.ability.extra.csl)
+        SMODS.change_discard_limit(-card.ability.extra.csl)
     end,
     calculate = function(self, card, context)
         if context.joker_main then
+            if #context.scoring_hand >= 50 then
+                check_for_unlock({ type = "superfactorial" })
+            end
             local n = #context.scoring_hand
-            local fact_value = factorial(n)
-            
-            if fact_value > 1 then
-                return {
-                    message = 'x' .. n .. '!',
-                    Xmult_mod = fact_value,
-                    colour = G.C.GREEN
-                }
+            if n > 0 then
+                local res = 1
+                for i = 1, n do 
+                    res = res * i 
+                end
+                if res > 1 then
+                    return {
+                        message = 'X' .. number_format(res) .. ' Mult',
+                        Xmult_mod = res,
+                        colour = G.C.RED
+                    }
+                end
             end
         end
     end
@@ -2040,6 +2065,9 @@ SMODS.Joker{key = 'exponential_power',
     unlocked = true,
     discovered = true, 
     blueprint_compat = true,
+    add_to_deck = function(self, card, from_debuff)
+        check_for_unlock({ type = "getting_somewhere" })
+    end,
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.e_mult } }
     end,
@@ -3831,7 +3859,7 @@ SMODS.Joker{key = 'scales',
     loc_txt = {
         name = 'Scales',
         text = {
-            "Gains {X:mult,C:white}X#2#{} if",
+            "Gains {X:mult,C:white}X#2#{} Mult if",
             "number of {C:attention}scored cards{} in current hand",
             "equals to number of {C:attention}jokers{} you own",
             "{C:inactive}(Currently {X:mult,C:white}X#1#{}{C:inactive} Mult)"
@@ -3849,15 +3877,18 @@ SMODS.Joker{key = 'scales',
     end,
     calculate = function(self, card, context)
         if context.joker_main then
-            return {
-                message = 'x' .. card.ability.extra.current_x_mult,
-                Xmult_mod = card.ability.extra.current_x_mult
-            }
+            if card.ability.extra.current_x_mult ~= 1 then
+                return {
+                    message = 'X' .. card.ability.extra.current_x_mult .. ' Mult',
+                    Xmult_mod = card.ability.extra.current_x_mult
+                }
+            end
         end
-        if context.after and not context.blueprint and context.scoring_hand then
+        if context.before and not context.blueprint and context.scoring_hand then
             local hand_size = #context.scoring_hand
             local joker_count = #G.jokers.cards
             if hand_size == joker_count then
+                if joker_count >= 10 then check_for_unlock({ type = "ultimate_balance" }) end
                 card.ability.extra.current_x_mult = card.ability.extra.current_x_mult + card.ability.extra.increase
                 return {
                     message = 'Upgrade!',
@@ -3901,15 +3932,9 @@ SMODS.Joker{key = 'alchemist',
                 hand_level = G.GAME.hands[current_hand].level
             end
             local final_xmult = 1 + (hand_level * card.ability.extra)
-            local should_trigger = false
-            if type(final_xmult) == 'table' then
-                should_trigger = true
-            elseif type(final_xmult) == 'number' and final_xmult > 1 then
-                should_trigger = true
-            end
-            if should_trigger then
+            if final_xmult > 1 then
                 return {
-                    message = ' x' .. tostring(final_xmult) .. ' Mult',
+                    message = 'X' .. to_number(final_xmult) .. ' Mult',
                     Xmult_mod = final_xmult
                 }
             end
@@ -3935,6 +3960,9 @@ SMODS.Joker{key = 'milky_way',
     loc_vars = function(self, info_queue, card)
         local final_level = 4 * card.ability.extra.level_mult
         return { vars = { number_format(card.ability.extra.level_mult), final_level } }
+    end,
+    add_to_deck = function(self, card, from_debuff)
+        check_for_unlock({ type = "getting_somewhere" })
     end,
     calculate = function(self, card, context)
         if context.using_consumeable then
@@ -3977,11 +4005,11 @@ SMODS.Joker{key = 'homeless',
     calculate = function(self, card, context)
         if context.joker_main and card.ability.extra.mult > 0 then
             return {
-                message = '+' .. tostring(card.ability.extra.mult) .. ' Mult',
+                message = '+' .. to_number(card.ability.extra.mult) .. ' Mult',
                 mult_mod = card.ability.extra.mult
             }
         end
-        if context.after and not context.blueprint then
+        if context.before and not context.blueprint then
             if context.scoring_name == 'Full House' then
                 if card.ability.extra.mult > 0 then
                     card.ability.extra.mult = 0
@@ -4000,7 +4028,7 @@ SMODS.Joker{key = 'homeless',
         end
     end
 }
-SMODS.Joker{key = 'cyan',
+SMODS.Joker{key = 'cyan_concrete',
     config = { extra = { dollars_per_discard = 1 } },
     rarity = 1,
     cost = 4,
@@ -4008,10 +4036,11 @@ SMODS.Joker{key = 'cyan',
     discovered = true,
     blueprint_compat = false,
     loc_txt = {
-        name = "Cyan Joker",
+        name = "Cyan Concrete",
         text = {
             "Earn {C:money}$#1#{} for every",
-            "{C:red}discard{} left at end of round."
+            "{C:red}discard{} left at end of round.",
+            "{C:inactive,s:0.7}7.8/10, to much cyan"
         }
     },
     loc_vars = function(self, info_queue, card)
@@ -4464,7 +4493,7 @@ SMODS.Joker{key = 'shredder',
         name = 'Shredder',
         text = {
             "Destroys all scored cards",
-            "Gains {X:mult,C:white}xMult{} equal to",
+            "Gains {X:mult,C:white}XMult{} equal to",
             "the ID of each destroyed card",
             "{C:attention}enhaced{} card gives {C:attention}#2#x{} much",
             "{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)"
@@ -4500,6 +4529,9 @@ SMODS.Joker{key = 'shredder',
                 Xmult_mod = card.ability.extra.x_mult
             }
         end
+        if card.ability.extra.x_mult >= 1000 then
+            check_for_unlock({ type = "what_cost" })
+        end
     end
 }
 SMODS.Joker{key = 'quantum_immortality',
@@ -4516,6 +4548,9 @@ SMODS.Joker{key = 'quantum_immortality',
     unlocked = true,
     discovered = true,
     blueprint_compat = true,
+    add_to_deck = function(self, card, from_debuff)
+        check_for_unlock({ type = "getting_somewhere" })
+    end,
     calculate = function(self, card, context)
         if context.joker_main and G.GAME.current_round.hands_left == 0 then
             local ante_power = G.GAME.round_resets.ante or 1
@@ -4539,6 +4574,9 @@ SMODS.Joker{key = 'absolute_zero',
         }
     },
     config = {},
+    add_to_deck = function(self, card, from_debuff)
+        check_for_unlock({ type = "getting_somewhere" })
+    end,
     calculate = function(self, card, context)
         if context.setting_blind and not card.getting_sliced then
             G.GAME.blind.chips = 0
@@ -4565,6 +4603,9 @@ SMODS.Joker{key = 'bitwise_shift',
     unlocked = true,
     discovered = true,
     blueprint_compat = true,
+    add_to_deck = function(self, card, from_debuff)
+        check_for_unlock({ type = "getting_somewhere" })
+    end,
     loc_vars = function(self, info_queue, card)
         return { vars = {} }
     end,
@@ -4720,87 +4761,6 @@ SMODS.Joker{key = "DR34MC0R3",
         end
     end
 }
-SMODS.Joker{key = "chult_test_1",
-    config = { chult = 20 }, 
-    rarity = 1,
-    cost = 1,
-    blueprint_compat = true,
-    eternal_compat = true,
-    unlocked = true,
-    discovered = true,
-        loc_txt = {
-                name = "Chult Test 1",
-                text = { 
-                    "{C:purple}+#1#{} Chult"
-                }
-            },
-    loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.chult } }
-    end,
-    calculate = function(self, card, context)
-        if context.joker_main then
-            return {
-                message = '+' .. card.ability.chult .. ' Chult',
-                colour = G.C.PURPLE,
-                chult_mod = card.ability.chult
-            }
-        end
-    end
-}
-SMODS.Joker{key = "chult_test_2",
-    config = { xchult = 2 }, 
-    rarity = 2,
-    cost = 2,
-    blueprint_compat = true,
-    eternal_compat = true,
-    unlocked = true,
-    discovered = true,
-        loc_txt = {
-                name = "Chult Test 2",
-                text = { 
-                    "{X:purple,C:white}X#1#{} Chult"
-                }
-            },
-    loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.xchult } }
-    end,
-    calculate = function(self, card, context)
-        if context.joker_main then
-            return {
-                message = 'X' .. card.ability.xchult .. ' Chult',
-                colour = G.C.PURPLE,
-                Xchult_mod = card.ability.xchult
-            }
-        end
-    end
-}
-SMODS.Joker{key = "chult_test_3",
-    config = { echult = 2 }, 
-    rarity = 3,
-    cost = 3,
-    blueprint_compat = true,
-    eternal_compat = true,
-    unlocked = true,
-    discovered = true,
-        loc_txt = {
-                name = "Chult Test 3",
-                text = { 
-                    "{X:purple,C:white}^#1#{} Chult"
-                }
-            },
-    loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.echult } }
-    end,
-    calculate = function(self, card, context)
-        if context.joker_main then
-            return {
-                message = '^' .. card.ability.echult .. ' Chult',
-                colour = G.C.PURPLE,
-                Echult_mod = card.ability.echult
-            }
-        end
-    end
-}
 SMODS.Joker{key = 'all_9s',
     loc_txt = {
         name = 'Oops! All 9s',
@@ -4947,6 +4907,9 @@ SMODS.Joker{key = 'forgot_cube',
                     colour = G.C.GREEN
                 }
             end
+        end
+        if context.selling_self and next(SMODS.find_card('j_uv_missing_cube')) and not context.blueprint then
+            check_for_unlock({ type = "other_way" })
         end
     end
 }
@@ -5322,7 +5285,7 @@ SMODS.Joker{key = 'all_berries',
     calculate = function(self, card, context)
         if context.joker_main then
             return {
-                message = 'X' .. (G.GAME.probabilities.normal / 100) + 1 .. ' Mult',
+                message = 'X' .. number_format((G.GAME.probabilities.normal / 100) + 1) .. ' Mult',
                 Xmult_mod = (G.GAME.probabilities.normal / 100) + 1,
                 colour = G.C.RED
                 
@@ -5437,7 +5400,7 @@ SMODS.Joker{key = 'all_madnesss',
     config = {
         extra = {
             madness_level = 3, apple_factor = 2, four_factorial = 24, banana_exponent = 1.5, mult_power = 0.77,
-            cow_prob = 1, potato_power = 999
+            cow_prob = 1, potato_power = 999, socks_streak = 0
         }
     },
     rarity = 'uv_super_rare',
@@ -5446,6 +5409,9 @@ SMODS.Joker{key = 'all_madnesss',
     discovered = true,
     blueprint_compat = true,
     pools = { ["Oops!"] = true },
+    add_to_deck = function(self, card, from_debuff)
+        check_for_unlock({ type = "getting_somewhere" })
+    end,
     loc_vars = function(self, info_queue, card)
         local vars = (card and card.ability and card.ability.extra) and card.ability.extra or self.config.extra
         return { vars = { 
@@ -5455,10 +5421,9 @@ SMODS.Joker{key = 'all_madnesss',
         } }
     end,
     calculate = function(self, card, context)
-        local extra = card.ability.extra
         if context.joker_main then
             if pseudorandom('cow_chance') > (G.GAME.probabilities.normal / 10) then
-                extra.cow_prob = extra.cow_prob + 1
+                card.ability.extra.cow_prob = card.ability.extra.cow_prob + 1
                 if pseudorandom('sideway_potato') < 0.90 then
                     local shift_amount = math.random(1, 4)
                     local sub_atomic_cents = (G.GAME.dollars % 1) * 1000
@@ -5473,7 +5438,7 @@ SMODS.Joker{key = 'all_madnesss',
                         SMODS.change_play_limit(math.random(-1, 1))
                         SMODS.change_discard_limit(math.random(-1, 1))
                     end
-                    local final_emult = (extra.mult_power ^ extra.cow_prob) * cucumber_mult
+                    local final_emult = (card.ability.extra.mult_power ^ card.ability.extra.cow_prob) * cucumber_mult
                     return {
                         message = '+1-1 Mult',
                         Xchip_mod = 2 ^ shift_amount,
@@ -5482,17 +5447,18 @@ SMODS.Joker{key = 'all_madnesss',
                     }
                 end
             else
-                extra.cow_prob = 1
-                extra.socks_streak = 0
+                card.ability.extra.cow_prob = 1
+                card.ability.extra.socks_streak = 0
                 G.hand:change_size(-2)
                 return {
                     message = 'COW COLLISION ERROR!',
                     colour = G.C.RED
                 }
             end
-            extra.socks_streak = extra.socks_streak + 1
-            if extra.socks_streak >= 328 then
-                extra.socks_streak = 0
+            card.ability.extra.socks_streak = card.ability.extra.socks_streak + 1
+            if card.ability.extra.socks_streak >= 328 then
+                card.ability.extra.socks_streak = 0
+                check_for_unlock({ type = "actual_nothing" })
                 return {
                     message = 'ABSOLUTE NOTHINGNESS',
                     colour = G.C.DARK_EDITION
@@ -5739,7 +5705,8 @@ SMODS.Joker{key = 'teacher',
             "{X:mult,C:white}X#1#{} Mult",
             "Must solve math problem before each round",
             "Gains {X:mult,C:white}X#2#{} Mult for each correct answer",
-            "reduces by {X:mult,C:white}X#3#{} on wrong answer"
+            "reduces by {X:mult,C:white}X#3#{} on wrong answer",
+            "{C:inactive}(currently level #4#)"
         }
     },
     config = { extra = { mult_mod = 0.5, reduce_mod = 0.75 } },
@@ -5753,7 +5720,8 @@ SMODS.Joker{key = 'teacher',
         return { vars = { 
             current_mult, 
             card.ability.extra.mult_mod, 
-            card.ability.extra.reduce_mod
+            card.ability.extra.reduce_mod,
+            G.GAME.teacher_level
         } }
     end,
     calculate = function(self, card, context)

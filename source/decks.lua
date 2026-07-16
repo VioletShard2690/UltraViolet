@@ -31,7 +31,7 @@ SMODS.Back {key = "36_cards",
     end
 }
 SMODS.Back {key = "gamble_deck",
-    config = { lucky_block = true, wheel = true },
+    config = {},
     loc_txt = {
         name = "Gamble Deck",
         text = {
@@ -46,16 +46,11 @@ SMODS.Back {key = "gamble_deck",
         G.E_MANAGER:add_event(Event({
             func = function()
                 local lucky_block = create_card('Joker', G.jokers, nil, nil, nil, nil, 'j_uv_lucky_block', 'gamble')
-                if lucky_block then
-                    lucky_block:add_to_deck()
-                    G.jokers:emplace(lucky_block)
-                end
+                lucky_block:add_to_deck()
+                G.jokers:emplace(lucky_block)
                 local wheel = create_card('Tarot', G.consumeables, nil, nil, nil, nil, 'c_wheel_of_fortune', 'gamble')
-                if wheel then
-                    wheel:add_to_deck()
-                    G.consumeables:emplace(wheel)
-                end
-                
+                wheel:add_to_deck()
+                G.consumeables:emplace(wheel)
                 return true
             end
         }))
@@ -238,8 +233,9 @@ SMODS.Back {key = 'purple_deck',
     apply = function(self)
         G.E_MANAGER:add_event(Event({
             func = function()
-                SMODS.change_play_limit(1)
+                SMODS.change_play_limit(100)
                 SMODS.change_discard_limit(1)
+                G.hand:change_size(42)
                 return true
             end
         }))
@@ -473,6 +469,9 @@ SMODS.Back{key = 'desktop_deck',
                 local money_bonus = math.floor(G.DESKTOP_FILE_COUNT / 50)
                 if money_bonus > 0 then
                     ease_dollars(money_bonus)
+                end
+                if money_bonus >= 50 then
+                    check_for_unlock({ type = "digital_hoarder" })
                 end
                 return true
             end

@@ -1,35 +1,38 @@
 # 👨‍💻 Change log 👨‍💻
 Here's gonna be written what was added in most recent update for this mod!
-**Cirrent version: v2.2.2 beta 7.1**
+**Current version: v2.2.2 beta 8.0**
 
 **Added:**
-* 10 jokers
-* 1 deck/deck card
-* 1 tarot
-* 1 enhancement
-* 1 pokerhand & 2 planets
-* 2 blinds/rest of blind atlases
-* Greg
+* 6 sleeves
+* 22 achievements
+* Added *Achievements* and *Sleeves* fields to **"What's Inside?"**
+* Greg Deck Card sprite added
 
 **Removed:**
-* Personalized Joker removed
+* factorial joker sprite removed from game files
+* *TESTSSSSS.lua* file removed
+* *sounds.lua* file removed
+* *assets/sounds* folder removed
+* *challenges.lua* file removed
+* Chult Test 1, 2 & 3 removed
+* *280p Joker* atlas removed
 
 **Changed:**
-* Code joker value changed ( mult -> chips )
-* Match rarity changed ( uncommon -> common )
-* Casino Royale rarity changed ( uncommon -> common )
-* Meteorologist odds changed ( 1 in 2 -> 1 in 3 )
-* Teacher Joker description fixed
-* Change log changed a bit
-* Ace of Spades fixed
+* factorial joker reworked ( now pascal )
+* fixed "current version" text in Change log ( Cirrent -> Current )
+* Small Joker rarity changed ( common -> rare )
+* Greg Deck Card description fixed
+* Oops! I'm a legendary now sprite background changed
+* Scales fixed
+* The Void buffed ( now can play only High Card )
+* Alchemist Joker fixed
+* Cyan Joker changed to Cyan Concrete
 
 
 **comment from the developer:**
-* Well, i didnt figure out how to make challenges (tbh, I didnt even try), but i played with screen resolution, with that a made DVD and The Microscope, which is pretty cool.
-* Ye, i kinda lied about "final Oops! update", but still, this update is not about Oops! jokers.
-* I have a tiny side-project, named Greg simulator™, and i thought, why dont add this to the mod? So i did.
-* Also i figured out how to make custom sfx and music, HUGE thanks to yahiamods code and yahiamice itself <3.
-* Btw this mod now officially has more jokers than the game itself! lol =)
+* So basically, I'm heading off to summer camp this Saturday, so I decided to put out a pretty major update, and I think I pulled it off. I revorked some stuff, made achievement and sleeves, which never has been seen in this mod, i deleted all of unused stuff, so ye, goodbye everyone! Catch you in three weeks. ( google translator used )
+* I added a bunch of interesting and hard achievements, hope you gonna have great time getting them!
+* i tried to make stacked effects for sleeves ( like when you are on magic deck with magic sleeve ), but it was very confusing, so i thought just not to make them. Also, why atlas is required for sleeves? its so annoying ;_; a have to go to CardSleeves files, find atlas for sleeves, copy red sleeve, make that as different .png file and save it to my mod files, god, just make a placeholder doug.
 
 # 🌌 UltraViolet Mod for Balatro 🌌
 
@@ -54,7 +57,7 @@ The entire mod was solo-developed by one teenager, fueled by gallons of kvass �
 ## 🚀 What's Inside?
 Currently UltraViolet has:
 
-* 🃏 **158 Jokers**
+* 🃏 **154 Jokers**
 * 🎴 **19 Decks**
 * 🎟️ **6 Vouchers**
 * 🪐 **9 Poker Hands & 11 Planets**
@@ -62,7 +65,9 @@ Currently UltraViolet has:
 * 📦 **6 Booster Packs**
 * 👁️ **16 Blinds**
 * 🎇 **3 Editions**
-* ◾◼⬛◼◾ **1 enhancement**
+* ◾◼⬛◼◾ **1 Enhancement**
+* 🧧 **6 Sleeves** – *CardSleeves* mod required
+* 🏆 **22 Achievement**
 ---
 
 ## ✨ Features & Highlights
@@ -72,12 +77,13 @@ Currently UltraViolet has:
 * **Cross-Mod Compatibility:** 
   * 2 cross-mod Jokers, for *Cryptid* and *Yahiamod*.
   * 1 custom cross-mod Deck for *Cryptid*.
+  * 6 sleeves, requires *CardSleeves mod* to work.
 
 ---
 
 ## 🎨 Current State: Beta Notice
 The mod is currently in active **Beta**. 
-* **Why do some cards lack sprites?** Creating high-quality pixel art takes a lot of time! I really wanted to share the gameplay mechanics with the community as early as possible. Custom sprites are being added with every update.
+* **Why do some cards lack sprites?** Creating all of those pixel arts takes a lot of time! I really wanted to share the gameplay mechanics with the community as early as possible.
 * **Bugs:** All features have been play-tested, but with 100+ cards, some interactions might get weird. 
 
 If you find a bug, want to share a broken combo, or just say hi, feel free to reach out!

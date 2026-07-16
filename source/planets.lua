@@ -1,7 +1,7 @@
 SMODS.Consumable{key = "planet_three_pair",
     set = "Planet",
     loc_txt = {
-        name = "test three pair",
+        name = "three pair",
         text = {
             "({V:1}lvl.#1#{}) Level up",
             "{C:attention}Three Pair{}",

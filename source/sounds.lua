@@ -1,9 +1,0 @@
--- SMODS.Sound({key = "280p_music", 
---     path = "280p_music.mp3",
---     pitch = 1,
---     volume = 1,
---     select_music_track = function()
---         if next(SMODS.find_card('j_uv_280p_joker')) then
--- 		    return true end
--- 	end
--- })

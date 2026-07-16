@@ -676,7 +676,7 @@ SMODS.Consumable {key = 'light_blue_deck_card',
         G.E_MANAGER:add_event(Event({
             trigger = 'after',
             func = function()
-                ease_consumable_slots(1)
+                G.consumeables.config.card_limit = G.consumeables.config.card_limit + 1
                 return true
             end
         }))
@@ -1031,7 +1031,6 @@ SMODS.Consumable {key = 'subscription_deck_card',
     cost = 4,
     unlocked = true,
     discovered = true,
-    atlas = 'purple_deck',
     in_pool = function(self)
         return true
     end,
@@ -1123,17 +1122,19 @@ SMODS.Consumable {key = 'supermarket_deck_card',
         }))
     end
 }
-SMODS.Consumable {key = 'red_deck_card',
+SMODS.Consumable {key = 'greg_deck_card',
     set = 'DeckCard',
     loc_txt = {
-        name = 'Red Deck Card',
-        text = { "{C:red}+1{} discard",
-                 "every round"
-    }
+        name = 'Greg Deck Card',
+        text = { 
+            "all cards of a {C:attention}random suit{}",
+            "becomes {C:attention}Greg{} cards"
+        }
     },
     cost = 4,
     unlocked = true,
     discovered = true,
+    atlas = 'greg_deck',
     in_pool = function(self)
         return true
     end,
