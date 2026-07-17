@@ -322,10 +322,10 @@ G.FUNCS.spawn_teacher_quiz = function()
     local ops = {'+', '-', '*'}
     if level >= 3 then table.insert(ops, '/') end
     if level >= 6 then table.insert(ops, '^') end
-    op = '+' -- ops[math.random(#ops)] forced for achievement test
+    op = ops[math.random(#ops)] forced for achievement test
     local range = 5 + (level * 3)
-    a = 9 -- math.random(1, range) forced for achievement test
-    b = 10 -- math.random(1, range) forced for achievement test
+    a = math.random(1, range) forced for achievement test
+    b = math.random(1, range) forced for achievement test
     if op == '+' then result = a + b
     elseif op == '-' then result = a - b
     elseif op == '*' then 

@@ -1,15 +1,15 @@
 # 👨‍💻 Change log 👨‍💻
 Here's gonna be written what was added in most recent update for this mod!
-**Current version: v2.2.2 beta 8.2**
+**Current version: v2.2.2 beta 8.3**
 
 **Added:**
-* 2 jokers
+* nothin'
 
 **Removed:**
-* 
+* nothin'
 
 **Changed/Fixed:**
-* 
+* teacher joker fixed
 
 
 **comment from the developer:**
