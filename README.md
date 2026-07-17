@@ -1,6 +1,6 @@
 # 👨‍💻 Change log 👨‍💻
 Here's gonna be written what was added in most recent update for this mod!
-**Current version: v2.2.2 beta 8.3**
+**Current version: v2.2.2 beta 8.32**
 
 **Added:**
 * nothin'
