@@ -701,8 +701,6 @@ SMODS.Consumable {key = 'rainbow_deck_card',
             "{C:red}+1{} card discard limit",
             "{C:attention}+1{} hand size",
             "{C:attention}+1{} ante to win",
-            "{C:money}+$1{} per hand",
-            "{C:money}+$1{} per discard",
             "{C:money}+$1{} of interest",
             "{C:green}+1{} probability",
             "{C:money}+$1{} reroll cost",
@@ -738,13 +736,11 @@ SMODS.Consumable {key = 'rainbow_deck_card',
                 SMODS.change_play_limit(1)
                 SMODS.change_discard_limit(1)
                 G.hand:change_size(1)
-                G.GAME.win_ante = 9
-                G.GAME.modifiers.money_per_hand = 2
-                G.GAME.modifiers.money_per_discard = 1
+                G.GAME.win_ante = G.GAME.win_ante + 1
                 G.GAME.interest_amount = G.GAME.interest_amount + 1
                 G.GAME.probabilities.normal = G.GAME.probabilities.normal + 1
                 ease_reroll_cost(1)
-                G.GAME.inflation = 1
+                G.GAME.inflation = G.GAME.inflation + 1
                 G.GAME.round_resets.blind_choices.Big = get_new_boss()
                 if G.FUNCS and G.FUNCS.set_blind_select and G.STATE == G.STATES.BLIND_SELECT then 
                     G.FUNCS.set_blind_select()
@@ -752,6 +748,7 @@ SMODS.Consumable {key = 'rainbow_deck_card',
                 for k, v in pairs(G.GAME.hands) do
                     level_up_hand(nil, k, true, 1)
                 end
+                if not G.GAME.rainbow_deck_card_used then G.GAME.rainbow_deck_card_used = true end
                 return true
             end
         }))

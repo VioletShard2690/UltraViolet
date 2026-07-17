@@ -1571,18 +1571,20 @@ SMODS.Joker{key = 'bouncy_ball',
         return { vars = { card.ability.extra.per_press, card.ability.extra.chips } }
     end,
     update = function(self, card, dt)
-        local is_pressed = love.keyboard.isDown('space')
-        if is_pressed and not card.last_space_pressed then
-            card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.per_press
-            local message_pool = {'Boink!', 'Boing!', 'Hop!', 'Spring!', 'Jump!'}
-            card_eval_status_text(card, 'extra', nil, nil, nil, {
-                message = message_pool[math.random(#message_pool)], 
-                colour = G.C.CHIPS, 
-                instant = true 
-            })
-            card:juice_up(0.2, 0.05)
+        if next(SMODS.find_card('j_uv_boucy_ball')) then
+            local is_pressed = love.keyboard.isDown('space')
+            if is_pressed and not card.last_space_pressed then
+                card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.per_press
+                local message_pool = {'Boink!', 'Boing!', 'Hop!', 'Spring!', 'Jump!'}
+                card_eval_status_text(card, 'extra', nil, nil, nil, {
+                    message = message_pool[math.random(#message_pool)], 
+                    colour = G.C.CHIPS, 
+                    instant = true 
+                })
+                card:juice_up(0.2, 0.05)
+            end
+            card.last_space_pressed = is_pressed
         end
-        card.last_space_pressed = is_pressed
     end,
     calculate = function(self, card, context)
         if context.joker_main then
@@ -1650,7 +1652,6 @@ SMODS.Joker{key = 'face_james',
         return { vars = { card.ability.extra.dollars } }
     end,
     rarity = 1,
-    atlas = 'face_james',
     cost = 4,
     unlocked = true,
     discovered = true,
@@ -3077,13 +3078,14 @@ SMODS.Joker{key = 'spotify',
         end
     end
 }
-SMODS.Joker{key = 'roblox',
+SMODS.Joker{key = 'youtube',
     loc_txt = {
-        name = 'Roblox',
+        name = 'Youtube',
         text = {
             "{C:chips}+#1#{} Chips for each",
             "{C:attention}Joker{} and {C:attention}Consumable{} card you have",
-            "{C:inactive}(Currently {}{C:chips}+#2#{} {C:inactive}Chips){}"
+            "{C:inactive}(Currently {}{C:chips}+#2#{} {C:inactive}Chips){}",
+            "{C:inactive,s:0.7}wait, isnt that was roblox before?" -- roblox was unbanned in russia on june 10th 2026, so i replaced roblox with youtube, which not banned, but still impossible to use without VPN since 2024 
         }
     },
     config = { extra = 25 },
@@ -3092,17 +3094,21 @@ SMODS.Joker{key = 'roblox',
     unlocked = true,
     discovered = true,
     blueprint_compat = true,
-    atlas = 'roblox',
-    display_size = { w = 71, h = 71 },
+    atlas = 'youtube',
+    display_size = { w = 71, h = 51 },
     loc_vars = function(self, info_queue, card)
-        local total_items = #G.jokers.cards + #G.consumeables.cards
-        return { vars = { card.ability.extra, total_items * card.ability.extra } }
+        if G.jokers and G.jokers.cards and G.consumeables and G.consumeables.cards then
+            local total_items = #G.jokers.cards + #G.consumeables.cards
+            return { vars = { card.ability.extra, total_items * card.ability.extra } }
+        else
+            return { vars = { card.ability.extra, 0 } }
+        end
     end,
     calculate = function(self, card, context)
         if context.joker_main then
             local total_items = #G.jokers.cards + #G.consumeables.cards
             return {
-                message = '+' .. (total_items * card.ability.extra) .. ' Chips',
+                message = '+' .. total_items * card.ability.extra .. ' Chips',
                 chip_mod = total_items * card.ability.extra
             }
         end
@@ -3135,7 +3141,7 @@ SMODS.Joker{key = 'messenger_max',
                 if j.config.center.key == 'j_uv_discord' or 
                    j.config.center.key == 'j_uv_spotify' or 
                    j.config.center.key == 'j_uv_x' or 
-                   j.config.center.key == 'j_uv_roblox' then
+                   j.config.center.key == 'j_uv_youtube' then
                     G.STATE = G.STATES.GAME_OVER
                     G.E_MANAGER:add_event(Event({
                         trigger = 'immediate',
@@ -3434,22 +3440,35 @@ SMODS.Joker{key = 'watermelon_paradox',
             card.ability.drier_done = false
         end
         if context.joker_main then
-            local dry_percent = 100 - card.ability.water_percent
-            local total_weight = (card.ability.dry_mass_val * 100) / dry_percent
-            local chips = math.max(0, math.floor(total_weight - card.ability.dry_mass_val))
-            
+            local dry_percent = 100 - card.ability.water_percent -- 20
+            local total_weight = (card.ability.dry_mass_val * 100) / dry_percent -- 200 / 20 = 10
+            local chips = math.max(0, math.floor(total_weight - card.ability.dry_mass_val)) -- 0, so if water_percent <= 80 then chips = 0
             return {
                 chip_mod = chips,
                 mult_mod = card.ability.dry_mass_val,
                 message = 'Fresh!'
             }
         end
-        if context.end_of_round and not context.blueprint and not context.repetition then
+        if context.end_of_round and not context.blueprint and not context.repetition and not context.individual then
             if not card.ability.drier_done and card.ability.water_percent > 1 then
                 card.ability.water_percent = card.ability.water_percent - 1
                 card.ability.drier_done = true
                 return {
                     message = '-1% Water',
+                    colour = G.C.ATTENTION
+                }
+            elseif not card.ability.drier_done and card.ability.water_percent == 1 then
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        play_sound('tarot1')
+                        card:juice_up(0.3, 0.5)
+                        card:start_dissolve()
+                        return true
+                    end
+                }))
+                check_for_unlock({ type = 'where_melon' })
+                return {
+                    message = 'Dried!',
                     colour = G.C.ATTENTION
                 }
             end
@@ -3646,33 +3665,35 @@ SMODS.Joker{key = 'mob_spawner',
     discovered = true,
     blueprint_compat = false,
     update = function(self, card, dt)
-        local is_pressed = love.keyboard.isDown('s')
-        if is_pressed and not card.last_s_pressed 
-        and #G.jokers.cards < G.jokers.config.card_limit + G.GAME.joker_buffer then
-            G.GAME.joker_buffer = G.GAME.joker_buffer + 1
-            G.E_MANAGER:add_event(Event({
-                trigger = 'after',
-                delay = 0.1,
-                func = function()
-                    local new_card = create_card('Joker', G.jokers, nil, nil, nil, nil, nil, 'spawner')
-                    new_card:set_perishable(true)
-                    new_card.sell_cost = 0
-                    new_card.ability.extra_value = 0
-                    new_card:add_to_deck()
-                    G.jokers:emplace(new_card)
-                    G.GAME.joker_buffer = G.GAME.joker_buffer - 1
-                    return true
-                end
-            }))
-            local colors = {G.C.FILTER, G.C.RED, G.C.BLUE, G.C.GOLD, G.C.PURPLE, G.C.GREEN}
-            card_eval_status_text(card, 'extra', nil, nil, nil, {
-                message = 'Spawn!',
-                colour = colors[math.random(#colors)],
-                instant = true
-            })
-            card:juice_up(0.3, 0.1)
+        if next(SMODS.find_card('j_uv_mob_spawner')) then
+            local is_pressed = love.keyboard.isDown('s')
+            if is_pressed and not card.last_s_pressed 
+            and #G.jokers.cards < G.jokers.config.card_limit + G.GAME.joker_buffer then
+                G.GAME.joker_buffer = G.GAME.joker_buffer + 1
+                G.E_MANAGER:add_event(Event({
+                    trigger = 'after',
+                    delay = 0.1,
+                    func = function()
+                        local new_card = create_card('Joker', G.jokers, nil, nil, nil, nil, nil, 'spawner')
+                        new_card:set_perishable(true)
+                        new_card.sell_cost = 0
+                        new_card.ability.extra_value = 0
+                        new_card:add_to_deck()
+                        G.jokers:emplace(new_card)
+                        G.GAME.joker_buffer = G.GAME.joker_buffer - 1
+                        return true
+                    end
+                }))
+                local colors = {G.C.FILTER, G.C.RED, G.C.BLUE, G.C.GOLD, G.C.PURPLE, G.C.GREEN}
+                card_eval_status_text(card, 'extra', nil, nil, nil, {
+                    message = 'Spawn!',
+                    colour = colors[math.random(#colors)],
+                    instant = true
+                })
+                card:juice_up(0.3, 0.1)
+            end
+            card.last_s_pressed = is_pressed
         end
-        card.last_s_pressed = is_pressed
     end
 }
 SMODS.Joker{key = 'grindstone',

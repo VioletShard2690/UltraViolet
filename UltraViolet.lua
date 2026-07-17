@@ -322,10 +322,10 @@ G.FUNCS.spawn_teacher_quiz = function()
     local ops = {'+', '-', '*'}
     if level >= 3 then table.insert(ops, '/') end
     if level >= 6 then table.insert(ops, '^') end
-    op = ops[math.random(#ops)]
+    op = '+' -- ops[math.random(#ops)] forced for achievement test
     local range = 5 + (level * 3)
-    a = math.random(1, range)
-    b = math.random(1, range)
+    a = 9 -- math.random(1, range) forced for achievement test
+    b = 10 -- math.random(1, range) forced for achievement test
     if op == '+' then result = a + b
     elseif op == '-' then result = a - b
     elseif op == '*' then 
@@ -369,7 +369,8 @@ G.FUNCS.spawn_teacher_quiz = function()
     local current_row_nodes = {}
     for i, val in ipairs(answers) do
         local is_correct = (val == result) or (is_meme and val == 21)
-        local func = is_correct and "teacher_correct" or "teacher_wrong"
+        local is_meme_ans = is_meme and (val == 21)
+        local func = is_meme_ans and "teacher_correct_meme" or (is_correct and "teacher_correct" or "teacher_wrong")
         table.insert(current_row_nodes, {
             n = G.UIT.C, config = {align = "cm", padding = 0.15}, nodes = {
                 UIBox_button({button = func, label = {tostring(val)}, minw = 5, minh = 1.3, colour = G.C.BLUE})
@@ -405,6 +406,10 @@ G.FUNCS.teacher_wrong = function(e)
     play_sound('tarot2', 0.8, 0.4)
     G.FUNCS.exit_overlay_menu()
 end
+G.FUNCS.teacher_correct_meme = function(e)
+    check_for_unlock({ type = 'u_stupid' })
+    G.FUNCS.teacher_correct(e)
+end
 if G.GAME then G.GAME.EULAV_S6_LLA = 1 end
 local old_add_to_deck = Card.add_to_deck
 function Card:add_to_deck(from_deblur)
@@ -433,3 +438,6 @@ G.FUNCS.skip_booster = function(e)
     end
     G.GAME.current_booster_key = nil
 end
+if G.GAME then G.GAME.rainbow_sleeve_applied = false end
+if G.GAME then G.GAME.rainbow_deck_applied = false end
+if G.GAME then G.GAME.rainbow_deck_card_used = false end

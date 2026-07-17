@@ -1,4 +1,4 @@
-SMODS.Edition {key = 'quantum',
+SMODS.Edition{key = 'quantum',
     shader = 'uv_quantum',
     loc_txt = {
         name = 'Quantum',
@@ -10,13 +10,18 @@ SMODS.Edition {key = 'quantum',
     config = { e_chips = 1.1 },
     unlocked = true,
     discovered = true,
+    weight = 0.3,
+	in_shop = true,
+	get_weight = function(self)
+		return G.GAME.edition_rate * self.weight
+	end,
     loc_vars = function(self, info_queue, card)
         return { vars = { card and card.edition and card.edition.e_chips or self.config.e_chips } }
     end,
     calculate = function(self, card, context)
         if (context.edition and context.cardarea == G.jokers and card.config.trigger) or (context.main_scoring and context.cardarea == G.play) then
             return {
-                message = message,
+                message = '^' .. self.config.e_chips .. ' Chips',
                 Echip_mod = card and card.edition and card.edition.e_chips or self.config.e_chips,
                 colour = G.C.BLUE
             }
@@ -29,7 +34,7 @@ SMODS.Edition {key = 'quantum',
         end
     end
 }
-SMODS.Edition {key = 'ooopsier',
+SMODS.Edition{key = 'ooopsier',
     shader = 'uv_ooopsier',
     loc_txt = {
         name = 'Ooopsier',
@@ -43,6 +48,11 @@ SMODS.Edition {key = 'ooopsier',
     config = { x_chance = 3 },
     unlocked = true,
     discovered = true,
+    weight = 333,
+	in_shop = true,
+	get_weight = function(self)
+		return G.GAME.edition_rate * self.weight
+	end,
     loc_vars = function(self, info_queue, card)
         return { vars = { card and card.edition and card.edition.x_chance or self.config.x_chance } }
     end,
@@ -55,7 +65,7 @@ SMODS.Edition {key = 'ooopsier',
         end
     end
 }
-SMODS.Edition {key = 'overclocked',
+SMODS.Edition{key = 'overclocked',
     shader = 'uv_overclocked',
     loc_txt = {
         name = 'Overclocked',
@@ -69,6 +79,11 @@ SMODS.Edition {key = 'overclocked',
     config = { shop_slots = 1, triggers = 0 },
     unlocked = true,
     discovered = true,
+    weight = 1,
+	in_shop = true,
+	get_weight = function(self)
+		return G.GAME.edition_rate * self.weight
+	end,
     loc_vars = function(self, info_queue, card)
         local current_triggers = card and card.edition and card.edition.triggers or 0
         local shop_slots = card and card.edition and card.edition.shop_slots

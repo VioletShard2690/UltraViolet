@@ -339,3 +339,47 @@ SMODS.Achievement{key = "why",
         if args.type == 'why' then return true end
     end
 }
+SMODS.Achievement{key = "u_stupid",
+    loc_txt = {
+        name = "U stoopid",
+        description = {
+            "What's 9 + 10?"
+        }
+    },
+    bypass_all_unlocked = true,
+    hidden_name = true,
+    unlock_condition = function(self, args)
+        if args.type == 'u_stupid' then return true end
+    end
+}
+SMODS.Achievement{key = "where_melon",
+    loc_txt = {
+        name = "Where's my watermelon?",
+        description = {
+            "Reach 0% chips on",
+            "Watermelon Paradox"
+        }
+    },
+    bypass_all_unlocked = true,
+    hidden_name = true,
+    unlock_condition = function(self, args)
+        if args.type == 'where_melon' then return true end
+    end
+}
+SMODS.Achievement{key = "rainbow_cubed",
+    loc_txt = {
+        name = "Rainbow^3",
+        description = {
+            "use Rainbow Deck Card on",
+            "Rainbow Deck with",
+            "Rainbow Sleeve"
+        }
+    },
+    bypass_all_unlocked = true,
+    hidden_name = true,
+    unlock_condition = function(self, args)
+        if G.GAME and G.GAME.rainbow_sleeve_applied
+        and G.GAME.rainbow_deck_applied
+        and G.GAME.rainbow_deck_card_used then return true end
+    end
+}

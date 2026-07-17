@@ -6,9 +6,9 @@
   "description": "Poorly made unbalanced mod by russian teenager, hope you enjoy it!",
   "prefix": "uv",
   "main_file": "UltraViolet.lua",
-  "priority": 22,
+  "priority": 22.22e22,
   "badge_colour": "000000",
   "badge_text_colour": "8b50ce",
-  "version": "2.2.2",
+  "version": "2.2.2 beta 8.1",
   "dependencies": ["Steamodded (>=1.0.0~BETA-0614a)"]
 }
