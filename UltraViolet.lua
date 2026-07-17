@@ -5,9 +5,20 @@ for _, file in ipairs(joker_src) do
     assert(SMODS.load_file("source/" .. file))()
 end
 SMODS.Rarity({key = 'super_rare',
-  loc_txt = { name = 'Super Rare' },
-  badge_colour = HEX('700bb0'),
-  weight = 0,
+    loc_txt = { name = 'Super Rare' },
+    badge_colour = HEX('700bb0'),
+    default_weight = 0,
+    get_weight = function(self, weight, object_type)
+        return weight
+    end
+})
+SMODS.Rarity({key = 'joke',
+    loc_txt = { name = 'Joke' },
+    badge_colour = HEX('ff4ae7'),
+    default_weight = 0.3,
+    get_weight = function(self, weight, object_type)
+        return weight
+    end
 })
 G.localization.misc.dictionary.k_uv_super_rare_pack = "Super Rare Pack"
 G.localization.misc.dictionary.k_uv_deck_pack = "Deck Pack"
@@ -322,10 +333,10 @@ G.FUNCS.spawn_teacher_quiz = function()
     local ops = {'+', '-', '*'}
     if level >= 3 then table.insert(ops, '/') end
     if level >= 6 then table.insert(ops, '^') end
-    op = ops[math.random(#ops)] forced for achievement test
+    op = ops[math.random(#ops)]
     local range = 5 + (level * 3)
-    a = math.random(1, range) forced for achievement test
-    b = math.random(1, range) forced for achievement test
+    a = math.random(1, range)
+    b = math.random(1, range)
     if op == '+' then result = a + b
     elseif op == '-' then result = a - b
     elseif op == '*' then 
