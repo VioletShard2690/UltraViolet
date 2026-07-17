@@ -424,7 +424,7 @@ SMODS.Consumable{key = 'polar_star',
         update_hand_text({sound = 'button', volume = 0.7, pitch = 1.1, delay = 0}, {mult = 0, chips = 0, level = ''})
     end
 }
-SMODS.Consumable{key = "planet_flush_1234",
+SMODS.Consumable{key = "planet_greg_poker_hand",
     set = "Planet",
     loc_txt = {
         name = "Greg poker hand",

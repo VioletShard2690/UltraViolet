@@ -6261,3 +6261,240 @@ SMODS.Joker{key = 'greg_box',
         end
     end
 }
+SMODS.Joker {key = 'seismograph',
+    loc_txt = {
+        name = 'Seismograph',
+        text = {
+            "Gains {X:mult,C:white}X#2#{} Mult for every",
+            "{C:attention}#3# pixels{} you physically drag",
+            "the game window across your screen",
+            "{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult){}"
+        }
+    },
+    config = { extra = { x_mult = 1, gain = 0.25, pixels = 0, threshold = 2000 } },
+    rarity = 3,
+    cost = 8,
+    unlocked = true,
+    discovered = true,
+    blueprint_compat = true,
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.x_mult, card.ability.extra.gain, card.ability.extra.threshold } }
+    end,
+    add_to_deck = function(self, card, from_debuff)
+        if not card.ability.extra.original_settings then
+            card.ability.extra.original_settings = {
+                screenmode = G.SETTINGS.WINDOW.screenmode
+            }
+        end
+        if G.SETTINGS.WINDOW.screenmode ~= 'Windowed' then
+            G.SETTINGS.QUEUED_CHANGE = { screenmode = 'Windowed' }
+            G.SETTINGS.WINDOW.screenmode = 'Windowed'
+            G.FUNCS.apply_window_changes()
+        end
+        local wx, wy = love.window.getPosition()
+        card.ability.extra.last_x = wx
+        card.ability.extra.last_y = wy
+    end,
+    remove_from_deck = function(self, card, from_debuff)
+        if card.ability.extra.original_settings then
+            G.SETTINGS.QUEUED_CHANGE = { screenmode = card.ability.extra.original_settings.screenmode }
+            G.SETTINGS.WINDOW.screenmode = card.ability.extra.original_settings.screenmode
+            G.FUNCS.apply_window_changes()
+        end
+    end,
+    update = function(self, card, dt)
+        if G.SETTINGS.paused then return end
+        local wx, wy = love.window.getPosition()
+        if card.ability.extra.last_x and card.ability.extra.last_y then
+            local dx = wx - card.ability.extra.last_x
+            local dy = wy - card.ability.extra.last_y
+            if dx ~= 0 or dy ~= 0 then
+                local dist = math.sqrt(dx^2 + dy^2)
+                card.ability.extra.pixels = card.ability.extra.pixels + dist
+                if card.ability.extra.pixels >= card.ability.extra.threshold then
+                    local triggers = math.floor(card.ability.extra.pixels / card.ability.extra.threshold)
+                    card.ability.extra.x_mult = card.ability.extra.x_mult + (card.ability.extra.gain * triggers)
+                    card.ability.extra.pixels = card.ability.extra.pixels % card.ability.extra.threshold
+                end
+            end
+        end
+        card.ability.extra.last_x = wx
+        card.ability.extra.last_y = wy
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main and card.ability.extra.x_mult > 1 then
+            return {
+                message = 'X' .. card.ability.extra.x_mult .. ' Mult',
+                Xmult_mod = card.ability.extra.x_mult
+            }
+        end
+    end
+}
+SMODS.Joker {key = 'powershell',
+    loc_txt = {
+        name = 'PowerShell',
+        text = {
+            "Creates {C:attention}j_powershell_code.txt{} file",
+            "on your computer's Desktop",
+            "which Applies edited stat modifier in real-time!",
+            "{C:inactive}(Currently giving: {X:attention,C:white}#1#{C:inactive})",
+            "{C:inactive}(Format: [Number] [Currency] ex: 3 chips, 45 XChult){}"
+        }
+    },
+    config = { extra = { 
+        value = 3, 
+        currency = "XChult", 
+        display_text = "X3 Chult",
+        timer = 0 
+    } },
+    rarity = 'uv_super_rare',
+    cost = 15,
+    unlocked = true,
+    discovered = true,
+    blueprint_compat = true,
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.display_text } }
+    end,
+    add_to_deck = function(self, card, from_debuff)
+        local path = os.getenv("USERPROFILE") .. "\\Desktop\\j_powershell_code.txt"
+        local f = io.open(path, "w")
+        if f then
+            f:write("Write your modifier on the line below (ex: 45 EChip, 3 XChult):\n")
+            f:write("3 XChult")
+            f:close()
+        end
+    end,
+    update = function(self, card, dt)
+        if G.SETTINGS.paused then return end
+        card.ability.extra.timer = (card.ability.extra.timer or 0) + dt
+        if card.ability.extra.timer > 1.5 then
+            card.ability.extra.timer = 0
+            local path = os.getenv("USERPROFILE") .. "\\Desktop\\j_powershell_code.txt"
+            local f = io.open(path, "r")
+            if f then
+                local lines = {}
+                for line in f:lines() do
+                    table.insert(lines, line)
+                end
+                f:close()
+                if #lines >= 2 then
+                    local input_line = lines[2]
+                    input_line = input_line:gsub("^%s*(.-)%s*$", "%1")
+                    local val_str, currency = input_line:match("^(%d+%.?%d*)%s*([%a_<>%<<]+)$")
+                    
+                    if val_str and currency then
+                        local num_val = tonumber(val_str)
+                        if num_val then
+                            card.ability.extra.value = num_val
+                            card.ability.extra.currency = currency
+                            local clean_curr = currency:lower()
+                            if clean_curr == "mult" or clean_curr == "mult_mod" then
+                                card.ability.extra.display_text = "+" .. num_val .. " Mult"
+                            elseif clean_curr == "xmult" or clean_curr == "xmult_mod" then
+                                card.ability.extra.display_text = "X" .. num_val .. " Mult"
+                            elseif clean_curr == "emult" or clean_curr == "emult_mod" then
+                                card.ability.extra.display_text = "^" .. num_val .. " Mult"
+                            elseif clean_curr == "chip" or clean_curr == "chips" or clean_curr == "chip_mod" or clean_curr == "chips_mod" then
+                                card.ability.extra.display_text = "+" .. num_val .. " Chips"
+                            elseif clean_curr == "xchip" or clean_curr == "xchips" or clean_curr == "xchip_mod" or clean_curr == "xchips_mod" then
+                                card.ability.extra.display_text = "X" .. num_val .. " Chips"
+                            elseif clean_curr == "echip" or clean_curr == "echips" or clean_curr == "echip_mod" or clean_curr == "echips_mod" then
+                                card.ability.extra.display_text = "^" .. num_val .. " Chips"
+                            elseif clean_curr == "chult" or clean_curr == "chult_mod" then
+                                card.ability.extra.display_text = "+" .. num_val .. " Chult"
+                            elseif clean_curr == "xchult" or clean_curr == "xchult_mod" then
+                                card.ability.extra.display_text = "X" .. num_val .. " Chult"
+                            elseif clean_curr == "echult" or clean_curr == "echult_mod" then
+                                card.ability.extra.display_text = "^" .. num_val .. " Chult"
+                            elseif clean_curr == "<<chip" or clean_curr == "<<chips" then
+                                card.ability.extra.display_text = "<<" .. num_val .. " Chips"
+                            elseif clean_curr == "<<mult" then
+                                card.ability.extra.display_text = "<<" .. num_val .. " Mult"
+                            elseif clean_curr == "<<chult" then
+                                card.ability.extra.display_text = "<<" .. num_val .. " Chult"
+                            else
+                                card.ability.extra.display_text = num_val .. " " .. currency
+                            end
+                        end
+                    end
+                end
+            end
+        end
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main then
+            local curr = card.ability.extra.currency:lower()
+            local val = card.ability.extra.value
+            if curr == "mult" or curr == "mult_mod" then
+                return {
+                    message = '+' .. val .. ' Mult',
+                    mult_mod = val
+                }
+            elseif curr == "xmult" or curr == "xmult_mod" then
+                return {
+                    message = 'X' .. val .. ' Mult',
+                    Xmult_mod = val
+                }
+            elseif curr == "emult" or curr == "emult_mod" then
+                return {
+                    message = '^' .. val .. ' Mult',
+                    Emult_mod = val,
+                    colour = G.C.RED
+                }
+            elseif curr == "chip" or curr == "chips" or curr == "chip_mod" or curr == "chips_mod" then
+                return {
+                    message = '+' .. val .. ' Chips',
+                    chip_mod = val,
+                    colour = G.C.BLUE
+                }
+            elseif curr == "xchip" or curr == "xchips" or curr == "xchip_mod" or curr == "xchips_mod" then
+                return {
+                    message = 'X' .. val .. ' Chips',
+                    Xchip_mod = val,
+                    colour = G.C.BLUE
+                }
+            elseif curr == "echip" or curr == "echips" or curr == "echip_mod" or curr == "echips_mod" then
+                return {
+                    message = '^' .. val .. ' Chips',
+                    Echip_mod = val,
+                    colour = G.C.PURPLE
+                }
+            elseif curr == "chult" or curr == "chult_mod" then
+                return {
+                    message = '+' .. val .. ' Chult',
+                    chult_mod = val,
+                    colour = G.C.PURPLE
+                }
+            elseif curr == "xchult" or curr == "xchult_mod" then
+                return {
+                    message = 'X' .. val .. ' Chult',
+                    Xchult_mod = val,
+                    colour = G.C.PURPLE
+                }
+            elseif curr == "echult" or curr == "echult_mod" then
+                return {
+                    message = '^' .. val .. ' Chult',
+                    Echult_mod = val,
+                    colour = G.C.PURPLE
+                }
+            elseif curr == "<<chip" or curr == "<<chips" then
+                return {
+                    message = '<<' .. val .. ' Chips',
+                    Xchip_mod = 2 ^ val,
+                    colour = G.C.BLUE
+                }
+            elseif curr == "<<mult" then
+                return {
+                    message = '<<' .. val .. ' Mult',
+                    Xmult_mod = 2 ^ val
+                }
+            elseif curr == "<<chult" then
+                return {
+                    message = '<<' .. val .. ' Chult',
+                    Xchult_mod = 2 ^ val,
+                    colour = G.C.PURPLE
+                }
+            end
+        end
+    end
+}

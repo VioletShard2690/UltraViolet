@@ -1,24 +1,19 @@
 # 👨‍💻 Change log 👨‍💻
 Here's gonna be written what was added in most recent update for this mod!
-**Current version: v2.2.2 beta 8.1**
+**Current version: v2.2.2 beta 8.2**
 
 **Added:**
-* *assets/2x* folder added
-* 3 achievements
+* 2 jokers
 
 **Removed:**
-* roblox & 280p joker sprites removed
+* 
 
 **Changed/Fixed:**
-* Purple Deck fixed
-* roblox changed to youtube
-* Youtube & Mob Spawner crash in collection fixed
-* bouncy ball fixed
-* editions from this mod now can appear in shop
+* 
 
 
 **comment from the developer:**
-* YOO LETS GO SOMEBODY DOWNLOADED MY MOD OMFG IM SO HAPPY =)))
+* last update in this month, tomorrow i already gonna be at summer camp, im gonna make update the day i will be back =)
 
 # 🌌 UltraViolet Mod for Balatro 🌌
 
@@ -43,7 +38,7 @@ The entire mod was solo-developed by one teenager, fueled by gallons of kvass �
 ## 🚀 What's Inside?
 Currently UltraViolet has:
 
-* 🃏 **154 Jokers**
+* 🃏 **156 Jokers**
 * 🎴 **19 Decks**
 * 🎟️ **6 Vouchers**
 * 🪐 **9 Poker Hands & 11 Planets**
@@ -52,7 +47,7 @@ Currently UltraViolet has:
 * 👁️ **16 Blinds**
 * 🎇 **3 Editions**
 * ◾◼⬛◼◾ **1 Enhancement**
-* 🧧 **6 Sleeves** – *CardSleeves* mod required
+* 🧧 **10 Sleeves** – *CardSleeves* mod required
 * 🏆 **25 Achievement**
 ---
 
